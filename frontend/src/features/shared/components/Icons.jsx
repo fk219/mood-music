@@ -119,3 +119,53 @@ export const MusicIcon = () => (
     />
   </svg>
 );
+
+export const PreviousIcon = () => (
+  <svg {...iconProps} fill="none">
+    <path d="M18.5 5.8v12.4L8.8 12l9.7-6.2Z" fill="currentColor" />
+    <rect x="5" y="5.5" width="2" height="13" rx="1" fill="currentColor" />
+  </svg>
+);
+
+export const NextIcon = () => (
+  <svg {...iconProps} fill="none">
+    <path d="M5.5 5.8v12.4L15.2 12 5.5 5.8Z" fill="currentColor" />
+    <rect x="17" y="5.5" width="2" height="13" rx="1" fill="currentColor" />
+  </svg>
+);
+
+export const ShuffleIcon = () => (
+  <svg {...iconProps} fill="none">
+    <path
+      d="M4 7h3.2c1.5 0 2.6.7 3.5 2l3 4.4c.9 1.3 2 2 3.5 2H20m0 0-2.4-2.4M20 15.4l-2.4 2.4M4 17h3.2c1.5 0 2.6-.7 3.5-2M14.5 8.6c.9-1 1.9-1.6 3.2-1.6H20m0 0-2.4-2.4M20 7l-2.4 2.4"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const UploadIcon = () => (
+  <svg {...iconProps} fill="none">
+    <path
+      d="M12 16V5m0 0L7.8 9.2M12 5l4.2 4.2M5 15v3.2A1.8 1.8 0 0 0 6.8 20h10.4a1.8 1.8 0 0 0 1.8-1.8V15"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const TrashIcon = () => (
+  <svg {...iconProps} fill="none">
+    <path
+      d="M5 7.5h14M9.5 7.5v-1A1.5 1.5 0 0 1 11 5h2a1.5 1.5 0 0 1 1.5 1.5v1M7 7.5l.7 10.2a1.8 1.8 0 0 0 1.8 1.8h5a1.8 1.8 0 0 0 1.8-1.8L17 7.5M10 11v5M14 11v5"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);

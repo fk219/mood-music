@@ -4,7 +4,7 @@
   position: relative;
   min-height: 100dvh;
   overflow-x: clip;
-  padding: clamp(20px, 3vw, 34px) clamp(16px, 4vw, 56px) 152px;
+  padding: clamp(20px, 3vw, 34px) clamp(16px, 4vw, 56px) 168px;
   background:
     radial-gradient(900px 620px at 74% -12%, rgba(167, 155, 181, 0.14), transparent 64%),
     radial-gradient(700px 520px at 4% 105%, rgba(127, 209, 174, 0.055), transparent 62%),
@@ -23,138 +23,12 @@
   opacity: 0.16;
 }
 
-.room-header {
+.room-main {
   position: relative;
   z-index: 1;
-  max-width: 1180px;
-  margin: 0 auto clamp(28px, 5vw, 48px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.room-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-}
-
-.room-brand__ring {
-  width: 28px;
-  height: 28px;
-  flex: none;
-  border-radius: 50%;
-  background: conic-gradient(from 210deg, $lilac, $apricot, $mint, $lilac);
-  box-shadow:
-    inset 0 0 0 7px $aubergine,
-    0 0 18px -4px rgba(242, 166, 90, 0.6);
-}
-
-.room-brand__name {
-  font-family: $font-display;
-  font-size: 1.04rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: $bone;
-}
-
-.room-brand__tag {
-  margin-left: 2px;
-  padding-left: 12px;
-  border-left: 1px solid $border-soft;
-  font-family: $font-mono;
-  font-size: 0.58rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: $lilac;
-  white-space: nowrap;
-}
-
-.room-session {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-  padding: 5px 6px 5px 11px;
-  border: 1px solid $border-soft;
-  border-radius: 999px;
-  background: rgba(42, 31, 54, 0.42);
-  backdrop-filter: blur(10px);
-}
-
-.room-session__avatar {
-  width: 30px;
-  height: 30px;
-  flex: none;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: linear-gradient(140deg, $apricot, $lilac);
-  color: $aubergine;
-  font-family: $font-display;
-  font-size: 0.84rem;
-  font-weight: 700;
-}
-
-.room-session__who {
-  display: grid;
-  min-width: 0;
-  padding-right: 4px;
-  line-height: 1.2;
-}
-
-.room-session__who span {
-  font-family: $font-mono;
-  font-size: 0.5rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: $lilac;
-}
-
-.room-session__who strong {
-  max-width: 160px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: $bone;
-}
-
-.room-session__logout {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 7px 11px;
-  border-radius: 999px;
-  color: $lilac;
-  font-size: 0.72rem;
-  cursor: pointer;
-  transition:
-    background 0.2s ease,
-    color 0.2s ease;
-}
-
-.room-session__logout svg {
-  width: 15px;
-  height: 15px;
-}
-
-.room-session__logout:hover:not(:disabled) {
-  background: rgba(245, 239, 230, 0.07);
-  color: $bone;
-}
-
-.room-session__logout:disabled {
-  opacity: 0.5;
-  cursor: progress;
 }
 
 .room {
-  position: relative;
-  z-index: 1;
   max-width: 1180px;
   margin: 0 auto;
   display: grid;
@@ -164,6 +38,19 @@
 }
 
 .room > * {
+  min-width: 0;
+}
+
+.room-floor {
+  max-width: 1180px;
+  margin: clamp(38px, 5vw, 64px) auto 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+  align-items: start;
+  gap: clamp(20px, 3vw, 32px);
+}
+
+.room-floor > * {
   min-width: 0;
 }
 
@@ -187,9 +74,15 @@
   }
 }
 
+@media (max-width: 1040px) {
+  .room-floor {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (max-width: 940px) {
   .home-page {
-    padding-bottom: 226px;
+    padding-bottom: 236px;
   }
 
   .room {
@@ -199,46 +92,8 @@
   }
 }
 
-@media (max-width: 720px) {
-  .room-brand__tag {
-    display: none;
-  }
-
-  .room-session__logout span {
-    display: none;
-  }
-
-  .room-session__logout {
-    padding: 7px;
-  }
-}
-
 @media (max-width: 560px) {
   .home-page {
-    padding: 18px 16px 244px;
-  }
-
-  .room-header {
-    margin-bottom: 30px;
-  }
-
-  .room-session__who span {
-    display: none;
-  }
-
-  .room-session__who strong {
-    max-width: 96px;
-    font-size: 0.74rem;
-  }
-
-  .room-session {
-    padding-left: 6px;
-    gap: 8px;
-  }
-
-  .room-session__avatar {
-    width: 26px;
-    height: 26px;
-    font-size: 0.76rem;
+    padding: 18px 16px 252px;
   }
 }

@@ -1,0 +1,224 @@
+@use "./_tokens" as *;
+
+.room-header {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto clamp(28px, 5vw, 48px);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.room-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.room-brand__ring {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border-radius: 50%;
+  background: conic-gradient(from 210deg, $lilac, $apricot, $mint, $lilac);
+  box-shadow:
+    inset 0 0 0 7px $aubergine,
+    0 0 18px -4px rgba(242, 166, 90, 0.6);
+}
+
+.room-brand__name {
+  font-family: $font-display;
+  font-size: 1.04rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: $bone;
+}
+
+.room-brand__tag {
+  margin-left: 2px;
+  padding-left: 12px;
+  border-left: 1px solid $border-soft;
+  font-family: $font-mono;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $lilac;
+  white-space: nowrap;
+}
+
+.room-nav {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: auto;
+}
+
+.room-nav__link {
+  padding: 7px 11px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: $lilac;
+  font-family: $font-mono;
+  font-size: 0.56rem;
+  letter-spacing: 0.13em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.room-nav__link:hover {
+  background: rgba(245, 239, 230, 0.06);
+  color: $bone;
+}
+
+.room-nav__link.is-active {
+  border-color: $border-soft;
+  background: rgba(245, 239, 230, 0.05);
+  color: $bone;
+}
+
+.room-nav__studio {
+  border-color: rgba(242, 166, 90, 0.24);
+  color: $apricot;
+}
+
+.room-nav__studio:hover {
+  border-color: rgba(242, 166, 90, 0.45);
+  background: rgba(242, 166, 90, 0.08);
+  color: #f8c984;
+}
+
+.room-session {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 5px 6px 5px 11px;
+  border: 1px solid $border-soft;
+  border-radius: 999px;
+  background: rgba(42, 31, 54, 0.42);
+  backdrop-filter: blur(10px);
+}
+
+.room-session__avatar {
+  width: 30px;
+  height: 30px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(140deg, $apricot, $lilac);
+  color: $aubergine;
+  font-family: $font-display;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.room-session__who {
+  display: grid;
+  min-width: 0;
+  padding-right: 4px;
+  line-height: 1.2;
+}
+
+.room-session__who span {
+  font-family: $font-mono;
+  font-size: 0.5rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $lilac;
+}
+
+.room-session__who strong {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: $bone;
+}
+
+.room-session__logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  color: $lilac;
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.room-session__logout svg {
+  width: 15px;
+  height: 15px;
+}
+
+.room-session__logout:hover:not(:disabled) {
+  background: rgba(245, 239, 230, 0.07);
+  color: $bone;
+}
+
+.room-session__logout:disabled {
+  opacity: 0.5;
+  cursor: progress;
+}
+
+@media (max-width: 980px) {
+  .room-nav__anchor {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .room-brand__tag {
+    display: none;
+  }
+
+  .room-session__logout span {
+    display: none;
+  }
+
+  .room-session__logout {
+    padding: 7px;
+  }
+}
+
+@media (max-width: 600px) {
+  .room-header {
+    gap: 10px;
+  }
+
+  .room-nav__link {
+    padding: 7px 8px;
+    font-size: 0.52rem;
+    letter-spacing: 0.08em;
+  }
+
+  .room-session {
+    padding-left: 6px;
+    gap: 8px;
+  }
+
+  .room-session__who {
+    display: none;
+  }
+
+  .room-session__avatar {
+    width: 26px;
+    height: 26px;
+    font-size: 0.76rem;
+  }
+}

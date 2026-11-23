@@ -15,12 +15,15 @@ const songSchema = new mongoose.Schema({
     },
     mood: {
         type: String,
+        required: [true, "Mood is Required"],
         enum: {
-            values: ["happy", "sad", "surprised", "neutral"],
-            message: "Mood is Required"
+            values: ["happy", "sad", "angry", "surprised", "neutral"],
+            message: "Choose a valid mood"
         }
     }
 })
+
+songSchema.index({ mood: 1 })
 
 const songModel = mongoose.model("songs", songSchema)
 

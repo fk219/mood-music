@@ -1,5 +1,3 @@
-import { FilesetResolver, FaceLandmarker } from "@mediapipe/tasks-vision";
-
 const WASM_BASE_URL = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm";
 const MODEL_URL = "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task";
 
@@ -66,6 +64,7 @@ export async function initializeFaceExpression({
 
     if (!landmarkerRef.current) {
       onStatus?.("Loading the face model…");
+      const { FilesetResolver, FaceLandmarker } = await import("@mediapipe/tasks-vision");
       const vision = await FilesetResolver.forVisionTasks(WASM_BASE_URL);
       if (cancelled()) return;
 

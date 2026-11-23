@@ -1,11 +1,14 @@
 const express = require("express")
 const {registerController, loginController, logoutController, getMeController} = require('../controllers/auth.controller')
 const identifyUser = require('../middleware/auth.middleware')
+const { authLimiter } = require('../middleware/rateLimit.middleware')
 
 const authRouter = express.Router()
 
-authRouter.post('/register', registerController)
-authRouter.post('/login', loginController)
+// Brute-force protection for credential writes. Session reads (get-me) and
+// logout stay unthrottled so a normal page reload is never blocked.
+authRouter.post('/register', authLimiter, registerController)
+authRouter.post('/login', authLimiter, loginController)
 authRouter.get('/logout', identifyUser, logoutController)
 authRouter.get('/get-me', identifyUser, getMeController)
 

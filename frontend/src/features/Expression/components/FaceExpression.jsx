@@ -1,11 +1,11 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { SongContext } from "../../home/song.context";
-import { getSong } from "../../home/services/song.api";
 import {
   formatMoodTime,
   getMoodTheme,
   MOOD_HISTORY_LIMIT,
   normalizeMood,
+  SOURCE_LABEL,
 } from "../../home/moodTheme";
 import {
   initializeFaceExpression,
@@ -16,20 +16,12 @@ import {
 import { AlertIcon, CameraIcon } from "../../shared/components/Icons";
 import "../styles/style.scss";
 
-const moodMap = {
-  Happy: "happy",
-  Surprised: "surprised",
-  Sad: "sad",
-  Neutral: "neutral",
-};
-
 export default function FaceExpression() {
   const videoRef = useRef(null);
   const landmarkerRef = useRef(null);
   const animationRef = useRef(null);
   const lastMoodRef = useRef("");
   const lastDetectionRef = useRef("");
-  const lastRecordedMoodRef = useRef("");
   const setupRunRef = useRef(0);
   const handledSignalRef = useRef(null);
 
@@ -41,15 +33,13 @@ export default function FaceExpression() {
   const [cameraError, setCameraError] = useState("");
   const [playlistError, setPlaylistError] = useState("");
 
-  const {
-    setSong,
-    setLoading: setSongLoading,
-    setError: setSongError,
-    mood,
-    moodHistory,
-    recordMood,
-    detectSignal,
-  } = useContext(SongContext);
+  const { mood, moodHistory, selectMood, detectSignal } =
+    useContext(SongContext);
+  const selectMoodRef = useRef(selectMood);
+
+  useEffect(() => {
+    selectMoodRef.current = selectMood;
+  }, [selectMood]);
 
   const setupCamera = async () => {
     const runId = ++setupRunRef.current;
@@ -100,58 +90,43 @@ export default function FaceExpression() {
   }, []);
 
   const handleMoodRequest = async (value, force = false) => {
-    // The song API stores moods as happy | sad | surprised | neutral.
-    const moodQuery =
-      moodMap[value] || normalizeMood(value) || value?.toLowerCase();
+    const moodQuery = normalizeMood(value);
     if (!moodQuery) return;
     if (!force && moodQuery === lastMoodRef.current) return;
 
     lastMoodRef.current = moodQuery;
     setPlaylistError("");
-    setSongError("");
-    setStatus(`Finding a ${normalizeMood(value) || "new"} playlist…`);
-    setSongLoading(true);
+    setStatus(
+      `Finding a ${getMoodTheme(moodQuery).label.toLowerCase()} playlist…`,
+    );
 
-    try {
-      const response = await getSong({ mood: moodQuery });
-      const payload = response?.song;
-      const track = Array.isArray(payload) ? payload[0] : payload;
+    const result = await selectMoodRef.current(moodQuery, "camera");
 
-      if (track?.url) {
-        setSong({ ...track, mood: normalizeMood(track.mood) || moodQuery });
-        setStatus(
-          `Playlist tuned for ${normalizeMood(value) || moodQuery}`,
-        );
-      } else {
-        setStatus("No track came back for that mood");
-        setPlaylistError("The room couldn’t find a track for this mood.");
-        setSongError("No track found for that mood.");
+    if (result?.stale) {
+      if (moodQuery === lastMoodRef.current) {
+        setStatus("The room changed direction. Start a read when you like.");
       }
-    } catch (error) {
-      console.error(error);
-      setStatus("The playlist signal dropped");
-      setPlaylistError(
-        "Couldn’t tune the playlist. Check your connection and try again.",
+      return;
+    }
+
+    if (result?.ok) {
+      const requested = getMoodTheme(moodQuery).label.toLowerCase();
+      const resolved = getMoodTheme(result.resolvedMood).label.toLowerCase();
+      setStatus(
+        result.fallback
+          ? `No ${requested} tracks yet. The room is playing ${resolved}`
+          : `Playlist tuned for ${requested}`,
       );
-      setSongError("Playlist unavailable right now.");
-    } finally {
-      setSongLoading(false);
+    } else if (result?.error) {
+      setStatus("The playlist signal dropped");
+      setPlaylistError(result.error);
     }
   };
 
   const handleExpressionChange = (value) => {
-    const detectedMood = normalizeMood(value);
-
-    if (detectedMood) {
-      lastDetectionRef.current = value;
-      if (detectedMood !== lastRecordedMoodRef.current) {
-        lastRecordedMoodRef.current = detectedMood;
-        recordMood(detectedMood);
-      }
-    }
-
     if (value && value !== "No face detected" && value !== "Camera ready") {
-      handleMoodRequest(value);
+      lastDetectionRef.current = value;
+      void handleMoodRequest(value);
     }
   };
 
@@ -160,7 +135,6 @@ export default function FaceExpression() {
 
     lastMoodRef.current = "";
     lastDetectionRef.current = "";
-    lastRecordedMoodRef.current = "";
     setPlaylistError("");
     setExpression("Reading…");
     setStatus("Scanning your expression…");
@@ -346,7 +320,7 @@ export default function FaceExpression() {
       <div className="mood-lens__history">
         <div className="mood-lens__history-head">
           <p className="eyebrow">Mood trail</p>
-          <span>Last {MOOD_HISTORY_LIMIT} reads</span>
+          <span>Last {MOOD_HISTORY_LIMIT} check-ins</span>
         </div>
 
         {moodHistory.length ? (
@@ -357,7 +331,7 @@ export default function FaceExpression() {
                 <li
                   key={`${entry.at}-${entry.mood}`}
                   style={{ "--chip-color": theme.color }}
-                  title={new Date(entry.at).toLocaleString()}
+                  title={`${SOURCE_LABEL[entry.source] || "Mood read"} · ${new Date(entry.at).toLocaleString()}`}
                 >
                   <span className="mood-trail__dot" aria-hidden="true" />
                   <span>{theme.label}</span>
@@ -370,7 +344,7 @@ export default function FaceExpression() {
           </ul>
         ) : (
           <p className="mood-lens__history-empty">
-            No reads yet. Your last few moods will settle here.
+            No check-ins yet. Your last few moods will settle here.
           </p>
         )}
       </div>

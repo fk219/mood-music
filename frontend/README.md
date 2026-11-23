@@ -1,16 +1,16 @@
-# React + Vite
+# Moodify web
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+The React 19 + Vite front end for Moodify's listening room, manual check-in, library queue, mood journal, and owner Studio.
 
-Currently, two official plugins are available:
+See the [root README](../README.md) for product capabilities, environment variables, and API documentation.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Scripts
 
-## React Compiler
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build
+npm run lint
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Set `VITE_API_URL` in `.env.local` to point the app at a local API. It defaults to the deployed Render API.
