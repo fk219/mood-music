@@ -1,7 +1,5 @@
 const jwt = require('jsonwebtoken')
 const blacklistModel = require('../models/blacklist.model')
-const redis = require('../config/cache')
-
 
 const identifyUser = async (req, res, next) => {
     const token = req.cookies.token
@@ -12,20 +10,20 @@ const identifyUser = async (req, res, next) => {
         })
     }
 
-    const isTokenBlacklisted = await redis.get(token)
-
-    if(isTokenBlacklisted){
-        return res.status(400).json({
-            message: "Invalid Token"
-        })
-    }
-
     try {
+        const isTokenBlacklisted = await blacklistModel.exists({ token })
+
+        if (isTokenBlacklisted) {
+            return res.status(401).json({
+                message: "Invalid Token"
+            })
+        }
+
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
         req.user = decoded
         return next()
     } catch (err) {
-        console.error('identifyUser verify error:', err.message)
+        console.error('identifyUser error:', err.message)
         return res.status(401).json({
             message: "Invalid Token"
         })
@@ -33,4 +31,3 @@ const identifyUser = async (req, res, next) => {
 }
 
 module.exports = identifyUser
-

@@ -10,6 +10,8 @@ const blacklistSchema = new mongoose.Schema({
     timestamps: true
 })
 
+// Expired tokens fall out on their own one day after logout.
+blacklistSchema.index({ createdAt: 1 }, { expireAfterSeconds: 86400 })
 
 const blacklistModel = mongoose.model('backlist', blacklistSchema)
 

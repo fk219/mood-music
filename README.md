@@ -12,7 +12,6 @@ A privacy-first mood listening room. Moodify reads your expression on-device, or
 ![MediaPipe](https://img.shields.io/badge/MediaPipe-face%20landmarks-0097A7)
 ![Node](https://img.shields.io/badge/Node.js-22-5FA04E?logo=node.js&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47A248?logo=mongodb&logoColor=white)
-![Redis](https://img.shields.io/badge/Redis-sessions-DC382D?logo=redis&logoColor=white)
 ![Render](https://img.shields.io/badge/API-Render-46E3B7)
 ![Vercel](https://img.shields.io/badge/Web-Vercel-000000?logo=vercel&logoColor=white)
 
@@ -56,7 +55,7 @@ Every check-in belongs to the signed-in listener. The journal shows the last sev
 
 **Accounts and room**
 - Register, log in, log out, protected room and Studio routes.
-- JWT in an `httpOnly`, `SameSite=None`, `Secure` cookie; bcrypt password hashing; Redis-backed logout.
+- JWT in an `httpOnly`, `SameSite=Lax`, `Secure` cookie; bcrypt password hashing; logout tokens are blacklisted in MongoDB with a TTL index.
 - Play, pause, seek, restart, volume, mute, speed, previous/next, shuffle, and `Space` play/pause.
 - Helmet security headers and IP rate limits on auth writes, mood writes, and uploads.
 
@@ -78,15 +77,15 @@ Manual check-in ─────────────────────�
                           GET /api/mood/summary ──► journal
 ```
 
-The backend stores tracks in MongoDB and media in ImageKit. Redis invalidates logged-out JWTs. Mood entries are stored per user in MongoDB as `MoodEntry { user, mood, source, createdAt }` with timestamps enabled; camera entries are deduplicated to at most one every 30 seconds on both the client and the server, while manual picks record immediately.
+The backend stores tracks, mood entries and the logout blacklist in MongoDB; ImageKit stores media. Mood entries are stored per user as `MoodEntry { user, mood, source, createdAt }` with timestamps enabled; camera entries are deduplicated to at most one every 30 seconds on both the client and the server, while manual picks record immediately.
 
 ## Tech stack
 
 | Layer | Choice |
 |---|---|
 | Frontend | React 19, Vite, Sass, MediaPipe Tasks Vision |
-| Backend | Node.js, Express 5, Mongoose, ioredis, JWT, bcrypt, multer, ImageKit, Helmet, express-rate-limit |
-| Hosting | Vercel (web), Render (API), MongoDB Atlas, Upstash/Redis |
+| Backend | Node.js, Express 5, Mongoose, JWT, bcrypt, multer, ImageKit, Helmet, express-rate-limit |
+| Hosting | Vercel (web), Render (API), MongoDB Atlas |
 
 ## Project structure
 
@@ -115,7 +114,7 @@ frontend/
 # API
 cd backend
 npm install
-cp .env.example .env             # Mongo, JWT, ImageKit and Redis keys
+cp .env.example .env             # Mongo, JWT and ImageKit keys
 npm run dev                      # http://localhost:3000
 
 # Web
@@ -140,7 +139,6 @@ VITE_API_URL=http://localhost:3000
 | `MONGO_URI` | Yes | MongoDB connection string |
 | `JWT_SECRET` | Yes | Signs auth cookies |
 | `IMAGEKIT_PRIVATE_KEY` | Yes | Server-side uploads |
-| `REDIS_HOST` / `REDIS_PORT` / `REDIS_PASSWORD` | Yes | Logout token store |
 | `STUDIO_EMAIL` | No | Restricts uploads to one owner email; any signed-in user can upload when unset |
 | `VITE_API_URL` | No | Frontend API origin override (defaults to the Render API) |
 
@@ -150,7 +148,7 @@ VITE_API_URL=http://localhost:3000
 |---|---|---|---|
 | `POST` | `/api/auth/register` | Public | Create account (10/min per IP) |
 | `POST` | `/api/auth/login` | Public | Sign in, set cookie (10/min per IP) |
-| `GET` | `/api/auth/logout` | Cookie | Invalidate session in Redis |
+| `GET` | `/api/auth/logout` | Cookie | Invalidate session (Mongo blacklist) |
 | `GET` | `/api/auth/get-me` | Cookie | Current user |
 | `GET` | `/api/song?mood=` | Public | Tracks for a mood; falls back to neutral when empty |
 | `GET` | `/api/song/library` | Public | Full catalog grouped by mood |
