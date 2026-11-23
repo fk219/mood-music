@@ -5,6 +5,8 @@ A small listening room that reads your face, guesses your mood, and plays a trac
 **Live app:** https://moodify.furqankhan.dev
 **API:** https://moodify-backend-8rn5.onrender.com
 
+![Moodify](docs/preview.png)
+
 ![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white)
 ![MediaPipe](https://img.shields.io/badge/MediaPipe-face%20landmarks-0097A7)
