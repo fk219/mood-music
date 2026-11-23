@@ -5,6 +5,7 @@ import FormGroup from "../components/FormGroup";
 import { useAuth } from "../hook/useAuth";
 import { getAuthErrorMessage } from "../utils/getAuthError";
 import { AlertIcon } from "../../shared/components/Icons";
+import SiteFooter from "../../shared/components/SiteFooter";
 
 const Register = () => {
   const { user, loading, handleRegister } = useAuth();
@@ -35,8 +36,8 @@ const Register = () => {
   if (user) return <Navigate to="/" replace />;
 
   return (
-    <main className="auth-page register-page">
-      <section className="auth-card" aria-labelledby="register-title">
+    <div className="auth-page register-page">
+      <main className="auth-card" aria-labelledby="register-title">
         <div className="auth-brand">
           <span className="auth-brand__ring" aria-hidden="true" />
           <span className="auth-brand__name">Moodify</span>
@@ -93,8 +94,10 @@ const Register = () => {
         <p className="auth-footer">
           Already have a key? <Link to="/login">Sign in</Link>
         </p>
-      </section>
-    </main>
+      </main>
+
+      <SiteFooter compact />
+    </div>
   );
 };
 

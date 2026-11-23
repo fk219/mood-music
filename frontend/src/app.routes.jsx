@@ -3,6 +3,8 @@ import { createBrowserRouter } from 'react-router-dom'
 import Home from './features/home/pages/Home'
 import Login from './features/auth/pages/Login'
 import Register from './features/auth/pages/Register'
+import Privacy from './features/legal/pages/Privacy'
+import Terms from './features/legal/pages/Terms'
 import Protected from './features/auth/components/Protected'
 
 const Studio = lazy(() => import('./features/studio/pages/Studio'))
@@ -29,7 +31,9 @@ const routes = createBrowserRouter([
     )
   },
   { path: '/login', element: <Login /> },
-  { path: '/register', element: <Register /> }
+  { path: '/register', element: <Register /> },
+  { path: '/privacy', element: <Privacy /> },
+  { path: '/terms', element: <Terms /> }
 ])
 
 export default routes

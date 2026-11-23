@@ -33,7 +33,7 @@ export const MOOD_THEME = {
 
 export const getMoodTheme = (mood) => MOOD_THEME[mood] || MOOD_THEME.neutral;
 
-// FaceExpression sometimes hands us "Happy 😄" — normalize for the room UI,
+// FaceExpression sometimes hands us "Happy 😄". Normalize for the room UI,
 // never for the song API query.
 export const normalizeMood = (value) => {
   if (!value || typeof value !== "string") return null;

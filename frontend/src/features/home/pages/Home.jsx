@@ -5,6 +5,7 @@ import ManualMoodPicker from "../components/ManualMoodPicker";
 import LibraryPanel from "../components/LibraryPanel";
 import JournalPanel from "../components/JournalPanel";
 import RoomHeader from "../../shared/components/RoomHeader";
+import SiteFooter from "../../shared/components/SiteFooter";
 import { SongContext } from "../song.context";
 import { getMoodTheme } from "../moodTheme";
 import "../styles/home.scss";
@@ -35,6 +36,8 @@ const Home = () => {
           <JournalPanel />
         </div>
       </main>
+
+      <SiteFooter />
     </div>
   );
 };

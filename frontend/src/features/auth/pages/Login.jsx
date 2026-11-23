@@ -5,6 +5,7 @@ import FormGroup from "../components/FormGroup";
 import { useAuth } from "../hook/useAuth";
 import { getAuthErrorMessage } from "../utils/getAuthError";
 import { AlertIcon } from "../../shared/components/Icons";
+import SiteFooter from "../../shared/components/SiteFooter";
 
 const Login = () => {
   const { user, loading, handleLogin } = useAuth();
@@ -34,8 +35,8 @@ const Login = () => {
   if (user) return <Navigate to="/" replace />;
 
   return (
-    <main className="auth-page login-page">
-      <section className="auth-card" aria-labelledby="login-title">
+    <div className="auth-page login-page">
+      <main className="auth-card" aria-labelledby="login-title">
         <div className="auth-brand">
           <span className="auth-brand__ring" aria-hidden="true" />
           <span className="auth-brand__name">Moodify</span>
@@ -84,8 +85,10 @@ const Login = () => {
         <p className="auth-footer">
           New to Moodify? <Link to="/register">Create an account</Link>
         </p>
-      </section>
-    </main>
+      </main>
+
+      <SiteFooter compact />
+    </div>
   );
 };
 

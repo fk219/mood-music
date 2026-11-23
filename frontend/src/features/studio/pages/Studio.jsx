@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import RoomHeader from "../../shared/components/RoomHeader";
+import SiteFooter from "../../shared/components/SiteFooter";
 import { MOOD_KEYS, getMoodTheme } from "../../home/moodTheme";
 import { uploadSong } from "../../home/services/song.api";
 import { AlertIcon, UploadIcon } from "../../shared/components/Icons";
@@ -279,6 +280,8 @@ const Studio = () => {
           )}
         </section>
       </main>
+
+      <SiteFooter className="site-footer--studio" />
     </div>
   );
 };

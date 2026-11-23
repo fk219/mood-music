@@ -1,0 +1,275 @@
+@use "../../shared/styles/_tokens" as *;
+
+.legal-page {
+  position: relative;
+  min-height: 100dvh;
+  overflow-x: clip;
+  padding: clamp(20px, 3vw, 34px) clamp(16px, 4vw, 56px) 64px;
+  background:
+    radial-gradient(820px 560px at 82% -8%, rgba(167, 155, 181, 0.12), transparent 66%),
+    radial-gradient(680px 520px at 4% 100%, rgba(127, 209, 174, 0.05), transparent 64%),
+    radial-gradient(640px 460px at 100% 78%, rgba(242, 166, 90, 0.045), transparent 70%),
+    $aubergine;
+}
+
+.legal-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(245, 239, 230, 0.14) 0.55px, transparent 0.55px);
+  background-size: 4px 4px;
+  opacity: 0.14;
+}
+
+.legal-header {
+  position: relative;
+  z-index: 1;
+  width: min(860px, 100%);
+  margin: 0 auto clamp(26px, 4vw, 42px);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.legal-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.legal-brand__ring {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border-radius: 50%;
+  background: conic-gradient(from 210deg, $lilac, $apricot, $mint, $lilac);
+  box-shadow:
+    inset 0 0 0 7px $aubergine,
+    0 0 18px -4px rgba(242, 166, 90, 0.6);
+}
+
+.legal-brand__name {
+  color: $bone;
+  font-family: $font-display;
+  font-size: 1.04rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.legal-brand__tag {
+  margin-left: 2px;
+  padding-left: 12px;
+  border-left: 1px solid $border-soft;
+  color: $lilac;
+  font-family: $font-mono;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.legal-header__back {
+  margin-left: auto;
+  padding: 7px 11px;
+  border: 1px solid $border-soft;
+  border-radius: 999px;
+  color: $lilac;
+  font-family: $font-mono;
+  font-size: 0.54rem;
+  letter-spacing: 0.13em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.legal-header__back:hover {
+  border-color: rgba(242, 166, 90, 0.3);
+  background: rgba(242, 166, 90, 0.07);
+  color: $bone;
+}
+
+.legal-shell {
+  position: relative;
+  z-index: 1;
+  width: min(860px, 100%);
+  margin: 0 auto;
+}
+
+.legal-doc {
+  position: relative;
+  padding: clamp(24px, 4.5vw, 46px);
+  border: 1px solid rgba(245, 239, 230, 0.1);
+  border-radius: $radius-xl;
+  background: linear-gradient(
+    160deg,
+    rgba(58, 43, 71, 0.92),
+    rgba(30, 21, 40, 0.98)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(245, 239, 230, 0.1),
+    0 0 0 1px rgba(19, 14, 26, 0.55),
+    0 40px 100px -40px rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(18px);
+}
+
+.legal-doc::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: clamp(24px, 4.5vw, 46px);
+  right: clamp(24px, 4.5vw, 46px);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(242, 166, 90, 0.7),
+    rgba(127, 209, 174, 0.5),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.legal-doc .eyebrow {
+  color: $apricot;
+}
+
+.legal-doc h1 {
+  margin-top: 8px;
+  color: $bone;
+  font-size: clamp(2rem, 5vw, 2.9rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+.legal-doc__meta {
+  margin-top: 12px;
+  color: rgba(167, 155, 181, 0.75);
+  font-family: $font-mono;
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.legal-doc__intro {
+  max-width: 640px;
+  margin-top: 20px;
+  color: rgba(245, 239, 230, 0.78);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.legal-doc__body {
+  display: grid;
+  gap: 26px;
+  margin-top: 30px;
+}
+
+.legal-section {
+  padding-top: 24px;
+  border-top: 1px solid $border-soft;
+}
+
+.legal-section:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.legal-section h2 {
+  margin-bottom: 10px;
+  color: $bone;
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.legal-section p,
+.legal-section li {
+  color: $text-muted;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.legal-section p + p {
+  margin-top: 10px;
+}
+
+.legal-section ul {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+  padding-left: 18px;
+  list-style: disc;
+}
+
+.legal-section li::marker {
+  color: $apricot;
+}
+
+.legal-section strong {
+  color: rgba(245, 239, 230, 0.9);
+  font-weight: 600;
+}
+
+.legal-section code {
+  padding: 2px 5px;
+  border: 1px solid rgba(245, 239, 230, 0.12);
+  border-radius: 6px;
+  background: rgba(19, 14, 26, 0.5);
+  color: $bone;
+  font-family: $font-mono;
+  font-size: 0.78em;
+}
+
+.legal-section a {
+  color: $apricot;
+  text-decoration: underline;
+  text-decoration-color: rgba(242, 166, 90, 0.4);
+  text-underline-offset: 3px;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
+}
+
+.legal-section a:hover {
+  color: $bone;
+  text-decoration-color: rgba(245, 239, 230, 0.55);
+}
+
+@media (max-width: 560px) {
+  .legal-page {
+    padding: 18px 16px 48px;
+  }
+
+  .legal-brand__tag {
+    display: none;
+  }
+
+  .legal-doc {
+    padding: 22px 18px;
+    border-radius: 24px;
+  }
+
+  .legal-doc::before {
+    left: 18px;
+    right: 18px;
+  }
+
+  .legal-doc__body {
+    gap: 22px;
+    margin-top: 24px;
+  }
+
+  .legal-section p,
+  .legal-section li {
+    font-size: 0.86rem;
+  }
+}
