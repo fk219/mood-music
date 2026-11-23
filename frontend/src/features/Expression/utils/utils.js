@@ -216,16 +216,16 @@ export function classifyExpression(categories) {
   const frownRight = getScore("mouthFrownRight");
 
   if (smileLeft > 0.5 && smileRight > 0.5) {
-    return "Happy 😄";
+    return "Happy";
   }
 
   if (jawOpen > 0.6 && browUp > 0.5) {
-    return "Surprised 😲";
+    return "Surprised";
   }
 
   if (frownLeft > 0.5 && frownRight > 0.5) {
-    return "Sad 😢";
+    return "Sad";
   }
 
-  return "Neutral 😐";
+  return "Neutral";
 }

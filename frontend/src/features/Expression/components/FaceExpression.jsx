@@ -344,7 +344,7 @@ export default function FaceExpression() {
           </ul>
         ) : (
           <p className="mood-lens__history-empty">
-            No check-ins yet. Your last few moods will settle here.
+            Moods read in this session will settle here.
           </p>
         )}
       </div>
