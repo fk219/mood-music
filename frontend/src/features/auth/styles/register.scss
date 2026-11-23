@@ -1,0 +1,46 @@
+@use "../../shared/styles/_tokens" as *;
+@use "./_auth-common";
+
+.register-page {
+  .auth-heading .eyebrow {
+    color: $mint;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    filter: blur(84px);
+    pointer-events: none;
+  }
+
+  &::before {
+    top: -18%;
+    left: -14%;
+    width: min(58vw, 600px);
+    aspect-ratio: 1;
+    background: conic-gradient(
+      from 250deg,
+      $mint,
+      $lilac,
+      $apricot,
+      $mint
+    );
+    opacity: 0.24;
+  }
+
+  &::after {
+    right: -12%;
+    bottom: -20%;
+    width: min(42vw, 440px);
+    aspect-ratio: 1;
+    background: radial-gradient(
+      circle,
+      rgba(242, 166, 90, 0.28),
+      transparent 70%
+    );
+    opacity: 0.38;
+  }
+}

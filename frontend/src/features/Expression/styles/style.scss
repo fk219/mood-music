@@ -1,0 +1,493 @@
+@use "../../shared/styles/_tokens" as *;
+
+.mood-lens {
+  position: relative;
+  min-width: 0;
+  padding: clamp(18px, 2.6vw, 24px);
+  border: 1px solid $border-soft;
+  border-radius: $radius-xl;
+  background: linear-gradient(
+    165deg,
+    rgba(58, 43, 71, 0.88),
+    rgba(34, 24, 44, 0.97)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(245, 239, 230, 0.09),
+    0 30px 80px -40px rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(18px);
+}
+
+.mood-lens::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 26px;
+  right: 26px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--mood-a), transparent);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.mood-lens__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.mood-lens__top h2 {
+  margin-top: 6px;
+  color: $bone;
+  font-size: clamp(1.25rem, 2.1vw, 1.55rem);
+  line-height: 1.15;
+}
+
+.mood-lens__signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex: none;
+  padding: 7px 10px;
+  border: 1px solid $border-soft;
+  border-radius: 999px;
+  background: rgba(245, 239, 230, 0.03);
+  color: $lilac;
+  font-family: $font-mono;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.mood-lens__signal-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.mood-lens__signal.is-live {
+  border-color: rgba(127, 209, 174, 0.3);
+  background: rgba(127, 209, 174, 0.08);
+  color: $mint;
+}
+
+.mood-lens__signal.is-live .mood-lens__signal-dot {
+  box-shadow: 0 0 0 4px rgba(127, 209, 174, 0.1);
+  animation: lens-pulse 2.2s ease-in-out infinite;
+}
+
+.mood-lens__signal.is-error {
+  border-color: rgba(228, 138, 123, 0.28);
+  background: rgba(228, 138, 123, 0.08);
+  color: $danger-text;
+}
+
+.mood-lens__stage {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid rgba(245, 239, 230, 0.08);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 50% 42%, $plum, $aubergine-deep 76%);
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.55);
+}
+
+.mood-lens__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+  opacity: 0.9;
+}
+
+.mood-lens__stage.is-live .mood-lens__video {
+  opacity: 1;
+}
+
+.mood-lens__veil {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  padding: 24px;
+  background: radial-gradient(
+    circle at 50% 40%,
+    rgba(58, 43, 71, 0.4),
+    rgba(19, 14, 26, 0.9)
+  );
+  text-align: center;
+}
+
+.mood-lens__veil p {
+  color: $bone;
+  font-family: $font-mono;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.mood-lens__veil-hint {
+  max-width: 230px;
+  color: $lilac;
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.mood-lens__veil-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(245, 239, 230, 0.1);
+  border-radius: 50%;
+  background: rgba(19, 14, 26, 0.5);
+  color: $lilac;
+}
+
+.mood-lens__veil-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.mood-lens__spinner {
+  width: 28px;
+  height: 28px;
+  border: 2px solid rgba(245, 239, 230, 0.15);
+  border-top-color: var(--mood-a);
+  border-radius: 50%;
+  animation: lens-spin 0.9s linear infinite;
+}
+
+.mood-lens__standby {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 9px;
+  border: 1px solid rgba(245, 239, 230, 0.1);
+  border-radius: 999px;
+  background: rgba(19, 14, 26, 0.62);
+  backdrop-filter: blur(10px);
+  color: $bone;
+  font-family: $font-mono;
+  font-size: 0.52rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.mood-lens__standby span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: $mint;
+}
+
+.mood-lens__readout {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 11px;
+  border: 1px solid rgba(245, 239, 230, 0.1);
+  border-radius: 12px;
+  background: rgba(19, 14, 26, 0.68);
+  backdrop-filter: blur(12px);
+}
+
+.mood-lens__readout > span {
+  color: $lilac;
+  font-family: $font-mono;
+  font-size: 0.5rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.mood-lens__readout strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: $bone;
+  font-family: $font-display;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.mood-lens__readout-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(245, 239, 230, 0.06);
+}
+
+.mood-lens__error {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 11px 12px;
+  border: 1px solid rgba(228, 138, 123, 0.25);
+  border-radius: 14px;
+  background: rgba(228, 138, 123, 0.08);
+  color: $danger-text;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.mood-lens__error svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  margin-top: 2px;
+}
+
+.mood-lens__error p {
+  flex: 1;
+  min-width: 0;
+}
+
+.mood-lens__error button {
+  flex: none;
+  padding-bottom: 1px;
+  border-bottom: 1px solid rgba(245, 239, 230, 0.35);
+  color: $bone;
+  font-family: $font-mono;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.mood-lens__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.mood-lens__status {
+  flex: 1 1 150px;
+  max-width: 58%;
+  color: $lilac;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.mood-lens__detect {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: $apricot;
+  color: $aubergine;
+  font-family: $font-body;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 8px 20px -8px rgba(242, 166, 90, 0.65);
+  transition:
+    background 0.2s ease,
+    transform 0.2s $ease-out,
+    opacity 0.2s ease;
+}
+
+.mood-lens__detect:hover:not(:disabled) {
+  background: #f6b574;
+  transform: translateY(-1px);
+}
+
+.mood-lens__detect:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.mood-lens__detect:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mood-lens__detect.is-stop {
+  border-color: $border-strong;
+  background: transparent;
+  box-shadow: none;
+  color: $bone;
+}
+
+.mood-lens__playlist-error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px dashed rgba(228, 138, 123, 0.3);
+  border-radius: 12px;
+  background: rgba(228, 138, 123, 0.05);
+  color: $danger-text;
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+.mood-lens__playlist-error span {
+  flex: 1 1 160px;
+}
+
+.mood-lens__playlist-error button {
+  padding-bottom: 1px;
+  border-bottom: 1px solid rgba(245, 239, 230, 0.35);
+  color: $bone;
+  font-family: $font-mono;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.mood-lens__playlist-error button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mood-lens__history {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid $border-soft;
+}
+
+.mood-lens__history-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.mood-lens__history-head > span {
+  color: rgba(167, 155, 181, 0.65);
+  font-family: $font-mono;
+  font-size: 0.52rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.mood-trail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.mood-trail li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 9px;
+  border: 1px solid rgba(245, 239, 230, 0.09);
+  border-radius: 999px;
+  background: rgba(245, 239, 230, 0.04);
+  color: $bone;
+  font-size: 0.73rem;
+  line-height: 1.2;
+}
+
+.mood-trail__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--chip-color, #{$lilac});
+  box-shadow: 0 0 0 3px rgba(245, 239, 230, 0.05);
+}
+
+.mood-trail time {
+  color: $lilac;
+  font-family: $font-mono;
+  font-size: 0.56rem;
+  letter-spacing: 0.02em;
+}
+
+.mood-lens__history-empty {
+  color: rgba(167, 155, 181, 0.78);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+@keyframes lens-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes lens-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 4px rgba(127, 209, 174, 0.1);
+  }
+  50% {
+    opacity: 0.55;
+    box-shadow: 0 0 0 7px rgba(127, 209, 174, 0.02);
+  }
+}
+
+@media (max-width: 560px) {
+  .mood-lens {
+    padding: 16px;
+    border-radius: 24px;
+  }
+
+  .mood-lens::before {
+    left: 18px;
+    right: 18px;
+  }
+
+  .mood-lens__top h2 {
+    font-size: 1.15rem;
+  }
+
+  .mood-lens__signal {
+    padding: 6px 8px;
+    font-size: 0.5rem;
+  }
+
+  .mood-lens__controls {
+    gap: 10px;
+  }
+
+  .mood-lens__status {
+    max-width: none;
+    font-size: 0.76rem;
+  }
+
+  .mood-lens__detect {
+    width: 100%;
+    padding: 11px 14px;
+  }
+
+  .mood-lens__readout {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    padding: 7px 10px;
+  }
+
+  .mood-lens__readout strong {
+    font-size: 0.84rem;
+  }
+}
