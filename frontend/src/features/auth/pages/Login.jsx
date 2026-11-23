@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import "../styles/login.scss";
 import FormGroup from "../components/FormGroup";
 import { useAuth } from "../hook/useAuth";
@@ -8,20 +8,35 @@ import { AlertIcon } from "../../shared/components/Icons";
 import SiteFooter from "../../shared/components/SiteFooter";
 
 const Login = () => {
-  const { user, loading, handleLogin } = useAuth();
+  const { user, loading, handleLogin, clearSession } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const clearedStaleSession = useRef(false);
+
+  const notice = location.state?.notice || "";
+
+  useEffect(() => {
+    if (!notice || !user || clearedStaleSession.current) return;
+
+    clearedStaleSession.current = true;
+    clearSession();
+  }, [notice, user, clearSession]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (loading) return;
 
+    // A new sign-in replaces any stale session the notice was clearing.
+    clearedStaleSession.current = true;
     setError("");
 
     try {
       await handleLogin({ email, password });
+      navigate("/", { replace: true });
     } catch (submitError) {
       setError(
         getAuthErrorMessage(
@@ -32,7 +47,7 @@ const Login = () => {
     }
   };
 
-  if (user) return <Navigate to="/" replace />;
+  if (user && !notice) return <Navigate to="/" replace />;
 
   return (
     <div className="auth-page login-page">
@@ -48,6 +63,13 @@ const Login = () => {
           <h1 id="login-title">Welcome back.</h1>
           <p>The room kept your seat warm.</p>
         </div>
+
+        {notice && (
+          <div className="auth-notice" role="status">
+            <span className="auth-notice__dot" aria-hidden="true" />
+            <span>{notice}</span>
+          </div>
+        )}
 
         {error && (
           <div className="auth-alert" role="alert">

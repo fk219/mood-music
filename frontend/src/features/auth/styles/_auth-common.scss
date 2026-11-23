@@ -104,18 +104,38 @@
   line-height: 1.6;
 }
 
-.auth-alert {
+.auth-alert,
+.auth-notice {
   display: flex;
   align-items: flex-start;
   gap: 9px;
   margin-top: 20px;
   padding: 11px 12px;
-  border: 1px solid rgba(228, 138, 123, 0.28);
   border-radius: 12px;
-  background: rgba(228, 138, 123, 0.08);
-  color: $danger-text;
   font-size: 0.8rem;
   line-height: 1.5;
+}
+
+.auth-alert {
+  border: 1px solid rgba(228, 138, 123, 0.28);
+  background: rgba(228, 138, 123, 0.08);
+  color: $danger-text;
+}
+
+.auth-notice {
+  border: 1px solid rgba(127, 209, 174, 0.28);
+  background: rgba(127, 209, 174, 0.08);
+  color: #b8ead5;
+}
+
+.auth-notice__dot {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  margin-top: 5px;
+  border-radius: 50%;
+  background: $mint;
+  box-shadow: 0 0 0 3px rgba(127, 209, 174, 0.12);
 }
 
 .auth-alert svg {

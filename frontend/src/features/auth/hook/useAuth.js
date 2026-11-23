@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import {
   login as loginApi,
   register as registerApi,
@@ -45,6 +45,10 @@ export const useAuth = () => {
     }
   };
 
+  const clearSession = useCallback(() => {
+    setUser(null);
+  }, [setUser]);
+
   return {
     user,
     loading,
@@ -52,5 +56,6 @@ export const useAuth = () => {
     handleRegister,
     handleLogin,
     handleLogOut,
+    clearSession,
   };
 };

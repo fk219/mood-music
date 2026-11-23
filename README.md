@@ -56,10 +56,12 @@ Every check-in belongs to the signed-in listener. The journal shows the last sev
 - Uploads require a signed-in session. Set `STUDIO_EMAIL` to reserve the Studio for one owner account.
 
 **Accounts and room**
-- Register, log in, log out, protected room and Studio routes.
+- Register, log in, log out, protected room, Studio, and Settings routes.
 - JWT in an `httpOnly`, `SameSite=Lax`, `Secure` cookie; bcrypt password hashing; logout tokens are blacklisted in MongoDB with a TTL index.
+- `tokenVersion` in each JWT revokes every session when the password changes.
+- Settings shows the listener card, exports account and journal JSON, changes the password, and deletes the account. The shared track catalog survives account deletion; the demo account is protected.
 - Play, pause, seek, restart, volume, mute, speed, previous/next, shuffle, and `Space` play/pause.
-- Helmet security headers and IP rate limits on auth writes, mood writes, and uploads.
+- Helmet security headers and IP rate limits on auth writes, account changes, mood writes, and uploads.
 
 ## How it works
 
@@ -106,6 +108,7 @@ frontend/
     features/Expression/         camera, face landmarks, mood lens
     features/home/               player, queue, manual check-in, library, journal
     features/studio/             owner upload page
+    features/settings/           account summary, password, export, delete
     features/auth/               auth context, pages, guards
     features/shared/             tokens, API client, header, icons
 ```
@@ -151,7 +154,10 @@ VITE_API_URL=http://localhost:3000
 | `POST` | `/api/auth/register` | Public | Create account (10/min per IP) |
 | `POST` | `/api/auth/login` | Public | Sign in, set cookie (10/min per IP) |
 | `GET` | `/api/auth/logout` | Cookie | Invalidate session (Mongo blacklist) |
-| `GET` | `/api/auth/get-me` | Cookie | Current user |
+| `GET` | `/api/auth/get-me` | Cookie | Current user, joined date, and mood entry count |
+| `PATCH` | `/api/auth/password` | Cookie | Change password, revoke all sessions (20/15 min per IP) |
+| `GET` | `/api/auth/export` | Cookie | Download account and journal JSON (20/15 min per IP) |
+| `DELETE` | `/api/auth/account` | Cookie | Delete account and journal; catalog stays (20/15 min per IP) |
 | `GET` | `/api/song?mood=` | Public | Tracks for a mood; falls back to neutral when empty |
 | `GET` | `/api/song/library` | Public | Full catalog grouped by mood |
 | `POST` | `/api/song` | Cookie | Upload an MP3 (5/hour per IP) |
@@ -168,4 +174,4 @@ VITE_API_URL=http://localhost:3000
 - CORS is restricted to the production app URL plus localhost.
 - Set `STUDIO_EMAIL` in production to keep the catalog owner-only.
 - Rate limits use express-rate-limit's in-memory store, so they reset on restart and are scoped to one API instance.
-- `frontend/vercel.json` rewrites client routes to `index.html`, including `/studio`.
+- `frontend/vercel.json` rewrites client routes to `index.html`, including `/studio` and `/settings`.

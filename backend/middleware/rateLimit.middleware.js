@@ -12,6 +12,18 @@ const authLimiter = rateLimit({
     }
 })
 
+const accountLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 20,
+    standardHeaders: 'draft-8',
+    legacyHeaders: false,
+    handler: (req, res, next, options) => {
+        res.status(options.statusCode).json({
+            message: 'Too many account changes. Wait a few minutes and try again.'
+        })
+    }
+})
+
 const moodWriteLimiter = rateLimit({
     windowMs: 60 * 1000,
     limit: 30,
@@ -38,6 +50,7 @@ const uploadLimiter = rateLimit({
 
 module.exports = {
     authLimiter,
+    accountLimiter,
     moodWriteLimiter,
     uploadLimiter
 }

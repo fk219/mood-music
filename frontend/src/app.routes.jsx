@@ -5,6 +5,7 @@ import Login from './features/auth/pages/Login'
 import Register from './features/auth/pages/Register'
 import Privacy from './features/legal/pages/Privacy'
 import Terms from './features/legal/pages/Terms'
+import Settings from './features/settings/pages/Settings'
 import Protected from './features/auth/components/Protected'
 
 const Studio = lazy(() => import('./features/studio/pages/Studio'))
@@ -30,6 +31,7 @@ const routes = createBrowserRouter([
       </Protected>
     )
   },
+  { path: '/settings', element: <Protected><Settings /></Protected> },
   { path: '/login', element: <Login /> },
   { path: '/register', element: <Register /> },
   { path: '/privacy', element: <Privacy /> },

@@ -15,7 +15,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Password is Required"],
         select: false
+    },
+    tokenVersion: {
+        type: Number,
+        default: 0
     }
+}, {
+    timestamps: true
 })
 
 const userModel = mongoose.model("users", userSchema)

@@ -158,6 +158,50 @@ export const UploadIcon = () => (
   </svg>
 );
 
+export const SettingsIcon = () => (
+  <svg {...iconProps} fill="none">
+    <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.6" />
+    <path
+      d="m12 3.8 1.2 1.9 2.2-.5.6 2.2 2.1.9-.9 2.1 1.5 1.6-1.5 1.6.9 2.1-2.1.9-.6 2.2-2.2-.5-1.2 1.9-1.2-1.9-2.2.5-.6-2.2-2.1-.9.9-2.1L5.3 12l1.5-1.6-.9-2.1 2.1-.9.6-2.2 2.2.5L12 3.8Z"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const DownloadIcon = () => (
+  <svg {...iconProps} fill="none">
+    <path
+      d="M12 4v10m0 0 3.7-3.7M12 14l-3.7-3.7M5 16.5v1.7A1.8 1.8 0 0 0 6.8 20h10.4a1.8 1.8 0 0 0 1.8-1.8v-1.7"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const LockIcon = () => (
+  <svg {...iconProps} fill="none">
+    <rect
+      x="5"
+      y="10.5"
+      width="14"
+      height="9.5"
+      rx="2"
+      stroke="currentColor"
+      strokeWidth="1.6"
+    />
+    <path
+      d="M8.2 10.5V8a3.8 3.8 0 0 1 7.6 0v2.5"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
 export const TrashIcon = () => (
   <svg {...iconProps} fill="none">
     <path

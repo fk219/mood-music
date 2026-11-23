@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/hook/useAuth";
-import { LogOutIcon } from "./Icons";
+import { LogOutIcon, SettingsIcon } from "./Icons";
 import "../styles/room-header.scss";
 
 const RoomHeader = ({ active = "room" }) => {
@@ -56,6 +56,19 @@ const RoomHeader = ({ active = "room" }) => {
           <span>Listening as</span>
           <strong title={user?.email || displayName}>{displayName}</strong>
         </span>
+        <Link
+          to="/settings"
+          className={`room-session__settings${active === "settings" ? " is-active" : ""}`}
+          aria-current={active === "settings" ? "page" : undefined}
+          aria-label="Account settings"
+        >
+          <SettingsIcon />
+          <span>Settings</span>
+        </Link>
+        <nav className="room-session__legal" aria-label="Legal">
+          <Link to="/privacy">Privacy</Link>
+          <Link to="/terms">Terms</Link>
+        </nav>
         <button
           type="button"
           className="room-session__logout"
