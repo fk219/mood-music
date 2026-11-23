@@ -5,6 +5,8 @@ A privacy-first mood listening room. Moodify reads your expression on-device, or
 **Live app:** https://moodify.furqankhan.dev
 **API:** https://moodify-backend-8rn5.onrender.com
 
+**Demo account:** `demo@moodify.local` / `DemoRoom2026!` (shared, so the journal may already contain entries; clear it from the journal panel)
+
 ![Moodify](docs/preview.png)
 
 ![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)
