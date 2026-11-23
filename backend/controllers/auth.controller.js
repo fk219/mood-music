@@ -80,7 +80,7 @@ const loginController = async (req, res) => {
     }).select("+password")
 
     if(!user){
-        return res.status(400).json({
+        return res.status(401).json({
             message: "Invalid Credentials"
         })
     }
@@ -88,7 +88,7 @@ const loginController = async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, user.password)
     
     if(!isPasswordValid){
-        return res.status(400).json({
+        return res.status(401).json({
             message: "Invalid Credentials"
         })
     }
@@ -264,17 +264,17 @@ const deleteAccountController = async (req, res) => {
         })
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password)
-
-    if (!isPasswordValid) {
-        return res.status(400).json({
-            message: 'Password is incorrect.'
-        })
-    }
-
     if (user.email.toLowerCase() === DEMO_EMAIL) {
         return res.status(403).json({
             message: 'The demo account cannot be deleted.'
+        })
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password)
+
+    if (!isPasswordValid) {
+        return res.status(401).json({
+            message: 'Password is incorrect.'
         })
     }
 
