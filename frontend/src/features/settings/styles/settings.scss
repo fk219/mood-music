@@ -121,10 +121,7 @@
   border-radius: 999px;
   background: rgba(127, 209, 174, 0.08);
   color: #b8ead5;
-  font-family: $font-mono;
-  font-size: 0.48rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: 0.72rem;
 }
 
 .settings-card__icon {
@@ -173,11 +170,8 @@
 
 .settings-fact dt {
   flex: none;
-  color: $lilac;
-  font-family: $font-mono;
-  font-size: 0.54rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  color: rgba(167, 155, 181, 0.9);
+  font-size: 0.76rem;
 }
 
 .settings-fact dd {
@@ -205,7 +199,7 @@
 }
 
 .settings-export {
-  min-height: 42px;
+  min-height: 44px;
   padding: 10px 14px;
   border-radius: 12px;
   font-size: 0.8rem;
@@ -226,12 +220,9 @@
 .settings-policies a {
   padding-bottom: 1px;
   border-bottom: 1px solid transparent;
-  color: $lilac;
-  font-family: $font-mono;
-  font-size: 0.52rem;
-  letter-spacing: 0.1em;
+  color: rgba(245, 239, 230, 0.7);
+  font-size: 0.74rem;
   text-decoration: none;
-  text-transform: uppercase;
   transition:
     color 0.2s ease,
     border-color 0.2s ease;
@@ -265,11 +256,9 @@
 }
 
 .settings-field label {
-  color: $lilac;
-  font-family: $font-mono;
-  font-size: 0.56rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  color: rgba(245, 239, 230, 0.74);
+  font-size: 0.78rem;
+  font-weight: 500;
 }
 
 .settings-field input {
@@ -288,7 +277,7 @@
 }
 
 .settings-field input::placeholder {
-  color: rgba(167, 155, 181, 0.55);
+  color: rgba(167, 155, 181, 0.78);
 }
 
 .settings-field input:hover:not(:disabled) {
@@ -313,9 +302,9 @@
 }
 
 .settings-field__hint {
-  color: rgba(167, 155, 181, 0.65);
-  font-size: 0.68rem;
-  line-height: 1.4;
+  color: rgba(167, 155, 181, 0.85);
+  font-size: 0.74rem;
+  line-height: 1.45;
 }
 
 .settings-field__error {

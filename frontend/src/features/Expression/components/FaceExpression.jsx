@@ -222,8 +222,12 @@ export default function FaceExpression() {
     >
       <header className="mood-lens__top">
         <div>
-          <p className="eyebrow">Mood lens</p>
+          <p className="eyebrow">Room tool · Mood lens</p>
           <h2 id="mood-lens-title">Let the room read you.</h2>
+          <p className="mood-lens__sub">
+            Runs on your device. The camera is optional, and no frames leave this
+            room.
+          </p>
         </div>
         <span className={`mood-lens__signal ${signalState}`}>
           <span className="mood-lens__signal-dot" aria-hidden="true" />
@@ -238,7 +242,7 @@ export default function FaceExpression() {
           playsInline
           muted
           className="mood-lens__video"
-          aria-label="Camera preview for mood detection"
+          aria-hidden="true"
         />
 
         {!ready && (
@@ -279,74 +283,77 @@ export default function FaceExpression() {
         </div>
       </div>
 
-      {cameraError && (
-        <div className="mood-lens__error" role="alert">
-          <AlertIcon />
-          <p>{cameraError}</p>
-          <button type="button" onClick={setupCamera}>
-            Retry
-          </button>
-        </div>
-      )}
+      <div className="mood-lens__console">
+        {cameraError && (
+          <div className="mood-lens__error" role="alert">
+            <AlertIcon />
+            <p>{cameraError}</p>
+            <button type="button" onClick={setupCamera}>
+              Retry
+            </button>
+          </div>
+        )}
 
-      <div className="mood-lens__controls">
-        <p className="mood-lens__status" aria-live="polite">
-          {status}
-        </p>
-        <button
-          type="button"
-          id="detect-mood-button"
-          className={`mood-lens__detect${isRunning ? " is-stop" : ""}`}
-          onClick={isRunning ? handleStop : handleDetect}
-          disabled={!isRunning && (loading || !ready)}
-        >
-          {loading ? "Warming up…" : isRunning ? "Stop reading" : "Detect mood"}
-        </button>
-      </div>
-
-      {playlistError && (
-        <p className="mood-lens__playlist-error" role="alert">
-          <span>{playlistError}</span>
+        <div className="mood-lens__controls">
+          <p className="mood-lens__status" aria-live="polite">
+            {status}
+          </p>
           <button
             type="button"
-            onClick={() => handleMoodRequest(lastDetectionRef.current, true)}
-            disabled={!lastDetectionRef.current}
+            id="detect-mood-button"
+            className={`mood-lens__detect${isRunning ? " is-stop" : ""}`}
+            onClick={isRunning ? handleStop : handleDetect}
+            disabled={!isRunning && (loading || !ready)}
           >
-            Try again
+            {loading ? "Warming up…" : isRunning ? "Stop reading" : "Detect mood"}
           </button>
-        </p>
-      )}
-
-      <div className="mood-lens__history">
-        <div className="mood-lens__history-head">
-          <p className="eyebrow">Mood trail</p>
-          <span>Last {MOOD_HISTORY_LIMIT} check-ins</span>
         </div>
 
-        {moodHistory.length ? (
-          <ul className="mood-trail">
-            {moodHistory.map((entry) => {
-              const theme = getMoodTheme(entry.mood);
-              return (
-                <li
-                  key={`${entry.at}-${entry.mood}`}
-                  style={{ "--chip-color": theme.color }}
-                  title={`${SOURCE_LABEL[entry.source] || "Mood read"} · ${new Date(entry.at).toLocaleString()}`}
-                >
-                  <span className="mood-trail__dot" aria-hidden="true" />
-                  <span>{theme.label}</span>
-                  <time dateTime={new Date(entry.at).toISOString()}>
-                    {formatMoodTime(entry.at)}
-                  </time>
-                </li>
-              );
-            })}
-          </ul>
-        ) : (
-          <p className="mood-lens__history-empty">
-            Moods read in this session will settle here.
+        {playlistError && (
+          <p className="mood-lens__playlist-error" role="alert">
+            <span>{playlistError}</span>
+            <button
+              type="button"
+              onClick={() => handleMoodRequest(lastDetectionRef.current, true)}
+              disabled={!lastDetectionRef.current}
+            >
+              Try again
+            </button>
           </p>
         )}
+
+        <div className="mood-lens__history">
+          <div className="mood-lens__history-head">
+            <p className="eyebrow">Mood trail</p>
+            <span>Last {MOOD_HISTORY_LIMIT} check-ins</span>
+          </div>
+
+          {moodHistory.length ? (
+            <ul className="mood-trail">
+              {moodHistory.map((entry) => {
+                const theme = getMoodTheme(entry.mood);
+                return (
+                  <li
+                    key={`${entry.at}-${entry.mood}`}
+                    style={{ "--chip-color": theme.color }}
+                    title={`${SOURCE_LABEL[entry.source] || "Mood read"} · ${new Date(entry.at).toLocaleString()}`}
+                    aria-label={`${theme.label} mood, ${SOURCE_LABEL[entry.source] || "Mood read"}, ${new Date(entry.at).toLocaleString()}`}
+                  >
+                    <span className="mood-trail__dot" aria-hidden="true" />
+                    <span>{theme.label}</span>
+                    <time dateTime={new Date(entry.at).toISOString()}>
+                      {formatMoodTime(entry.at)}
+                    </time>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <p className="mood-lens__history-empty">
+              Moods read in this session will settle here.
+            </p>
+          )}
+        </div>
       </div>
     </section>
   );

@@ -89,100 +89,132 @@ const Login = () => {
 
   return (
     <div className="auth-page login-page">
-      <main className="auth-card" aria-labelledby="login-title">
-        <div className="auth-brand">
-          <span className="auth-brand__ring" aria-hidden="true" />
-          <span className="auth-brand__name">Moodify</span>
-          <span className="auth-brand__tag">Listening room</span>
-        </div>
+      <main className="login-shell" aria-labelledby="login-title">
+        <section className="login-intro">
+          <div className="login-brand">
+            <span className="login-brand__ring" aria-hidden="true" />
+            <span className="login-brand__name">Moodify</span>
+            <span className="login-brand__tag">Listening room</span>
+          </div>
 
-        <div className="auth-heading">
-          <p className="eyebrow">Sign in</p>
-          <h1 id="login-title">Welcome back.</h1>
-          <p>The room kept your seat warm.</p>
-        </div>
+          <div className="login-intro__copy">
+            <p className="eyebrow">The listening room</p>
+            <h1 id="login-title">Step into the room.</h1>
+            <p className="login-intro__lead">
+              Music apps ask for a genre. Moodify asks how you feel. Mood
+              detection runs on your device, or you can check in manually, and
+              your journal stays private.
+            </p>
+            <p className="login-intro__note">
+              The camera is optional. The manual mood picker works without it.
+            </p>
+          </div>
 
-        <section className="auth-promise" aria-label="Why Moodify">
-          <p>
-            Music apps ask for a genre. Moodify asks how you feel. Mood detection
-            runs on your device, or you can check in manually, and your journal
-            stays private.
-          </p>
-          <p className="auth-promise__note">
-            The camera is optional. The manual mood picker works without it.
-          </p>
+          <div className="login-door" aria-hidden="true">
+            <span className="login-door__glow" />
+            <span className="login-door__frame">
+              <span className="login-door__seam" />
+              <span className="login-door__disc" />
+              <span className="login-door__handle" />
+            </span>
+            <span className="login-door__floor" />
+          </div>
+
+          <ul className="login-notes">
+            <li>On-device mood detection</li>
+            <li>A private weekly journal</li>
+            <li>The demo opens in one click</li>
+          </ul>
         </section>
 
-        {notice && (
-          <div className="auth-notice" role="status">
-            <span className="auth-notice__dot" aria-hidden="true" />
-            <span>{notice}</span>
-          </div>
-        )}
+        <section className="login-panel" aria-labelledby="login-panel-title">
+          <header className="login-panel__head">
+            <p className="eyebrow">Welcome back</p>
+            <h2 id="login-panel-title">The room kept your seat warm.</h2>
+            <p>
+              Open the demo room first, or sign in to your own listening room and
+              journal.
+            </p>
+          </header>
 
-        {error && (
-          <div className="auth-alert" role="alert">
-            <AlertIcon />
-            <span>{error}</span>
-          </div>
-        )}
-
-        <div className="auth-demo" aria-busy={demoBusy}>
-          <p className="auth-demo__eyebrow">No account needed</p>
-          <button
-            type="button"
-            className="button auth-demo__button"
-            onClick={handleDemo}
-            disabled={loading}
-          >
-            {demoBusy && <span className="auth-spinner" aria-hidden="true" />}
-            {demoBusy ? "Opening the demo room…" : "Enter the demo room"}
-          </button>
-          <p className="auth-demo__hint">
-            One click opens a shared listening room. The camera stays optional
-            and the manual picker works without it.
-          </p>
-          {demoError && (
-            <div className="auth-alert auth-demo__alert" role="alert">
-              <AlertIcon />
-              <span>{demoError}</span>
+          {notice && (
+            <div className="auth-notice" role="status">
+              <span className="auth-notice__dot" aria-hidden="true" />
+              <span>{notice}</span>
             </div>
           )}
-        </div>
 
-        <p className="auth-divider">
-          <span>or sign in</span>
-        </p>
+          <div className="login-demo" aria-busy={demoBusy}>
+            <div className="login-demo__top">
+              <span className="login-demo__badge">No account needed</span>
+              <span className="login-demo__shared">Shared listening room</span>
+            </div>
+            <button
+              type="button"
+              className="button login-demo__button"
+              onClick={handleDemo}
+              disabled={loading}
+            >
+              {demoBusy && <span className="auth-spinner" aria-hidden="true" />}
+              {demoBusy ? "Opening the demo room…" : "Enter the demo room"}
+            </button>
+            <p className="login-demo__hint">
+              One click opens a shared listening room. The camera stays optional
+              and the manual picker works without it.
+            </p>
+            {demoError && (
+              <div className="auth-alert login-demo__alert" role="alert">
+                <AlertIcon />
+                <span>{demoError}</span>
+              </div>
+            )}
+          </div>
 
-        <form className="auth-form" onSubmit={handleSubmit} aria-busy={formBusy}>
-          <FormGroup
-            label="Email"
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            placeholder="you@example.com"
-            autoComplete="email"
-            disabled={loading}
-          />
-          <FormGroup
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            placeholder="Your password"
-            autoComplete="current-password"
-            disabled={loading}
-          />
+          <p className="auth-divider">
+            <span>or sign in with your account</span>
+          </p>
 
-          <button type="submit" className="button auth-submit" disabled={loading}>
-            {formBusy && <span className="auth-spinner" aria-hidden="true" />}
-            {formBusy ? "Signing in…" : "Sign in"}
-          </button>
-        </form>
+          {error && (
+            <div className="auth-alert login-form__alert" role="alert">
+              <AlertIcon />
+              <span>{error}</span>
+            </div>
+          )}
 
-        <p className="auth-footer">
-          New to Moodify? <Link to="/register">Create an account</Link>
-        </p>
+          <form className="auth-form login-form" onSubmit={handleSubmit} aria-busy={formBusy}>
+            <FormGroup
+              label="Email"
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="you@example.com"
+              autoComplete="email"
+              disabled={loading}
+            />
+            <FormGroup
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="Your password"
+              autoComplete="current-password"
+              disabled={loading}
+            />
+
+            <button
+              type="submit"
+              className="button auth-submit auth-submit--quiet"
+              disabled={loading}
+            >
+              {formBusy && <span className="auth-spinner" aria-hidden="true" />}
+              {formBusy ? "Signing in…" : "Sign in"}
+            </button>
+          </form>
+
+          <p className="auth-footer login-footer">
+            New to Moodify? <Link to="/register">Create an account</Link>
+          </p>
+        </section>
       </main>
 
       <SiteFooter compact />

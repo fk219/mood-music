@@ -44,6 +44,11 @@ h4 {
   font-family: $font-display;
   font-weight: 600;
   letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 button,
@@ -57,6 +62,15 @@ textarea {
 button {
   background: none;
   border: 0;
+}
+
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }
 
 img,
@@ -98,11 +112,10 @@ a {
 }
 
 .eyebrow {
-  font-family: $font-mono;
-  font-size: 0.62rem;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: $font-body;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.045em;
   color: $lilac;
 }
 
@@ -134,11 +147,9 @@ a {
 }
 
 .app-splash p {
-  font-family: $font-mono;
-  font-size: 0.66rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
   color: $lilac;
+  font-size: 0.82rem;
+  letter-spacing: 0.01em;
 }
 
 @keyframes splash-turn {

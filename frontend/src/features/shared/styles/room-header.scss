@@ -2,9 +2,10 @@
 
 .room-header {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  width: 100%;
   max-width: 1180px;
-  margin: 0 auto clamp(28px, 5vw, 48px);
+  margin: 0 auto clamp(26px, 4vw, 42px);
   display: flex;
   align-items: center;
   gap: 16px;
@@ -42,11 +43,8 @@
   margin-left: 2px;
   padding-left: 12px;
   border-left: 1px solid $border-soft;
-  font-family: $font-mono;
-  font-size: 0.58rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
   color: $lilac;
+  font-size: 0.72rem;
   white-space: nowrap;
 }
 
@@ -58,15 +56,16 @@
 }
 
 .room-nav__link {
-  padding: 7px 11px;
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
   border: 1px solid transparent;
   border-radius: 999px;
-  color: $lilac;
-  font-family: $font-mono;
-  font-size: 0.56rem;
-  letter-spacing: 0.13em;
+  color: rgba(245, 239, 230, 0.66);
+  font-size: 0.78rem;
+  font-weight: 500;
   text-decoration: none;
-  text-transform: uppercase;
   white-space: nowrap;
   transition:
     background 0.2s ease,
@@ -79,6 +78,10 @@
   color: $bone;
 }
 
+.room-nav__link:active {
+  transform: translateY(1px);
+}
+
 .room-nav__link.is-active {
   border-color: $border-soft;
   background: rgba(245, 239, 230, 0.05);
@@ -87,7 +90,7 @@
 
 .room-nav__studio {
   border-color: rgba(242, 166, 90, 0.24);
-  color: $apricot;
+  color: #f2b777;
 }
 
 .room-nav__studio:hover {
@@ -99,12 +102,12 @@
 .room-session {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   min-width: 0;
-  padding: 5px 6px 5px 11px;
+  padding: 4px 5px 4px 9px;
   border: 1px solid $border-soft;
   border-radius: 999px;
-  background: rgba(42, 31, 54, 0.42);
+  background: rgba(42, 31, 54, 0.46);
   backdrop-filter: blur(10px);
 }
 
@@ -124,37 +127,36 @@
 
 .room-session__who {
   display: grid;
+  gap: 1px;
   min-width: 0;
   padding-right: 4px;
   line-height: 1.2;
 }
 
 .room-session__who span {
-  font-family: $font-mono;
-  font-size: 0.5rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: $lilac;
+  color: rgba(167, 155, 181, 0.86);
+  font-size: 0.66rem;
 }
 
 .room-session__who strong {
   max-width: 160px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  color: $bone;
   font-size: 0.78rem;
   font-weight: 600;
-  color: $bone;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .room-session__settings {
+  min-height: 36px;
   display: inline-flex;
   align-items: center;
   gap: 7px;
   padding: 7px 10px;
   border-radius: 999px;
-  color: $lilac;
-  font-size: 0.72rem;
+  color: rgba(245, 239, 230, 0.68);
+  font-size: 0.76rem;
   text-decoration: none;
   white-space: nowrap;
   transition:
@@ -181,14 +183,14 @@
 }
 
 .room-session__legal a {
-  padding: 4px 5px;
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 6px;
   border-radius: 6px;
-  color: rgba(167, 155, 181, 0.72);
-  font-family: $font-mono;
-  font-size: 0.48rem;
-  letter-spacing: 0.1em;
+  color: rgba(167, 155, 181, 0.82);
+  font-size: 0.68rem;
   text-decoration: none;
-  text-transform: uppercase;
   white-space: nowrap;
   transition:
     background 0.2s ease,
@@ -197,7 +199,7 @@
 
 .room-session__legal a + a {
   border-left: 1px solid $border-soft;
-  padding-left: 8px;
+  padding-left: 9px;
   margin-left: 1px;
 }
 
@@ -207,13 +209,14 @@
 }
 
 .room-session__logout {
+  min-height: 36px;
   display: inline-flex;
   align-items: center;
   gap: 7px;
   padding: 7px 11px;
   border-radius: 999px;
-  color: $lilac;
-  font-size: 0.72rem;
+  color: rgba(245, 239, 230, 0.68);
+  font-size: 0.76rem;
   cursor: pointer;
   transition:
     background 0.2s ease,
@@ -235,20 +238,57 @@
   cursor: progress;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1140px) {
   .room-session__legal {
     display: none;
   }
 }
 
-@media (max-width: 980px) {
-  .room-nav__anchor {
-    display: none;
+@media (max-width: 1020px) {
+  .room-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "brand session"
+      "nav nav";
+    align-items: center;
+    gap: 10px 14px;
+  }
+
+  .room-brand {
+    grid-area: brand;
+  }
+
+  .room-nav {
+    grid-area: nav;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-left: 0;
+  }
+
+  .room-nav__link {
+    min-height: 40px;
+    padding: 8px 12px;
+    background: rgba(245, 239, 230, 0.025);
+    border-color: $border-soft;
+  }
+
+  .room-nav__studio {
+    border-color: rgba(242, 166, 90, 0.24);
+    background: transparent;
+  }
+
+  .room-session {
+    grid-area: session;
   }
 }
 
 @media (max-width: 720px) {
   .room-brand__tag {
+    display: none;
+  }
+
+  .room-session__who {
     display: none;
   }
 
@@ -259,44 +299,50 @@
 
   .room-session__logout,
   .room-session__settings {
-    padding: 7px;
+    width: 44px;
+    height: 44px;
+    justify-content: center;
+    padding: 0;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 560px) {
   .room-header {
-    gap: 10px;
+    margin-bottom: 20px;
+    gap: 8px 10px;
+  }
+
+  .room-nav {
+    gap: 4px;
   }
 
   .room-nav__link {
-    padding: 7px 8px;
-    font-size: 0.52rem;
-    letter-spacing: 0.08em;
+    min-height: 44px;
+    padding: 8px 11px;
+    font-size: 0.76rem;
   }
 
   .room-session {
-    padding-left: 6px;
-    gap: 8px;
-  }
-
-  .room-session__who {
-    display: none;
+    padding: 3px 4px 3px 7px;
+    gap: 5px;
   }
 
   .room-session__avatar {
-    width: 26px;
-    height: 26px;
-    font-size: 0.76rem;
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+
+  .room-session__settings,
+  .room-session__logout {
+    width: 44px;
+    height: 44px;
   }
 }
 
-@media (max-width: 480px) {
-  .room-brand__name,
-  .room-session__avatar {
-    display: none;
-  }
-
-  .room-session {
-    padding-left: 6px;
+@media (max-width: 380px) {
+  .room-nav__link {
+    padding: 8px 10px;
+    font-size: 0.74rem;
   }
 }

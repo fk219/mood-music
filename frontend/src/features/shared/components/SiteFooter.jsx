@@ -19,7 +19,7 @@ const SiteFooter = ({ compact = false, className = "" }) => {
           <span className="site-footer__note">Beta listening room</span>
         </span>
 
-        <nav className="site-footer__links" aria-label="Legal">
+        <nav className="site-footer__links" aria-label="Footer legal">
           <Link to="/privacy">Privacy</Link>
           <Link to="/terms">Terms</Link>
         </nav>

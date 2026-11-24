@@ -213,3 +213,26 @@ export const TrashIcon = () => (
     />
   </svg>
 );
+
+export const QueueIcon = () => (
+  <svg {...iconProps} fill="none">
+    <path
+      d="M4 7h11M4 12h8M4 17h6"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+    />
+    <path d="M17 9.2v8.3l4-2.8-4-5.5Z" fill="currentColor" />
+  </svg>
+);
+
+export const CloseIcon = () => (
+  <svg {...iconProps} fill="none">
+    <path
+      d="m6 6 12 12M18 6 6 18"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+    />
+  </svg>
+);

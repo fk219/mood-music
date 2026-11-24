@@ -2,14 +2,23 @@
 
 .mood-lens {
   position: relative;
-  min-width: 0;
-  padding: clamp(18px, 2.6vw, 24px);
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(20px, 2.6vw, 30px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(300px, 0.88fr);
+  grid-template-areas:
+    "head head"
+    "stage console";
+  align-items: start;
+  gap: clamp(18px, 2.6vw, 28px);
   border: 1px solid $border-soft;
   border-radius: $radius-xl;
   background: linear-gradient(
     165deg,
-    rgba(58, 43, 71, 0.88),
-    rgba(34, 24, 44, 0.97)
+    rgba(55, 40, 68, 0.84),
+    rgba(30, 21, 40, 0.97)
   );
   box-shadow:
     inset 0 1px 0 rgba(245, 239, 230, 0.09),
@@ -21,27 +30,40 @@
   content: "";
   position: absolute;
   top: 0;
-  left: 26px;
-  right: 26px;
+  left: 28px;
+  right: 28px;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--mood-a), transparent);
-  opacity: 0.6;
+  opacity: 0.5;
   pointer-events: none;
 }
 
 .mood-lens__top {
+  grid-area: head;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.mood-lens__top .eyebrow {
+  color: var(--mood-a);
 }
 
 .mood-lens__top h2 {
   margin-top: 6px;
   color: $bone;
-  font-size: clamp(1.25rem, 2.1vw, 1.55rem);
-  line-height: 1.15;
+  font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.mood-lens__sub {
+  max-width: 500px;
+  margin-top: 7px;
+  color: $text-muted;
+  font-size: 0.84rem;
+  line-height: 1.55;
 }
 
 .mood-lens__signal {
@@ -49,15 +71,14 @@
   align-items: center;
   gap: 7px;
   flex: none;
-  padding: 7px 10px;
+  min-height: 32px;
+  padding: 6px 10px;
   border: 1px solid $border-soft;
   border-radius: 999px;
   background: rgba(245, 239, 230, 0.03);
-  color: $lilac;
-  font-family: $font-mono;
-  font-size: 0.55rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  color: rgba(245, 239, 230, 0.76);
+  font-size: 0.72rem;
+  line-height: 1.2;
   white-space: nowrap;
 }
 
@@ -76,7 +97,6 @@
 
 .mood-lens__signal.is-live .mood-lens__signal-dot {
   box-shadow: 0 0 0 4px rgba(127, 209, 174, 0.1);
-  animation: lens-pulse 2.2s ease-in-out infinite;
 }
 
 .mood-lens__signal.is-error {
@@ -86,14 +106,17 @@
 }
 
 .mood-lens__stage {
+  grid-area: stage;
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  border: 1px solid rgba(245, 239, 230, 0.08);
-  border-radius: 20px;
+  border: 1px solid rgba(245, 239, 230, 0.1);
+  border-radius: 18px;
   background:
     radial-gradient(circle at 50% 42%, $plum, $aubergine-deep 76%);
-  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.55);
+  box-shadow:
+    inset 0 0 60px rgba(0, 0, 0, 0.58),
+    0 18px 40px -30px rgba(0, 0, 0, 0.8);
 }
 
 .mood-lens__video {
@@ -126,17 +149,15 @@
 
 .mood-lens__veil p {
   color: $bone;
-  font-family: $font-mono;
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 0.88rem;
+  font-weight: 500;
 }
 
 .mood-lens__veil-hint {
-  max-width: 230px;
+  max-width: 240px;
   color: $lilac;
-  font-size: 0.72rem;
-  line-height: 1.5;
+  font-size: 0.78rem;
+  line-height: 1.55;
 }
 
 .mood-lens__veil-icon {
@@ -171,16 +192,14 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 9px;
+  padding: 6px 10px;
   border: 1px solid rgba(245, 239, 230, 0.1);
   border-radius: 999px;
-  background: rgba(19, 14, 26, 0.62);
+  background: rgba(19, 14, 26, 0.64);
   backdrop-filter: blur(10px);
   color: $bone;
-  font-family: $font-mono;
-  font-size: 0.52rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 0.7rem;
+  line-height: 1.2;
 }
 
 .mood-lens__standby span {
@@ -192,26 +211,23 @@
 
 .mood-lens__readout {
   position: absolute;
-  left: 12px;
   right: 12px;
   bottom: 12px;
+  left: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 8px 11px;
+  padding: 9px 11px;
   border: 1px solid rgba(245, 239, 230, 0.1);
   border-radius: 12px;
-  background: rgba(19, 14, 26, 0.68);
+  background: rgba(19, 14, 26, 0.7);
   backdrop-filter: blur(12px);
 }
 
 .mood-lens__readout > span {
-  color: $lilac;
-  font-family: $font-mono;
-  font-size: 0.5rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  color: rgba(245, 239, 230, 0.68);
+  font-size: 0.72rem;
 }
 
 .mood-lens__readout strong {
@@ -220,7 +236,7 @@
   gap: 7px;
   color: $bone;
   font-family: $font-display;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   font-weight: 500;
 }
 
@@ -231,17 +247,29 @@
   box-shadow: 0 0 0 3px rgba(245, 239, 230, 0.06);
 }
 
+.mood-lens__console {
+  grid-area: console;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid $border-soft;
+  border-radius: 18px;
+  background: rgba(19, 14, 26, 0.26);
+}
+
 .mood-lens__error {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
-  margin-top: 14px;
-  padding: 11px 12px;
+  gap: 9px;
+  padding: 10px 11px;
   border: 1px solid rgba(228, 138, 123, 0.25);
-  border-radius: 14px;
+  border-radius: 12px;
   background: rgba(228, 138, 123, 0.08);
   color: $danger-text;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   line-height: 1.5;
 }
 
@@ -259,51 +287,51 @@
 
 .mood-lens__error button {
   flex: none;
-  padding-bottom: 1px;
-  border-bottom: 1px solid rgba(245, 239, 230, 0.35);
+  min-height: 34px;
+  padding: 0 9px;
+  border: 1px solid rgba(255, 243, 235, 0.22);
+  border-radius: 7px;
   color: $bone;
-  font-family: $font-mono;
-  font-size: 0.55rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.74rem;
   cursor: pointer;
+}
+
+.mood-lens__error button:hover {
+  background: rgba(245, 239, 230, 0.07);
 }
 
 .mood-lens__controls {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: stretch;
   gap: 12px;
-  margin-top: 16px;
 }
 
 .mood-lens__status {
-  flex: 1 1 150px;
-  max-width: 58%;
-  color: $lilac;
-  font-size: 0.8rem;
-  line-height: 1.45;
+  color: $text-muted;
+  font-size: 0.82rem;
+  line-height: 1.55;
 }
 
 .mood-lens__detect {
-  flex: none;
+  width: 100%;
+  min-height: 46px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   padding: 11px 16px;
   border: 1px solid transparent;
-  border-radius: 999px;
-  background: $apricot;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #f7b977, $apricot 60%, #dc8d3d);
   color: $aubergine;
   font-family: $font-body;
-  font-size: 0.8rem;
+  font-size: 0.86rem;
   font-weight: 600;
   cursor: pointer;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.4),
-    0 8px 20px -8px rgba(242, 166, 90, 0.65);
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    0 10px 22px -10px rgba(242, 166, 90, 0.62);
   transition:
     background 0.2s ease,
     transform 0.2s $ease-out,
@@ -311,8 +339,8 @@
 }
 
 .mood-lens__detect:hover:not(:disabled) {
-  background: #f6b574;
   transform: translateY(-1px);
+  background: linear-gradient(180deg, #f9c98e, #f6b574 60%, #e09646);
 }
 
 .mood-lens__detect:active:not(:disabled) {
@@ -336,13 +364,12 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 8px 10px;
-  margin-top: 10px;
-  padding: 10px 12px;
+  padding: 10px 11px;
   border: 1px dashed rgba(228, 138, 123, 0.3);
-  border-radius: 12px;
+  border-radius: 10px;
   background: rgba(228, 138, 123, 0.05);
   color: $danger-text;
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   line-height: 1.45;
 }
 
@@ -351,14 +378,17 @@
 }
 
 .mood-lens__playlist-error button {
-  padding-bottom: 1px;
-  border-bottom: 1px solid rgba(245, 239, 230, 0.35);
+  min-height: 34px;
+  padding: 0 9px;
+  border: 1px solid rgba(255, 243, 235, 0.22);
+  border-radius: 7px;
   color: $bone;
-  font-family: $font-mono;
-  font-size: 0.55rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.74rem;
   cursor: pointer;
+}
+
+.mood-lens__playlist-error button:hover {
+  background: rgba(245, 239, 230, 0.07);
 }
 
 .mood-lens__playlist-error button:disabled {
@@ -367,43 +397,47 @@
 }
 
 .mood-lens__history {
-  margin-top: 18px;
-  padding-top: 16px;
+  margin-top: auto;
+  padding-top: 13px;
   border-top: 1px solid $border-soft;
 }
 
 .mood-lens__history-head {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 9px;
+}
+
+.mood-lens__history-head .eyebrow {
+  color: rgba(245, 239, 230, 0.7);
+  font-size: 0.68rem;
 }
 
 .mood-lens__history-head > span {
-  color: rgba(167, 155, 181, 0.65);
+  color: rgba(167, 155, 181, 0.8);
   font-family: $font-mono;
-  font-size: 0.52rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 0.6rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .mood-trail {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
+  gap: 6px;
 }
 
 .mood-trail li {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
   padding: 6px 9px;
   border: 1px solid rgba(245, 239, 230, 0.09);
   border-radius: 999px;
   background: rgba(245, 239, 230, 0.04);
   color: $bone;
-  font-size: 0.73rem;
+  font-size: 0.72rem;
   line-height: 1.2;
 }
 
@@ -416,15 +450,15 @@
 }
 
 .mood-trail time {
-  color: $lilac;
+  color: rgba(167, 155, 181, 0.82);
   font-family: $font-mono;
-  font-size: 0.56rem;
-  letter-spacing: 0.02em;
+  font-size: 0.62rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .mood-lens__history-empty {
-  color: rgba(167, 155, 181, 0.78);
-  font-size: 0.78rem;
+  color: rgba(167, 155, 181, 0.84);
+  font-size: 0.8rem;
   line-height: 1.55;
 }
 
@@ -434,22 +468,30 @@
   }
 }
 
-@keyframes lens-pulse {
-  0%,
-  100% {
-    opacity: 1;
-    box-shadow: 0 0 0 4px rgba(127, 209, 174, 0.1);
+@media (max-width: 980px) {
+  .mood-lens {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "head"
+      "stage"
+      "console";
+    max-width: 760px;
   }
-  50% {
-    opacity: 0.55;
-    box-shadow: 0 0 0 7px rgba(127, 209, 174, 0.02);
+
+  .mood-lens__console {
+    align-self: auto;
+  }
+
+  .mood-lens__history {
+    margin-top: 0;
   }
 }
 
 @media (max-width: 560px) {
   .mood-lens {
-    padding: 16px;
-    border-radius: 24px;
+    padding: 18px 16px;
+    border-radius: 22px;
+    gap: 16px;
   }
 
   .mood-lens::before {
@@ -457,37 +499,61 @@
     right: 18px;
   }
 
-  .mood-lens__top h2 {
-    font-size: 1.15rem;
-  }
-
-  .mood-lens__signal {
-    padding: 6px 8px;
-    font-size: 0.5rem;
-  }
-
-  .mood-lens__controls {
+  .mood-lens__top {
+    flex-wrap: wrap;
     gap: 10px;
   }
 
-  .mood-lens__status {
-    max-width: none;
-    font-size: 0.76rem;
+  .mood-lens__top h2 {
+    font-size: 1.36rem;
   }
 
-  .mood-lens__detect {
-    width: 100%;
-    padding: 11px 14px;
+  .mood-lens__sub {
+    font-size: 0.8rem;
+  }
+
+  .mood-lens__signal {
+    min-height: 30px;
+    padding: 6px 9px;
+    font-size: 0.68rem;
+  }
+
+  .mood-lens__stage {
+    aspect-ratio: 4 / 3;
+    border-radius: 15px;
   }
 
   .mood-lens__readout {
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-    padding: 7px 10px;
+    right: 9px;
+    bottom: 9px;
+    left: 9px;
+    padding: 8px 10px;
+  }
+
+  .mood-lens__readout > span {
+    font-size: 0.68rem;
   }
 
   .mood-lens__readout strong {
-    font-size: 0.84rem;
+    font-size: 0.86rem;
+  }
+
+  .mood-lens__console {
+    padding: 14px;
+    border-radius: 15px;
+  }
+
+  .mood-lens__detect {
+    min-height: 48px;
+  }
+
+  .mood-lens__error button,
+  .mood-lens__playlist-error button {
+    min-height: 44px;
+    padding: 0 12px;
+  }
+
+  .mood-lens__history-head .eyebrow {
+    font-size: 0.66rem;
   }
 }

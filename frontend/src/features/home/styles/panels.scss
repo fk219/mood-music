@@ -1,58 +1,67 @@
 @use "../../shared/styles/_tokens" as *;
 
-/* ---------- Manual check-in ---------- */
+/* ---------- Mood check-in ---------- */
 
 .check-in {
   position: relative;
+  width: 100%;
   max-width: 1180px;
-  margin: 0 auto clamp(32px, 4vw, 48px);
-  padding: clamp(18px, 2.6vw, 26px);
+  margin: 0 auto;
+  padding: clamp(22px, 2.7vw, 30px);
   display: grid;
-  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
   align-items: center;
-  gap: clamp(18px, 3vw, 34px);
+  gap: clamp(18px, 3vw, 36px);
   overflow: hidden;
   border: 1px solid $border-soft;
   border-radius: $radius-lg;
   background:
-    radial-gradient(560px 240px at 12% 0%, rgba(242, 166, 90, 0.08), transparent 70%),
-    linear-gradient(150deg, rgba(58, 43, 71, 0.82), rgba(34, 24, 44, 0.94));
+    radial-gradient(560px 240px at 8% 0%, rgba(242, 166, 90, 0.09), transparent 70%),
+    linear-gradient(150deg, rgba(58, 43, 71, 0.8), rgba(30, 21, 40, 0.94));
   box-shadow:
     inset 0 1px 0 rgba(245, 239, 230, 0.09),
     0 24px 60px -40px rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(16px);
-  animation: room-rise 0.65s $ease-out both;
 }
 
 .check-in::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 26px;
-  right: 26px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--mood-a), transparent);
-  opacity: 0.7;
+  top: 18px;
+  bottom: 18px;
+  left: 0;
+  width: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--mood-a) 18%,
+    var(--mood-b) 82%,
+    transparent
+  );
+  opacity: 0.8;
   pointer-events: none;
 }
 
 .check-in__copy {
   min-width: 0;
+  padding-left: 8px;
 }
 
 .check-in__copy h2 {
   margin-top: 6px;
   color: $bone;
-  font-size: clamp(1.35rem, 2.4vw, 1.8rem);
-  line-height: 1.12;
+  font-size: clamp(1.45rem, 2.5vw, 1.9rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
 .check-in__copy > p:last-child {
-  max-width: 390px;
-  margin-top: 8px;
+  max-width: 400px;
+  margin-top: 9px;
   color: $text-muted;
-  font-size: 0.83rem;
-  line-height: 1.55;
+  font-size: 0.86rem;
+  line-height: 1.6;
 }
 
 .check-in__moods {
@@ -70,14 +79,14 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 48px;
-  padding: 10px 12px;
+  min-height: 50px;
+  padding: 10px 13px;
   border: 1px solid rgba(245, 239, 230, 0.1);
-  border-radius: 14px;
+  border-radius: 13px;
   background: rgba(245, 239, 230, 0.035);
   box-shadow: inset 0 1px 0 rgba(245, 239, 230, 0.05);
-  color: rgba(245, 239, 230, 0.82);
-  font-size: 0.8rem;
+  color: rgba(245, 239, 230, 0.84);
+  font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
   transition:
@@ -96,17 +105,21 @@
 }
 
 .mood-pick.is-active {
-  border-color: color-mix(in srgb, var(--pick-color) 70%, transparent);
+  border-color: color-mix(in srgb, var(--pick-color) 72%, transparent);
   background: color-mix(in srgb, var(--pick-color) 16%, rgba(245, 239, 230, 0.02));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 10px 26px -14px var(--pick-color);
+    0 12px 28px -16px var(--pick-color);
   color: $bone;
+}
+
+.mood-pick:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .mood-pick:disabled {
   cursor: progress;
-  opacity: 0.72;
+  opacity: 0.68;
 }
 
 .mood-pick__dot {
@@ -135,9 +148,9 @@
 .check-in__status {
   grid-column: 1 / -1;
   min-height: 1.1em;
-  margin-top: -4px;
+  margin-top: -6px;
   color: $lilac;
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   line-height: 1.4;
 }
 
@@ -146,10 +159,10 @@
 .room-panel {
   position: relative;
   min-width: 0;
-  padding: clamp(18px, 2.2vw, 24px);
+  padding: clamp(20px, 2.4vw, 28px);
   border: 1px solid $border-soft;
   border-radius: $radius-xl;
-  background: linear-gradient(165deg, rgba(58, 43, 71, 0.86), rgba(34, 24, 44, 0.96));
+  background: linear-gradient(165deg, rgba(55, 40, 68, 0.84), rgba(30, 21, 40, 0.96));
   box-shadow:
     inset 0 1px 0 rgba(245, 239, 230, 0.09),
     0 30px 80px -44px rgba(0, 0, 0, 0.85);
@@ -161,11 +174,11 @@
   content: "";
   position: absolute;
   top: 0;
-  left: 26px;
-  right: 26px;
+  left: 28px;
+  right: 28px;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--mood-a), transparent);
-  opacity: 0.5;
+  opacity: 0.45;
   pointer-events: none;
 }
 
@@ -173,23 +186,28 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 14px;
-  margin-bottom: 18px;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.room-panel__head .eyebrow {
+  color: var(--mood-a);
 }
 
 .room-panel__head h2 {
   margin-top: 6px;
   color: $bone;
-  font-size: clamp(1.25rem, 2vw, 1.5rem);
-  line-height: 1.16;
+  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
 .room-panel__sub {
-  max-width: 430px;
-  margin-top: 6px;
+  max-width: 480px;
+  margin-top: 7px;
   color: $text-muted;
-  font-size: 0.78rem;
-  line-height: 1.5;
+  font-size: 0.84rem;
+  line-height: 1.55;
 }
 
 .room-panel__state {
@@ -198,7 +216,7 @@
   gap: 10px;
   padding: 18px 4px;
   color: $lilac;
-  font-size: 0.8rem;
+  font-size: 0.84rem;
 }
 
 .room-panel__state--error {
@@ -212,14 +230,17 @@
 }
 
 .room-panel__state button {
-  padding-bottom: 1px;
-  border-bottom: 1px solid rgba(245, 239, 230, 0.4);
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid $border-strong;
+  border-radius: 8px;
   color: $bone;
-  font-family: $font-mono;
-  font-size: 0.56rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.78rem;
   cursor: pointer;
+}
+
+.room-panel__state button:hover {
+  background: rgba(245, 239, 230, 0.07);
 }
 
 .panel-spinner {
@@ -237,22 +258,22 @@
   justify-items: start;
   gap: 8px;
   padding: clamp(20px, 4vw, 36px) 4px;
-  max-width: 440px;
+  max-width: 460px;
   color: $text-muted;
-  font-size: 0.82rem;
+  font-size: 0.86rem;
   line-height: 1.6;
 }
 
 .room-panel__empty-title {
   color: $bone;
   font-family: $font-display;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
 }
 
 .room-panel__empty .button {
   margin-top: 8px;
   padding: 10px 15px;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
 }
 
 @keyframes panel-turn {
@@ -261,7 +282,7 @@
   }
 }
 
-/* ---------- Library ---------- */
+/* ---------- Library: the record shelf ---------- */
 
 .library-panel__actions {
   display: flex;
@@ -274,15 +295,14 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 8px 11px;
+  min-height: 38px;
+  padding: 8px 12px;
   border: 1px solid $border-soft;
   border-radius: 999px;
   background: rgba(245, 239, 230, 0.03);
   color: $lilac;
-  font-family: $font-mono;
-  font-size: 0.56rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 0.76rem;
+  font-weight: 500;
   cursor: pointer;
   transition:
     background 0.18s ease,
@@ -300,6 +320,10 @@
   color: $bone;
 }
 
+.panel-toggle:active {
+  transform: translateY(1px);
+}
+
 .panel-toggle.is-on {
   border-color: rgba(127, 209, 174, 0.35);
   background: rgba(127, 209, 174, 0.1);
@@ -308,15 +332,19 @@
 
 .library-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.55fr) minmax(210px, 0.85fr);
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 300px);
   align-items: start;
-  gap: clamp(16px, 2vw, 24px);
+  gap: clamp(18px, 2.4vw, 28px);
 }
 
 .library-scroll {
-  max-height: 476px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  align-content: start;
+  gap: 16px;
+  max-height: 640px;
   overflow-y: auto;
-  padding-right: 6px;
+  padding-right: 8px;
   scrollbar-width: thin;
   scrollbar-color: rgba(167, 155, 181, 0.4) transparent;
 }
@@ -330,22 +358,29 @@
   background: rgba(167, 155, 181, 0.32);
 }
 
-.library-group + .library-group {
-  margin-top: 18px;
-  padding-top: 16px;
-  border-top: 1px solid $border-soft;
+.library-group {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid $border-soft;
+  border-radius: 16px;
+  background: linear-gradient(
+    165deg,
+    rgba(245, 239, 230, 0.028),
+    rgba(19, 14, 26, 0.14)
+  );
 }
 
 .library-group__head {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 9px;
+  margin-bottom: 12px;
 }
 
 .library-group__dot {
   width: 7px;
   height: 7px;
+  flex: none;
   border-radius: 50%;
   box-shadow: 0 0 0 3px rgba(245, 239, 230, 0.05);
 }
@@ -353,28 +388,27 @@
 .library-group__head h3 {
   color: $bone;
   font-family: $font-display;
-  font-size: 0.98rem;
+  font-size: 1.04rem;
   font-weight: 500;
 }
 
 .library-group__count {
   margin-left: 2px;
-  color: rgba(167, 155, 181, 0.65);
-  font-family: $font-mono;
-  font-size: 0.5rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  color: rgba(167, 155, 181, 0.82);
+  font-size: 0.7rem;
 }
 
 .library-group__play {
-  width: 27px;
-  height: 27px;
+  min-height: 34px;
   margin-left: auto;
-  display: grid;
-  place-items: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
   border: 1px solid $border-soft;
-  border-radius: 50%;
+  border-radius: 999px;
   color: $lilac;
+  font-size: 0.72rem;
   cursor: pointer;
   transition:
     background 0.18s ease,
@@ -393,52 +427,80 @@
   color: $bone;
 }
 
-.track-list {
-  display: grid;
-  gap: 5px;
+.library-group__play:active {
+  transform: translateY(1px);
 }
 
-.track-row {
+.record-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(138px, 1fr));
+  gap: clamp(10px, 1.4vw, 16px);
+}
+
+.record-card {
   width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 7px 9px 7px 7px;
-  border: 1px solid transparent;
-  border-radius: 12px;
-  background: rgba(245, 239, 230, 0.025);
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 0;
+  border-radius: 14px;
   color: inherit;
   text-align: left;
   cursor: pointer;
-  transition:
-    background 0.16s ease,
-    border-color 0.16s ease,
-    transform 0.16s $ease-out;
 }
 
-.track-row:hover {
-  transform: translateX(2px);
-  border-color: $border-soft;
-  background: rgba(245, 239, 230, 0.06);
+.record-card:focus-visible {
+  outline: 2px solid $apricot;
+  outline-offset: 3px;
 }
 
-.track-row.is-current {
-  border-color: color-mix(in srgb, var(--mood-a) 45%, transparent);
-  background: color-mix(in srgb, var(--mood-a) 9%, rgba(245, 239, 230, 0.02));
-}
-
-.track-art {
+.record-card__art {
   position: relative;
-  width: 40px;
-  height: 40px;
-  flex: none;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
   overflow: hidden;
-  border: 1px solid rgba(245, 239, 230, 0.08);
-  border-radius: 10px;
+  border: 1px solid rgba(245, 239, 230, 0.1);
+  border-radius: 13px;
+  background: $aubergine-deep;
+  box-shadow:
+    inset 0 1px 0 rgba(245, 239, 230, 0.08),
+    0 12px 22px -14px rgba(0, 0, 0, 0.9);
+  transition:
+    transform 0.22s $ease-out,
+    border-color 0.2s ease,
+    box-shadow 0.22s ease;
+}
+
+.record-card:hover .record-card__art {
+  transform: translateY(-3px);
+  border-color: rgba(245, 239, 230, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(245, 239, 230, 0.1),
+    0 20px 34px -18px rgba(0, 0, 0, 0.95);
+}
+
+.record-card:active .record-card__art {
+  transform: translateY(-1px) scale(0.995);
+}
+
+.record-card.is-current .record-card__art {
+  border-color: color-mix(in srgb, var(--mood-a) 58%, transparent);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--mood-a) 30%, transparent),
+    0 16px 30px -18px color-mix(in srgb, var(--mood-a) 50%, transparent);
+}
+
+.record-card .track-art {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 0;
   background: $aubergine-deep;
 }
 
-.track-art img {
+.record-card .track-art img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -452,102 +514,143 @@
 }
 
 .track-art--fallback svg {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
 }
 
-.track-row__copy {
-  display: grid;
-  gap: 1px;
-  min-width: 0;
-  flex: 1;
+.record-card__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(10, 7, 14, 0.58));
+  pointer-events: none;
 }
 
-.track-row__copy strong {
-  overflow: hidden;
-  color: $bone;
-  font-size: 0.77rem;
-  font-weight: 500;
-  line-height: 1.3;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.track-row__copy > span {
-  color: $lilac;
-  font-family: $font-mono;
-  font-size: 0.5rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.track-row.is-current .track-row__copy > span {
-  color: var(--mood-a);
-}
-
-.track-row__action {
-  width: 24px;
-  height: 24px;
-  flex: none;
+.record-card__action {
+  position: absolute;
+  right: 9px;
+  bottom: 9px;
+  width: 34px;
+  height: 34px;
   display: grid;
   place-items: center;
-  color: rgba(167, 155, 181, 0.7);
+  border: 1px solid rgba(245, 239, 230, 0.2);
+  border-radius: 50%;
+  background: rgba(19, 14, 26, 0.78);
+  backdrop-filter: blur(10px);
+  color: $bone;
+  transition:
+    transform 0.2s $ease-out,
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 
-.track-row__action svg {
-  width: 13px;
-  height: 13px;
+.record-card__action svg {
+  width: 14px;
+  height: 14px;
 }
 
-.track-row.is-current .track-row__action {
+.record-card:hover .record-card__action {
+  transform: scale(1.08);
+  border-color: color-mix(in srgb, var(--mood-a) 55%, transparent);
+  background: color-mix(in srgb, var(--mood-a) 30%, rgba(19, 14, 26, 0.86));
+}
+
+.record-card.is-current .record-card__action {
+  border-color: color-mix(in srgb, var(--mood-a) 60%, transparent);
   color: var(--mood-a);
 }
 
-.track-row__bars {
+.record-card__now {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  padding: 5px 8px;
+  border: 1px solid rgba(245, 239, 230, 0.16);
+  border-radius: 999px;
+  background: rgba(19, 14, 26, 0.78);
+  backdrop-filter: blur(10px);
+  color: $bone;
+  font-size: 0.64rem;
+  line-height: 1.2;
+}
+
+.record-card__copy {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.record-card__copy strong {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: rgba(245, 239, 230, 0.9);
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  transition: color 0.18s ease;
+}
+
+.record-card:hover .record-card__copy strong {
+  color: $bone;
+}
+
+.record-card__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(167, 155, 181, 0.86);
+  font-size: 0.68rem;
+  line-height: 1.3;
+}
+
+.record-card.is-current .record-card__meta {
+  color: var(--mood-a);
+}
+
+.record-card__dot {
+  width: 5px;
+  height: 5px;
+  flex: none;
+  border-radius: 50%;
+}
+
+.record-card__bars {
   display: flex;
   align-items: flex-end;
   gap: 2px;
   height: 13px;
 }
 
-.track-row__bars span {
+.record-card__bars span {
   width: 3px;
   border-radius: 2px;
   background: currentColor;
-  animation: track-equalizer 0.9s ease-in-out infinite alternate;
 }
 
-.track-row__bars span:nth-child(1) {
+.record-card__bars span:nth-child(1) {
   height: 55%;
-  animation-delay: -0.2s;
 }
 
-.track-row__bars span:nth-child(2) {
+.record-card__bars span:nth-child(2) {
   height: 100%;
 }
 
-.track-row__bars span:nth-child(3) {
+.record-card__bars span:nth-child(3) {
   height: 70%;
-  animation-delay: -0.45s;
 }
 
-@keyframes track-equalizer {
-  from {
-    transform: scaleY(0.45);
-  }
-  to {
-    transform: scaleY(1);
-  }
-}
-
-/* ---------- Queue ---------- */
+/* ---------- Queue panel ---------- */
 
 .queue-panel {
-  padding: 14px;
+  position: sticky;
+  top: 24px;
+  padding: 16px;
   border: 1px solid $border-soft;
   border-radius: 18px;
-  background:
-    linear-gradient(180deg, rgba(19, 14, 26, 0.36), rgba(19, 14, 26, 0.16));
+  background: linear-gradient(180deg, rgba(19, 14, 26, 0.4), rgba(19, 14, 26, 0.18));
 }
 
 .queue-panel__head {
@@ -558,10 +661,14 @@
   margin-bottom: 12px;
 }
 
+.queue-panel__head .eyebrow {
+  color: var(--mood-a);
+}
+
 .queue-panel__head h3 {
   margin-top: 4px;
   color: $bone;
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 500;
 }
 
@@ -570,24 +677,25 @@
   padding: 5px 8px;
   border: 1px solid $border-soft;
   border-radius: 999px;
-  color: $lilac;
+  color: rgba(245, 239, 230, 0.72);
   font-family: $font-mono;
-  font-size: 0.52rem;
-  letter-spacing: 0.08em;
+  font-size: 0.6rem;
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
 .queue-list {
   display: grid;
-  gap: 4px;
+  gap: 3px;
 }
 
 .queue-row {
   width: 100%;
+  min-height: 44px;
   display: flex;
   align-items: center;
   gap: 9px;
-  padding: 7px 6px;
+  padding: 7px 7px;
   border-radius: 9px;
   color: inherit;
   text-align: left;
@@ -599,40 +707,43 @@
   background: rgba(245, 239, 230, 0.06);
 }
 
+.queue-row:active {
+  transform: translateY(1px);
+}
+
 .queue-row__index {
   flex: none;
-  color: rgba(167, 155, 181, 0.55);
+  color: rgba(167, 155, 181, 0.72);
   font-family: $font-mono;
-  font-size: 0.52rem;
+  font-size: 0.6rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .queue-row__copy {
   display: grid;
+  gap: 2px;
   min-width: 0;
 }
 
 .queue-row__copy strong {
   overflow: hidden;
-  color: rgba(245, 239, 230, 0.84);
-  font-size: 0.71rem;
+  color: rgba(245, 239, 230, 0.86);
+  font-size: 0.76rem;
   font-weight: 500;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .queue-row__copy span {
-  color: rgba(167, 155, 181, 0.6);
-  font-family: $font-mono;
-  font-size: 0.46rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  color: rgba(167, 155, 181, 0.78);
+  font-size: 0.68rem;
 }
 
 .queue-panel__empty {
   padding: 8px 4px 12px;
   color: $text-muted;
-  font-size: 0.73rem;
-  line-height: 1.5;
+  font-size: 0.78rem;
+  line-height: 1.55;
 }
 
 .queue-panel__empty strong {
@@ -650,19 +761,17 @@
 }
 
 .queue-panel__foot button {
+  min-height: 38px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
-  padding: 8px 6px;
+  padding: 8px 8px;
   border: 1px solid $border-soft;
   border-radius: 9px;
   background: rgba(245, 239, 230, 0.035);
   color: $lilac;
-  font-family: $font-mono;
-  font-size: 0.5rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 0.74rem;
   cursor: pointer;
   transition:
     background 0.18s ease,
@@ -681,6 +790,10 @@
   color: $bone;
 }
 
+.queue-panel__foot button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
 .queue-panel__foot button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
@@ -688,16 +801,14 @@
 
 .queue-panel__mood {
   width: 100%;
+  min-height: 40px;
   margin-top: 7px;
   padding: 9px 8px;
-  border: 1px dashed rgba(242, 166, 90, 0.28);
+  border: 1px dashed rgba(242, 166, 90, 0.3);
   border-radius: 9px;
   color: $apricot;
-  font-family: $font-mono;
-  font-size: 0.5rem;
-  letter-spacing: 0.08em;
+  font-size: 0.73rem;
   line-height: 1.4;
-  text-transform: uppercase;
   cursor: pointer;
   transition:
     background 0.18s ease,
@@ -705,8 +816,12 @@
 }
 
 .queue-panel__mood:hover:not(:disabled) {
-  border-color: rgba(242, 166, 90, 0.5);
+  border-color: rgba(242, 166, 90, 0.55);
   background: rgba(242, 166, 90, 0.07);
+}
+
+.queue-panel__mood:active:not(:disabled) {
+  transform: translateY(1px);
 }
 
 .queue-panel__mood:disabled {
@@ -714,30 +829,63 @@
   cursor: not-allowed;
 }
 
-/* ---------- Journal ---------- */
+/* ---------- Journal: the private notebook ---------- */
 
 .journal-panel__badge {
   flex: none;
-  padding: 6px 9px;
+  padding: 6px 10px;
   border: 1px solid $border-soft;
   border-radius: 999px;
-  color: $lilac;
+  color: rgba(245, 239, 230, 0.76);
   font-family: $font-mono;
-  font-size: 0.52rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 0.62rem;
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
 .journal-warning {
   margin-bottom: 12px;
-  padding: 8px 10px;
+  padding: 9px 11px;
   border: 1px dashed rgba(228, 138, 123, 0.3);
   border-radius: 10px;
   background: rgba(228, 138, 123, 0.06);
   color: $danger-text;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   line-height: 1.45;
+}
+
+.journal-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(310px, 0.92fr);
+  align-items: start;
+  gap: clamp(18px, 2.4vw, 26px);
+}
+
+.journal-overview {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+
+.journal-chart-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.journal-chart-head h3 {
+  color: $bone;
+  font-family: $font-display;
+  font-size: 0.96rem;
+  font-weight: 500;
+}
+
+.journal-chart-head span {
+  color: rgba(167, 155, 181, 0.8);
+  font-family: $font-mono;
+  font-size: 0.64rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .journal-week-wrap {
@@ -746,29 +894,37 @@
 }
 
 .journal-week {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: clamp(4px, 1vw, 8px);
-  height: 142px;
-  padding: 10px 10px 8px;
+  gap: clamp(4px, 1vw, 9px);
+  height: 194px;
+  padding: 12px 12px 10px;
   border: 1px solid $border-soft;
-  border-radius: 16px;
-  background: rgba(19, 14, 26, 0.28);
+  border-radius: 18px;
+  background:
+    repeating-linear-gradient(
+      to top,
+      transparent 0 calc(25% - 1px),
+      rgba(245, 239, 230, 0.045) calc(25% - 1px) 25%
+    ),
+    rgba(19, 14, 26, 0.3);
 }
 
 .journal-day {
   min-width: 0;
   display: grid;
-  grid-template-rows: 15px minmax(0, 1fr) 17px;
+  grid-template-rows: 16px minmax(0, 1fr) 18px;
   align-items: end;
   justify-items: center;
-  gap: 3px;
+  gap: 4px;
 }
 
 .journal-day__count {
-  color: rgba(245, 239, 230, 0.7);
+  color: rgba(245, 239, 230, 0.78);
   font-family: $font-mono;
-  font-size: 0.48rem;
+  font-size: 0.62rem;
+  font-variant-numeric: tabular-nums;
   line-height: 1;
 }
 
@@ -780,105 +936,110 @@
   justify-content: flex-start;
   gap: 0;
   overflow: hidden;
-  border-radius: 6px;
-  background: rgba(245, 239, 230, 0.045);
+  border-radius: 7px;
+  background: rgba(245, 239, 230, 0.04);
   box-shadow: inset 0 0 0 1px rgba(245, 239, 230, 0.03);
 }
 
 .journal-day__bar > span:not(.journal-day__empty) {
   width: 100%;
   flex: none;
-  border-top: 1px solid rgba(19, 14, 26, 0.28);
+  border-top: 1px solid rgba(19, 14, 26, 0.26);
   transition: height 0.4s $ease-out;
 }
 
 .journal-day__empty {
   width: 100%;
-  height: 2px;
+  height: 3px;
   margin-top: auto;
-  background: rgba(167, 155, 181, 0.14);
+  border-radius: 999px;
+  background: rgba(167, 155, 181, 0.16);
 }
 
 .journal-day__label {
-  color: rgba(167, 155, 181, 0.7);
-  font-family: $font-mono;
-  font-size: 0.48rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  color: rgba(167, 155, 181, 0.86);
+  font-size: 0.68rem;
+  line-height: 1.2;
 }
 
 .journal-day.is-today .journal-day__label {
   color: var(--mood-a);
+  font-weight: 600;
 }
 
 .journal-day.is-today .journal-day__bar {
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mood-a) 28%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mood-a) 34%, transparent);
 }
 
 .journal-dominant {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border: 1px solid $border-soft;
-  border-radius: 14px;
-  background: rgba(245, 239, 230, 0.03);
+  gap: 11px;
+  padding: 13px 14px;
+  border: 1px solid color-mix(in srgb, var(--dominant-color) 28%, transparent);
+  border-radius: 15px;
+  background:
+    radial-gradient(
+      260px 100px at 0% 0%,
+      color-mix(in srgb, var(--dominant-color) 13%, transparent),
+      transparent 74%
+    ),
+    rgba(245, 239, 230, 0.025);
 }
 
 .journal-dominant__dot {
-  width: 11px;
-  height: 11px;
+  width: 12px;
+  height: 12px;
   flex: none;
   border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(245, 239, 230, 0.05);
+  background: var(--dominant-color);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--dominant-color) 14%, transparent);
 }
 
 .journal-dominant div {
   display: grid;
+  gap: 2px;
   min-width: 0;
 }
 
 .journal-dominant p {
-  color: $lilac;
-  font-family: $font-mono;
-  font-size: 0.48rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  color: rgba(245, 239, 230, 0.68);
+  font-size: 0.7rem;
 }
 
 .journal-dominant strong {
   color: $bone;
   font-family: $font-display;
-  font-size: 0.98rem;
+  font-size: 1.18rem;
   font-weight: 500;
+  line-height: 1.15;
 }
 
 .journal-dominant__count {
   margin-left: auto;
-  color: $lilac;
-  font-family: $font-mono;
-  font-size: 0.5rem;
-  letter-spacing: 0.04em;
+  color: rgba(245, 239, 230, 0.7);
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
 .journal-counts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 5px;
-  margin-top: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: 6px;
 }
 
 .journal-counts li {
+  min-height: 36px;
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 8px;
+  padding: 7px 9px;
   border: 1px solid $border-soft;
   border-radius: 9px;
   background: rgba(245, 239, 230, 0.025);
-  color: rgba(245, 239, 230, 0.78);
-  font-size: 0.65rem;
+  color: rgba(245, 239, 230, 0.8);
+  font-size: 0.72rem;
 }
 
 .journal-counts__dot {
@@ -893,14 +1054,17 @@
   margin-left: auto;
   color: $bone;
   font-family: $font-mono;
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   font-weight: 500;
+  font-variant-numeric: tabular-nums;
 }
 
 .journal-recent {
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid $border-soft;
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid $border-soft;
+  border-radius: 18px;
+  background: rgba(19, 14, 26, 0.24);
 }
 
 .journal-recent__head {
@@ -908,37 +1072,40 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 10px;
-  margin-bottom: 9px;
+  margin-bottom: 6px;
 }
 
 .journal-recent__head h3 {
   color: $bone;
   font-family: $font-display;
-  font-size: 0.9rem;
+  font-size: 0.96rem;
   font-weight: 500;
 }
 
 .journal-recent__head span {
-  color: rgba(167, 155, 181, 0.6);
+  color: rgba(167, 155, 181, 0.8);
   font-family: $font-mono;
-  font-size: 0.48rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 0.62rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .journal-entries {
   display: grid;
-  gap: 2px;
 }
 
 .journal-entries li {
   display: grid;
   grid-template-columns: 7px minmax(0, 1fr) auto auto;
   align-items: center;
-  gap: 7px;
-  padding: 6px 5px;
-  border-radius: 8px;
-  font-size: 0.69rem;
+  gap: 8px;
+  min-height: 42px;
+  padding: 8px 4px;
+  border-top: 1px solid rgba(245, 239, 230, 0.05);
+  font-size: 0.76rem;
+}
+
+.journal-entries li:first-child {
+  border-top: 0;
 }
 
 .journal-entries li:hover {
@@ -952,62 +1119,125 @@
 }
 
 .journal-entries__mood {
-  color: rgba(245, 239, 230, 0.85);
+  color: rgba(245, 239, 230, 0.88);
   font-weight: 500;
 }
 
 .journal-entries__source {
-  padding: 3px 6px;
+  padding: 3px 7px;
   border: 1px solid $border-soft;
   border-radius: 999px;
-  color: $lilac;
-  font-family: $font-mono;
-  font-size: 0.44rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  color: rgba(245, 239, 230, 0.7);
+  font-size: 0.66rem;
+  line-height: 1.3;
   white-space: nowrap;
 }
 
 .journal-entries__source.is-camera {
-  border-color: rgba(127, 209, 174, 0.22);
+  border-color: rgba(127, 209, 174, 0.24);
   color: $mint;
 }
 
 .journal-entries__source.is-manual {
-  border-color: rgba(242, 166, 90, 0.24);
+  border-color: rgba(242, 166, 90, 0.26);
   color: $apricot;
 }
 
 .journal-entries time {
-  color: rgba(167, 155, 181, 0.62);
+  color: rgba(167, 155, 181, 0.82);
   font-family: $font-mono;
-  font-size: 0.48rem;
+  font-size: 0.64rem;
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
 .journal-recent__empty {
+  padding: 6px 0 4px;
   color: $text-muted;
-  font-size: 0.76rem;
-  line-height: 1.55;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.journal-blank {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: center;
+  gap: clamp(24px, 3.4vw, 44px);
+  padding: clamp(22px, 3vw, 34px);
+  border: 1px solid $border-soft;
+  border-radius: 20px;
+  background:
+    radial-gradient(420px 230px at 0% 0%, rgba(242, 166, 90, 0.07), transparent 70%),
+    rgba(19, 14, 26, 0.22);
+}
+
+.journal-blank__chart {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: end;
+  gap: 7px;
+  height: 170px;
+  padding: 16px;
+  border: 1px solid rgba(245, 239, 230, 0.06);
+  border-radius: 16px;
+  background: rgba(19, 14, 26, 0.3);
+}
+
+.journal-blank__chart span {
+  height: 100%;
+  border: 1px dashed rgba(245, 239, 230, 0.12);
+  border-radius: 7px;
+  background: linear-gradient(
+    180deg,
+    rgba(245, 239, 230, 0.02),
+    rgba(245, 239, 230, 0.045)
+  );
+}
+
+.journal-blank__copy .eyebrow {
+  color: $apricot;
+}
+
+.journal-blank__copy h3 {
+  margin-top: 6px;
+  color: $bone;
+  font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+  line-height: 1.1;
+}
+
+.journal-blank__copy p {
+  max-width: 440px;
+  margin-top: 9px;
+  color: $text-muted;
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.journal-blank__copy .button {
+  margin-top: 16px;
+  padding: 11px 16px;
+  font-size: 0.84rem;
 }
 
 .journal-clear {
-  margin-top: 14px;
-  padding-top: 12px;
+  margin-top: 18px;
+  padding-top: 14px;
   border-top: 1px solid $border-soft;
 }
 
 .journal-clear__button {
+  min-height: 38px;
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 7px 0;
-  color: rgba(228, 138, 123, 0.82);
-  font-family: $font-mono;
-  font-size: 0.52rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  padding: 7px 9px;
+  border-radius: 8px;
+  color: rgba(228, 138, 123, 0.88);
+  font-size: 0.76rem;
   cursor: pointer;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
 }
 
 .journal-clear__button svg {
@@ -1016,6 +1246,7 @@
 }
 
 .journal-clear__button:hover:not(:disabled) {
+  background: rgba(228, 138, 123, 0.07);
   color: $danger-text;
 }
 
@@ -1029,24 +1260,40 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  font-size: 0.7rem;
+  font-size: 0.76rem;
 }
 
 .journal-clear__confirm p {
-  flex: 1 1 150px;
+  flex: 1 1 170px;
   color: $danger-text;
   line-height: 1.4;
 }
 
 .journal-clear__confirm button {
-  padding: 7px 10px;
+  min-height: 36px;
+  padding: 7px 11px;
   border: 1px solid $border-soft;
   border-radius: 8px;
-  font-family: $font-mono;
-  font-size: 0.48rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 0.74rem;
   cursor: pointer;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.journal-clear__confirm button:hover:not(:disabled) {
+  border-color: $border-strong;
+  background: rgba(245, 239, 230, 0.06);
+}
+
+.journal-clear__confirm button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.journal-clear__confirm button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .journal-clear__danger {
@@ -1062,22 +1309,35 @@
 .journal-clear__error {
   margin-top: 7px;
   color: $danger-text;
-  font-size: 0.7rem;
+  font-size: 0.74rem;
 }
 
 /* ---------- Responsive ---------- */
 
-@media (max-width: 1100px) {
+@media (max-width: 1180px) {
+  .library-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 280px);
+  }
+
+  .record-grid {
+    grid-template-columns: repeat(auto-fill, minmax(126px, 1fr));
+  }
+}
+
+@media (max-width: 1080px) {
   .library-layout {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .library-scroll {
-    max-height: 380px;
+  .queue-panel {
+    position: static;
   }
 
-  .queue-panel {
-    display: grid;
+  .library-scroll {
+    max-height: 470px;
+  }
+
+  .journal-body {
     grid-template-columns: minmax(0, 1fr);
   }
 }
@@ -1092,14 +1352,44 @@
   }
 
   .check-in__copy > p:last-child {
-    max-width: 520px;
+    max-width: 540px;
+  }
+
+  .journal-blank {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .journal-blank__chart {
+    height: 120px;
+  }
+}
+
+@media (max-width: 700px) {
+  .record-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .journal-week {
+    height: 172px;
   }
 }
 
 @media (max-width: 560px) {
   .check-in {
-    padding: 16px;
+    padding: 18px 16px 14px;
     border-radius: 20px;
+  }
+
+  .check-in__copy {
+    padding-left: 4px;
+  }
+
+  .check-in__copy h2 {
+    font-size: 1.45rem;
+  }
+
+  .check-in__copy > p:last-child {
+    font-size: 0.82rem;
   }
 
   .check-in__moods {
@@ -1109,14 +1399,19 @@
   .mood-pick {
     flex: 1 1 calc(50% - 6px);
     max-width: none;
-    min-height: 44px;
+    min-height: 46px;
     padding: 8px 10px;
-    font-size: 0.76rem;
+    font-size: 0.78rem;
+  }
+
+  .check-in__status {
+    margin-top: 0;
+    font-size: 0.74rem;
   }
 
   .room-panel {
-    padding: 16px;
-    border-radius: 24px;
+    padding: 18px 16px;
+    border-radius: 22px;
   }
 
   .room-panel::before {
@@ -1126,35 +1421,136 @@
 
   .room-panel__head {
     flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .room-panel__head h2 {
+    font-size: 1.36rem;
+  }
+
+  .room-panel__sub {
+    font-size: 0.8rem;
   }
 
   .library-scroll {
-    max-height: 330px;
-  }
-
-  .panel-toggle span {
-    display: none;
+    max-height: none;
+    padding-right: 0;
+    overflow: visible;
   }
 
   .panel-toggle {
-    padding: 8px;
+    min-height: 44px;
+  }
+
+  .room-panel__state button {
+    min-height: 44px;
+  }
+
+  .mood-pick {
+    min-height: 44px;
+  }
+
+  .library-group__play {
+    min-height: 44px;
+  }
+
+  .record-card__action {
+    width: 38px;
+    height: 38px;
+  }
+
+  .record-card__copy strong {
+    font-size: 0.78rem;
+  }
+
+  .record-card__meta {
+    font-size: 0.66rem;
+  }
+
+  .queue-row {
+    min-height: 46px;
+  }
+
+  .queue-panel__foot button,
+  .queue-panel__mood {
+    min-height: 44px;
   }
 
   .journal-week {
-    height: 126px;
+    height: 156px;
     gap: 3px;
-    padding: 8px 7px 6px;
+    padding: 9px 8px 7px;
   }
 
-  .journal-entries li {
-    grid-template-columns: 7px minmax(0, 1fr) auto;
+  .journal-day__label {
+    font-size: 0.62rem;
   }
 
-  .journal-entries time {
-    display: none;
+  .journal-day__count {
+    font-size: 0.58rem;
+  }
+
+  .journal-dominant {
+    padding: 11px 12px;
   }
 
   .journal-dominant__count {
     display: none;
+  }
+
+  .journal-counts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .journal-recent {
+    padding: 15px 13px;
+  }
+
+  .journal-entries li {
+    grid-template-columns: 7px minmax(0, 1fr) auto;
+    grid-template-areas:
+      "dot mood source"
+      "dot time source";
+    align-items: center;
+    gap: 2px 7px;
+    min-height: 52px;
+  }
+
+  .journal-entries__dot {
+    grid-area: dot;
+  }
+
+  .journal-entries__mood {
+    grid-area: mood;
+  }
+
+  .journal-entries__source {
+    grid-area: source;
+  }
+
+  .journal-entries time {
+    grid-area: time;
+    display: block;
+    font-size: 0.6rem;
+  }
+
+  .journal-blank {
+    padding: 18px 16px 20px;
+  }
+
+  .journal-blank__chart {
+    height: 88px;
+    padding: 12px;
+    gap: 5px;
+  }
+
+  .journal-blank__copy .button {
+    width: 100%;
+    min-height: 46px;
+  }
+
+  .journal-clear__button {
+    min-height: 44px;
   }
 }

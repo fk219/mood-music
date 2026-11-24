@@ -28,6 +28,9 @@ const RoomHeader = ({ active = "room" }) => {
       <nav className="room-nav" aria-label="Room navigation">
         {inRoom ? (
           <>
+            <a href="#mood-checkin" className="room-nav__link room-nav__anchor">
+              Check-in
+            </a>
             <a href="#library" className="room-nav__link room-nav__anchor">
               Library
             </a>

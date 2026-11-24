@@ -89,6 +89,7 @@ const JournalPanel = () => {
     : null;
   const maxDay = Math.max(1, ...days.map((day) => day.total || 0));
   const today = todayKey();
+  const hasHistory = total > 0 || entries.length > 0;
 
   return (
     <section
@@ -98,14 +99,14 @@ const JournalPanel = () => {
     >
       <header className="room-panel__head">
         <div>
-          <p className="eyebrow">Mood journal</p>
-          <h2 id="journal-title">Your week</h2>
+          <p className="eyebrow">Private journal</p>
+          <h2 id="journal-title">Your week, in moods</h2>
           <p className="room-panel__sub">
-            Private to your account. Camera reads and manual check-ins build the
-            picture.
+            Only you can open this notebook. Camera reads and manual check-ins
+            build the picture.
           </p>
         </div>
-        <span className="journal-panel__badge">7 days</span>
+        <span className="journal-panel__badge">Last 7 days</span>
       </header>
 
       {loading && !summary && (
@@ -132,164 +133,212 @@ const JournalPanel = () => {
 
       {!error && summary && (
         <>
-          <div className="journal-week-wrap">
-            <div
-              className="journal-week"
-              role="img"
-              aria-label={`${total} mood check-ins across the last seven days`}
-            >
-              {days.map((day) => {
-                const isToday = day.date === today;
+          {hasHistory ? (
+            <div className="journal-body">
+              <div className="journal-overview">
+                <div className="journal-chart-head">
+                  <h3>Check-ins per day</h3>
+                  <span>Last 7 days</span>
+                </div>
 
-                return (
+                <div className="journal-week-wrap">
                   <div
-                    className={`journal-day${isToday ? " is-today" : ""}`}
-                    key={day.date}
-                    title={`${formatDay(day.date)}: ${day.total} check-in${day.total === 1 ? "" : "s"}`}
+                    className="journal-week"
+                    role="img"
+                    aria-label={`Mood check-ins across the last seven days: ${days
+                      .map((day) => `${formatDay(day.date)} ${day.total}`)
+                      .join(", ")}. ${total} total.`}
                   >
-                    <span className="journal-day__count" aria-hidden="true">
-                      {day.total || ""}
-                    </span>
-                    <div className="journal-day__bar" aria-hidden="true">
-                      {day.total > 0 ? (
-                        MOOD_KEYS.map((mood) => {
-                          const count = day.counts?.[mood] || 0;
-                          if (!count) return null;
+                    {days.map((day) => {
+                      const isToday = day.date === today;
 
-                          return (
-                            <span
-                              key={mood}
-                              style={{
-                                height: `${(count / maxDay) * 100}%`,
-                                backgroundColor: getMoodTheme(mood).color,
-                              }}
-                            />
-                          );
-                        })
-                      ) : (
-                        <span className="journal-day__empty" />
-                      )}
+                      return (
+                        <div
+                          className={`journal-day${isToday ? " is-today" : ""}`}
+                          key={day.date}
+                          title={`${formatDay(day.date)}: ${day.total} check-in${day.total === 1 ? "" : "s"}`}
+                        >
+                          <span className="journal-day__count" aria-hidden="true">
+                            {day.total || ""}
+                          </span>
+                          <div className="journal-day__bar" aria-hidden="true">
+                            {day.total > 0 ? (
+                              MOOD_KEYS.map((mood) => {
+                                const count = day.counts?.[mood] || 0;
+                                if (!count) return null;
+
+                                return (
+                                  <span
+                                    key={mood}
+                                    style={{
+                                      height: `${(count / maxDay) * 100}%`,
+                                      backgroundColor: getMoodTheme(mood).color,
+                                    }}
+                                  />
+                                );
+                              })
+                            ) : (
+                              <span className="journal-day__empty" />
+                            )}
+                          </div>
+                          <span className="journal-day__label">
+                            {formatDay(day.date)}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div
+                    className="journal-dominant"
+                    style={{
+                      "--dominant-color": dominant?.color || "#a79bb5",
+                    }}
+                  >
+                    <span
+                      className="journal-dominant__dot"
+                      aria-hidden="true"
+                    />
+                    <div>
+                      <p>Dominant mood</p>
+                      <strong>{dominant ? dominant.label : "No mood yet"}</strong>
                     </div>
-                    <span className="journal-day__label">
-                      {formatDay(day.date)}
+                    <span className="journal-dominant__count">
+                      {dominant
+                        ? `${counts[summary.dominantMood] || 0} check-ins`
+                        : "Start a read"}
                     </span>
                   </div>
-                );
-              })}
-            </div>
+                </div>
 
-            <div className="journal-dominant">
-              <span
-                className="journal-dominant__dot"
-                style={{ backgroundColor: dominant?.color || "#a79bb5" }}
-                aria-hidden="true"
-              />
-              <div>
-                <p>Dominant mood</p>
-                <strong>{dominant ? dominant.label : "No mood yet"}</strong>
+                <ul className="journal-counts" aria-label="Mood counts this week">
+                  {MOOD_KEYS.map((mood) => {
+                    const theme = getMoodTheme(mood);
+
+                    return (
+                      <li key={mood} style={{ "--count-color": theme.color }}>
+                        <span className="journal-counts__dot" aria-hidden="true" />
+                        <span>{theme.label}</span>
+                        <strong>{counts[mood] || 0}</strong>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
-              <span className="journal-dominant__count">
-                {dominant ? `${counts[summary.dominantMood] || 0} check-ins` : "Start a read"}
-              </span>
+
+              <div className="journal-recent">
+                <div className="journal-recent__head">
+                  <h3>Recent check-ins</h3>
+                  <span>Last 10</span>
+                </div>
+
+                {entries.length > 0 ? (
+                  <ul className="journal-entries">
+                    {entries.map((entry) => {
+                      const theme = getMoodTheme(entry.mood);
+
+                      return (
+                        <li key={entry.id}>
+                          <span
+                            className="journal-entries__dot"
+                            style={{ backgroundColor: theme.color }}
+                            aria-hidden="true"
+                          />
+                          <span className="journal-entries__mood">
+                            {theme.label}
+                          </span>
+                          <span
+                            className={`journal-entries__source is-${entry.source}`}
+                          >
+                            {SOURCE_LABEL[entry.source] || entry.source}
+                          </span>
+                          <time dateTime={entry.createdAt}>
+                            {formatEntryTime(entry.createdAt)}
+                          </time>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : (
+                  <p className="journal-recent__empty">
+                    Nothing logged yet. Pick a mood above or start a camera read
+                    and your week will start to fill in.
+                  </p>
+                )}
+              </div>
             </div>
-          </div>
-
-          <ul className="journal-counts" aria-label="Mood counts this week">
-            {MOOD_KEYS.map((mood) => {
-              const theme = getMoodTheme(mood);
-
-              return (
-                <li key={mood} style={{ "--count-color": theme.color }}>
-                  <span className="journal-counts__dot" aria-hidden="true" />
-                  <span>{theme.label}</span>
-                  <strong>{counts[mood] || 0}</strong>
-                </li>
-              );
-            })}
-          </ul>
-
-          <div className="journal-recent">
-            <div className="journal-recent__head">
-              <h3>Recent check-ins</h3>
-              <span>Last 10</span>
+          ) : (
+            <div className="journal-blank">
+              <div className="journal-blank__chart" aria-hidden="true">
+                {Array.from({ length: 7 }, (_, index) => (
+                  <span key={index} />
+                ))}
+              </div>
+              <div className="journal-blank__copy">
+                <p className="eyebrow">Fresh notebook</p>
+                <h3>Your week is a blank page.</h3>
+                <p>
+                  One check-in starts the notebook. Pick the mood closest to now
+                  and the room will begin to remember the week with you.
+                </p>
+                <a className="button" href="#mood-checkin">
+                  Choose a mood
+                </a>
+              </div>
             </div>
+          )}
 
-            {entries.length > 0 ? (
-              <ul className="journal-entries">
-                {entries.map((entry) => {
-                  const theme = getMoodTheme(entry.mood);
-
-                  return (
-                    <li key={entry.id}>
-                      <span
-                        className="journal-entries__dot"
-                        style={{ backgroundColor: theme.color }}
-                        aria-hidden="true"
-                      />
-                      <span className="journal-entries__mood">{theme.label}</span>
-                      <span className={`journal-entries__source is-${entry.source}`}>
-                        {SOURCE_LABEL[entry.source] || entry.source}
-                      </span>
-                      <time dateTime={entry.createdAt}>
-                        {formatEntryTime(entry.createdAt)}
-                      </time>
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : (
-              <p className="journal-recent__empty">
-                Nothing logged yet. Pick a mood above or start a camera read and
-                your week will start to fill in.
-              </p>
-            )}
-          </div>
-
-          <div className="journal-clear">
-            {confirming ? (
-              <div className="journal-clear__confirm" role="group" aria-label="Confirm clearing history">
-                <p>Clear every check-in? This can’t be undone.</p>
-                <button
-                  type="button"
-                  className="journal-clear__danger"
-                  onClick={handleClear}
-                  disabled={clearing}
+          {hasHistory && (
+            <div className="journal-clear">
+              {confirming ? (
+                <div
+                  className="journal-clear__confirm"
+                  role="group"
+                  aria-label="Confirm clearing history"
                 >
-                  {clearing ? "Clearing…" : "Yes, clear"}
-                </button>
+                  <p>Clear every check-in? This can’t be undone.</p>
+                  <button
+                    type="button"
+                    className="journal-clear__danger"
+                    onClick={handleClear}
+                    disabled={clearing}
+                  >
+                    {clearing ? "Clearing…" : "Yes, clear"}
+                  </button>
+                  <button
+                    type="button"
+                    className="journal-clear__cancel"
+                    onClick={() => {
+                      setConfirming(false);
+                      setClearError("");
+                    }}
+                    disabled={clearing}
+                  >
+                    Keep
+                  </button>
+                </div>
+              ) : (
                 <button
                   type="button"
-                  className="journal-clear__cancel"
+                  className="journal-clear__button"
                   onClick={() => {
-                    setConfirming(false);
                     setClearError("");
+                    setConfirming(true);
                   }}
-                  disabled={clearing}
+                  disabled={!hasHistory}
                 >
-                  Keep
+                  <TrashIcon />
+                  <span>Clear history</span>
                 </button>
-              </div>
-            ) : (
-              <button
-                type="button"
-                className="journal-clear__button"
-                onClick={() => {
-                  setClearError("");
-                  setConfirming(true);
-                }}
-                disabled={total === 0 && entries.length === 0}
-              >
-                <TrashIcon />
-                <span>Clear history</span>
-              </button>
-            )}
+              )}
 
-            {clearError && (
-              <p className="journal-clear__error" role="alert">
-                {clearError}
-              </p>
-            )}
-          </div>
+              {clearError && (
+                <p className="journal-clear__error" role="alert">
+                  {clearError}
+                </p>
+              )}
+            </div>
+          )}
         </>
       )}
     </section>

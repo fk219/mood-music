@@ -1,15 +1,17 @@
 @use "../../shared/styles/_tokens" as *;
 
 .home-page {
+  --player-reserve: 138px;
+
   position: relative;
+  isolation: isolate;
   min-height: 100dvh;
   overflow-x: clip;
-  padding: clamp(20px, 3vw, 34px) clamp(16px, 4vw, 56px) 168px;
+  padding: clamp(20px, 3vw, 34px) clamp(16px, 4vw, 56px)
+    calc(var(--player-reserve) + 34px);
   background:
-    radial-gradient(900px 620px at 74% -12%, rgba(167, 155, 181, 0.14), transparent 64%),
-    radial-gradient(700px 520px at 4% 105%, rgba(127, 209, 174, 0.055), transparent 62%),
-    radial-gradient(620px 440px at 100% 82%, rgba(242, 166, 90, 0.045), transparent 70%),
-    $aubergine;
+    radial-gradient(900px 680px at 60% -20%, rgba(167, 155, 181, 0.09), transparent 64%),
+    linear-gradient(180deg, #1e1528 0%, $aubergine 42%, $aubergine-deep 100%);
 }
 
 .home-page::before {
@@ -20,47 +22,106 @@
   pointer-events: none;
   background-image: radial-gradient(rgba(245, 239, 230, 0.14) 0.55px, transparent 0.55px);
   background-size: 4px 4px;
-  opacity: 0.16;
+  opacity: 0.13;
+}
+
+.room-ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.room-ambient__glow {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  filter: blur(120px);
+  transition: background-color 1.8s ease;
+  will-change: transform;
+}
+
+.room-ambient__glow--primary {
+  top: -24%;
+  left: 2%;
+  width: min(64vw, 840px);
+  aspect-ratio: 1;
+  background-color: var(--mood-a);
+  opacity: 0.18;
+  animation: room-ambient-drift 36s ease-in-out infinite alternate;
+}
+
+.room-ambient__glow--secondary {
+  right: -12%;
+  bottom: -28%;
+  width: min(52vw, 640px);
+  aspect-ratio: 1;
+  background-color: var(--mood-b);
+  opacity: 0.12;
+  animation: room-ambient-drift 46s ease-in-out infinite alternate-reverse;
+}
+
+.room-ambient__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(90% 62% at 58% 0%, rgba(19, 14, 26, 0.05), rgba(19, 14, 26, 0.72) 72%),
+    linear-gradient(180deg, rgba(19, 14, 26, 0.16), rgba(19, 14, 26, 0.44));
+}
+
+@keyframes room-ambient-drift {
+  from {
+    transform: translate3d(-3%, -2%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(5%, 4%, 0) scale(1.08);
+  }
 }
 
 .room-main {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(36px, 4.8vw, 64px);
 }
 
-.room {
+.room-main > .now-spinning,
+.room-main > .now-spinning--empty {
+  animation: room-rise 0.72s $ease-out both;
+}
+
+.room-main > .check-in {
+  animation: room-rise 0.72s 0.06s $ease-out both;
+}
+
+.room-tools {
+  width: 100%;
   max-width: 1180px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
-  align-items: start;
-  gap: clamp(28px, 4.5vw, 64px);
-}
-
-.room > * {
-  min-width: 0;
+  animation: room-rise 0.72s 0.12s $ease-out both;
 }
 
 .room-floor {
+  width: 100%;
   max-width: 1180px;
-  margin: clamp(38px, 5vw, 64px) auto 0;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
-  gap: clamp(20px, 3vw, 32px);
+  gap: clamp(24px, 3.2vw, 36px);
 }
 
 .room-floor > * {
   min-width: 0;
 }
 
-.room .now-spinning,
-.room .mood-lens {
-  animation: room-rise 0.7s $ease-out both;
-}
-
-.room .mood-lens {
-  animation-delay: 0.08s;
+#mood-checkin,
+#mood-lens,
+#library,
+#journal {
+  scroll-margin-top: 20px;
 }
 
 @keyframes room-rise {
@@ -74,26 +135,33 @@
   }
 }
 
-@media (max-width: 1040px) {
-  .room-floor {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-@media (max-width: 940px) {
+@media (max-width: 900px) {
   .home-page {
-    padding-bottom: 236px;
-  }
-
-  .room {
-    grid-template-columns: minmax(0, 1fr);
-    max-width: 640px;
-    gap: clamp(32px, 7vw, 48px);
+    --player-reserve: 154px;
   }
 }
 
 @media (max-width: 560px) {
   .home-page {
-    padding: 18px 16px 252px;
+    --player-reserve: 236px;
+    padding: 16px 14px calc(var(--player-reserve) + 26px);
+  }
+
+  .room-main {
+    gap: 30px;
+  }
+
+  .room-ambient__glow--primary {
+    top: -14%;
+    left: -24%;
+    width: 130vw;
+    opacity: 0.2;
+  }
+
+  .room-ambient__glow--secondary {
+    right: -34%;
+    bottom: -16%;
+    width: 110vw;
+    opacity: 0.1;
   }
 }

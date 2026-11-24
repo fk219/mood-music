@@ -83,16 +83,13 @@
 }
 
 .studio-intro__note {
-  max-width: 360px;
+  max-width: 380px;
   margin-top: 26px;
   padding-top: 16px;
   border-top: 1px solid $border-soft;
-  color: rgba(167, 155, 181, 0.7);
-  font-family: $font-mono;
-  font-size: 0.56rem;
-  letter-spacing: 0.07em;
+  color: rgba(167, 155, 181, 0.85);
+  font-size: 0.76rem;
   line-height: 1.6;
-  text-transform: uppercase;
 }
 
 .studio-card {
@@ -145,10 +142,7 @@
   border-radius: 999px;
   background: rgba(245, 239, 230, 0.03);
   color: rgba(245, 239, 230, 0.82);
-  font-family: $font-mono;
-  font-size: 0.54rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 0.72rem;
   white-space: nowrap;
 }
 
@@ -172,11 +166,9 @@
 
 .studio-fieldset legend {
   margin-bottom: 9px;
-  color: $lilac;
-  font-family: $font-mono;
-  font-size: 0.54rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  color: rgba(245, 239, 230, 0.74);
+  font-size: 0.78rem;
+  font-weight: 500;
 }
 
 .studio-moods {
@@ -190,7 +182,7 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  min-height: 42px;
+  min-height: 44px;
   padding: 8px 6px;
   border: 1px solid $border-soft;
   border-radius: 10px;
@@ -219,6 +211,11 @@
   border-color: color-mix(in srgb, var(--studio-mood) 62%, transparent);
   background: color-mix(in srgb, var(--studio-mood) 14%, transparent);
   color: $bone;
+}
+
+.studio-fieldset:disabled .studio-mood {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 .studio-mood__dot {
@@ -257,6 +254,10 @@
   background-color: rgba(19, 14, 26, 0.36);
 }
 
+.studio-dropzone:active {
+  transform: translateY(1px);
+}
+
 .studio-dropzone:focus-within {
   outline: 2px solid $apricot;
   outline-offset: 3px;
@@ -289,12 +290,14 @@
 }
 
 .studio-dropzone__hint {
-  color: rgba(167, 155, 181, 0.75);
-  font-family: $font-mono;
-  font-size: 0.5rem;
-  letter-spacing: 0.05em;
+  color: rgba(167, 155, 181, 0.88);
+  font-size: 0.74rem;
   line-height: 1.5;
-  text-transform: uppercase;
+}
+
+.studio-dropzone:has(input:disabled) {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .studio-form__error {
@@ -420,11 +423,8 @@
   display: inline-block;
   margin-top: 4px;
   color: $mint;
-  font-family: $font-mono;
-  font-size: 0.5rem;
-  letter-spacing: 0.06em;
+  font-size: 0.74rem;
   text-decoration: none;
-  text-transform: uppercase;
 }
 
 .studio-result__link:hover {

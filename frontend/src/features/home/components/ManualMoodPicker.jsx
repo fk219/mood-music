@@ -35,13 +35,18 @@ const ManualMoodPicker = () => {
   };
 
   return (
-    <section className="check-in" aria-labelledby="check-in-title">
+    <section
+      className="check-in"
+      id="mood-checkin"
+      aria-labelledby="check-in-title"
+      aria-busy={Boolean(busyMood)}
+    >
       <div className="check-in__copy">
-        <p className="eyebrow">Manual check-in</p>
+        <p className="eyebrow">Mood check-in</p>
         <h2 id="check-in-title">How does today feel?</h2>
         <p>
-          No camera needed. Pick a mood and the room tunes itself. The check-in
-          stays in your private journal.
+          Pick the mood closest to now and the room tunes itself. No camera
+          needed, and the check-in stays in your private journal.
         </p>
       </div>
 

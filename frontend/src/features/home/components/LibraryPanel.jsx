@@ -117,12 +117,14 @@ const LibraryPanel = () => {
     >
       <header className="room-panel__head">
         <div>
-          <p className="eyebrow">Track library</p>
+          <p className="eyebrow">Record shelf</p>
           <h2 id="library-title">Records by mood</h2>
           <p className="room-panel__sub">
-            {total > 0
-              ? `${total} tracks on the shelves. Pick one to set the queue.`
-              : "The shelves are waiting for their first record."}
+            {loading
+              ? "Reading the shelves…"
+              : total > 0
+                ? `${total} tracks on the shelves. Pick a cover to set the queue.`
+                : "The shelves are waiting for their first record."}
           </p>
         </div>
 
@@ -197,10 +199,11 @@ const LibraryPanel = () => {
                       aria-label={`Play all ${theme.label.toLowerCase()} tracks`}
                     >
                       <PlayIcon />
+                      <span>Play all</span>
                     </button>
                   </header>
 
-                  <ul className="track-list">
+                  <ul className="record-grid">
                     {tracks.map((track) => {
                       const isCurrent = song?.url === track.url;
 
@@ -208,31 +211,54 @@ const LibraryPanel = () => {
                         <li key={track._id || track.url}>
                           <button
                             type="button"
-                            className={`track-row${isCurrent ? " is-current" : ""}`}
+                            className={`record-card${isCurrent ? " is-current" : ""}`}
                             onClick={() => playTrack(track, tracks, mood)}
                             aria-label={
                               isCurrent
-                                ? `${track.title} is playing`
+                                ? `Play ${track.title} again`
                                 : `Play ${track.title}`
                             }
+                            aria-current={isCurrent ? "true" : undefined}
                           >
-                            <TrackArt src={track.posterImage} title={track.title} />
-                            <span className="track-row__copy">
-                              <strong title={track.title}>{track.title}</strong>
-                              <span>
-                                {isCurrent ? "Now playing" : theme.label}
+                            <span className="record-card__art">
+                              <TrackArt
+                                src={track.posterImage}
+                                title={track.title}
+                              />
+                              <span
+                                className="record-card__shade"
+                                aria-hidden="true"
+                              />
+                              <span
+                                className="record-card__action"
+                                aria-hidden="true"
+                              >
+                                {isCurrent ? (
+                                  <span className="record-card__bars">
+                                    <span />
+                                    <span />
+                                    <span />
+                                  </span>
+                                ) : (
+                                  <PlayIcon />
+                                )}
                               </span>
-                            </span>
-                            <span className="track-row__action" aria-hidden="true">
-                              {isCurrent ? (
-                                <span className="track-row__bars">
-                                  <span />
-                                  <span />
-                                  <span />
+                              {isCurrent && (
+                                <span className="record-card__now">
+                                  On the platter
                                 </span>
-                              ) : (
-                                <PlayIcon />
                               )}
+                            </span>
+                            <span className="record-card__copy">
+                              <strong title={track.title}>{track.title}</strong>
+                              <span className="record-card__meta">
+                                <span
+                                  className="record-card__dot"
+                                  style={{ backgroundColor: theme.color }}
+                                  aria-hidden="true"
+                                />
+                                {isCurrent ? "On the platter" : `${theme.label} record`}
+                              </span>
                             </span>
                           </button>
                         </li>
@@ -250,7 +276,7 @@ const LibraryPanel = () => {
                 <p className="eyebrow">Up next</p>
                 <h3>
                   {queueMood
-                    ? `${getMoodTheme(queueMood).label} queue`
+                    ? `${getMoodTheme(queueMood).label} set`
                     : "The queue"}
                 </h3>
               </div>
@@ -272,7 +298,11 @@ const LibraryPanel = () => {
                       </span>
                       <span className="queue-row__copy">
                         <strong title={track.title}>{track.title}</strong>
-                        <span>{track.mood ? getMoodTheme(track.mood).label : "Mood set"}</span>
+                        <span>
+                          {track.mood
+                            ? getMoodTheme(track.mood).label
+                            : "Mood set"}
+                        </span>
                       </span>
                     </button>
                   </li>
@@ -287,13 +317,11 @@ const LibraryPanel = () => {
                   </p>
                 ) : queue.length === 1 ? (
                   <p>
-                    One record in this mood. The room will loop it when it
-                    ends.
+                    One record in this mood. The room will loop it when it ends.
                   </p>
                 ) : (
                   <p>
-                    Pick a library track or run a mood check-in to build the
-                    queue.
+                    Pick a cover or run a mood check-in to build the queue.
                   </p>
                 )}
               </div>

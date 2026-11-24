@@ -21,13 +21,19 @@ const Home = () => {
       data-mood={mood}
       style={{ "--mood-a": theme.color, "--mood-b": theme.secondary }}
     >
+      <div className="room-ambient" aria-hidden="true">
+        <span className="room-ambient__glow room-ambient__glow--primary" />
+        <span className="room-ambient__glow room-ambient__glow--secondary" />
+        <span className="room-ambient__veil" />
+      </div>
+
       <RoomHeader active="room" />
 
       <main className="room-main">
+        <Player />
         <ManualMoodPicker />
 
-        <div className="room">
-          <Player />
+        <div className="room-tools">
           <FaceExpression />
         </div>
 

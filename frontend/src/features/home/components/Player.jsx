@@ -8,16 +8,19 @@ import {
 import { SongContext } from "../song.context";
 import { getMoodTheme, normalizeMood, SOURCE_LABEL } from "../moodTheme";
 import {
+  CloseIcon,
   MusicIcon,
   MutedIcon,
   NextIcon,
   PauseIcon,
   PlayIcon,
   PreviousIcon,
+  QueueIcon,
   RestartIcon,
   ShuffleIcon,
   VolumeIcon,
 } from "../../shared/components/Icons";
+import AudioHalo from "./AudioHalo";
 import "../styles/player.scss";
 
 const SPEEDS = [0.75, 1, 1.25, 1.5];
@@ -39,10 +42,12 @@ const Player = () => {
     requestMoodDetection,
     queue,
     queueIndex,
+    queueMood,
     shuffle,
     toggleShuffle,
     playNext,
     playPrevious,
+    playTrack,
     playHouseTrack,
     playSignal,
     fallbackNote,
@@ -50,6 +55,8 @@ const Player = () => {
 
   const audioRef = useRef(null);
   const playNextRef = useRef(playNext);
+  const queueButtonRef = useRef(null);
+  const queueCloseRef = useRef(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -59,6 +66,7 @@ const Player = () => {
   const [muted, setMuted] = useState(false);
   const [playbackError, setPlaybackError] = useState("");
   const [posterFailed, setPosterFailed] = useState(false);
+  const [queueOpen, setQueueOpen] = useState(false);
 
   useEffect(() => {
     playNextRef.current = playNext;
@@ -129,13 +137,6 @@ const Player = () => {
   }, []);
 
   useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    audio.volume = muted ? 0 : volume;
-    audio.muted = muted;
-  }, [volume, muted]);
-
-  useEffect(() => {
     if (audioRef.current) {
       audioRef.current.playbackRate = speed;
     }
@@ -154,6 +155,21 @@ const Player = () => {
       setPlaybackError("Your browser paused the room. Press play to start.");
     });
   }, [playSignal, song?.url]);
+
+  useEffect(() => {
+    if (!queueOpen) return undefined;
+
+    queueCloseRef.current?.focus();
+
+    const handleEscape = (event) => {
+      if (event.key !== "Escape") return;
+      setQueueOpen(false);
+      queueButtonRef.current?.focus();
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [queueOpen]);
 
   const togglePlayback = useCallback(async () => {
     const audio = audioRef.current;
@@ -273,6 +289,17 @@ const Player = () => {
     }
   };
 
+  const closeQueue = () => {
+    setQueueOpen(false);
+    queueButtonRef.current?.focus();
+  };
+
+  const handleQueueTrack = (track) => {
+    playTrack(track, queue, queueMood);
+    setQueueOpen(false);
+    queueButtonRef.current?.focus();
+  };
+
   const handleDetectRequest = () => {
     const reduceMotion = window.matchMedia?.(
       "(prefers-reduced-motion: reduce)",
@@ -305,17 +332,26 @@ const Player = () => {
   const sourceLabel = SOURCE_LABEL[moodSource] || "Shaped by the room";
   const progressPercent =
     duration > 0 ? Math.min(100, (progress / duration) * 100) : 0;
+  const queueTitle = queueMood
+    ? `${getMoodTheme(queueMood).label} set`
+    : "The queue";
 
   return (
     <>
       {song?.url ? (
         <section
           className={`now-spinning${isPlaying ? " is-playing" : ""}`}
-          aria-label="Now spinning"
+          aria-label="Now playing"
           aria-busy={loading}
         >
           <div className="now-spinning__platter">
             <div className="now-spinning__halo" aria-hidden="true" />
+            <AudioHalo
+              audioRef={audioRef}
+              mood={mood}
+              volume={volume}
+              muted={muted}
+            />
 
             <div className="now-spinning__ring">
               <div className="now-spinning__disc">
@@ -329,7 +365,7 @@ const Player = () => {
                   />
                 ) : (
                   <div
-                    className="now-spinning__art now-spinning__fallback"
+                    className="now-spinning__art now-spinning__fallback-art"
                     role="img"
                     aria-label={`Fallback artwork for ${song.title || "the current track"}`}
                   >
@@ -337,6 +373,7 @@ const Player = () => {
                   </div>
                 )}
                 <span className="now-spinning__grooves" aria-hidden="true" />
+                <span className="now-spinning__gloss" aria-hidden="true" />
                 <span className="now-spinning__spindle" aria-hidden="true" />
               </div>
             </div>
@@ -346,7 +383,7 @@ const Player = () => {
                 style={{ backgroundColor: getMoodTheme(mood).color }}
                 aria-hidden="true"
               />
-              Room · {getMoodTheme(mood).label}
+              Room mood: {getMoodTheme(mood).label}
             </span>
 
             {loading && (
@@ -358,24 +395,44 @@ const Player = () => {
           </div>
 
           <div className="now-spinning__meta">
-            <p className="eyebrow">Now spinning</p>
+            <p className="sr-only" aria-live="polite" aria-atomic="true">
+              {`Now playing ${song.title || "Moodify mix"}. ${songMoodLabel} set.`}
+            </p>
+
+            <div className="now-spinning__status">
+              <span
+                className={`now-spinning__status-dot${isPlaying ? " is-live" : ""}`}
+                aria-hidden="true"
+              />
+              <span>{isPlaying ? "Playing in the room" : "Paused on the platter"}</span>
+            </div>
+
+            <p className="eyebrow">Now playing</p>
             <h1 title={song.title}>{song.title || "Moodify mix"}</h1>
+
             <p className="now-spinning__sub">
-              <span>{songMoodLabel} mix</span>
-              <span className="now-spinning__dot" aria-hidden="true" />
+              <span className="now-spinning__mood-pill">
+                <span
+                  style={{ backgroundColor: getMoodTheme(mood).color }}
+                  aria-hidden="true"
+                />
+                {songMoodLabel} set
+              </span>
               <span>{sourceLabel}</span>
               {queue.length > 1 && (
-                <>
-                  <span className="now-spinning__dot" aria-hidden="true" />
-                  <span>
-                    {queueIndex + 1} of {queue.length}
-                  </span>
-                </>
+                <span className="now-spinning__queue-count">
+                  {queueIndex + 1} of {queue.length} in the queue
+                </span>
               )}
             </p>
+
             {fallbackNote && (
               <p className="now-spinning__fallback">{fallbackNote}</p>
             )}
+
+            <p className="now-spinning__hint">
+              The record turns only while the side is playing.
+            </p>
           </div>
         </section>
       ) : (
@@ -396,7 +453,7 @@ const Player = () => {
             <p className="eyebrow">The platter is bare</p>
             <h1>The room is quiet.</h1>
             <p className="now-spinning__empty-copy">
-              Pick a mood above, or look into the lens if you want the camera to
+              Pick a mood below, or look into the lens if you want the camera to
               read the room. The house record is always here too.
             </p>
             <div className="now-spinning__promise">
@@ -406,7 +463,7 @@ const Player = () => {
                 your journal stays private.
               </p>
               <p className="now-spinning__promise-note">
-                The camera is optional. The manual mood picker above works
+                The camera is optional. The manual mood picker below works
                 without it.
               </p>
             </div>
@@ -436,6 +493,87 @@ const Player = () => {
           aria-label="Player controls"
           aria-busy={loading}
         >
+          {queueOpen && (
+            <section
+              className="player-queue"
+              id="player-queue"
+              aria-label="Playback queue"
+            >
+              <header className="player-queue__head">
+                <div>
+                  <p className="eyebrow">Up next</p>
+                  <h2>{queueTitle}</h2>
+                </div>
+                <span className="player-queue__count">
+                  {queue.length
+                    ? `${Math.min(queueIndex + 1, queue.length)} of ${queue.length}`
+                    : "Empty"}
+                </span>
+                <button
+                  ref={queueCloseRef}
+                  type="button"
+                  className="player-queue__close"
+                  onClick={closeQueue}
+                  aria-label="Close queue"
+                >
+                  <CloseIcon />
+                </button>
+              </header>
+
+              {queue.length > 0 ? (
+                <ol className="player-queue__list">
+                  {queue.map((track, index) => {
+                    const active = index === queueIndex;
+                    const trackMood = normalizeMood(track.mood) || queueMood;
+                    const trackMoodLabel = trackMood
+                      ? getMoodTheme(trackMood).label
+                      : "Mood set";
+
+                    return (
+                      <li key={`${track.url}-${index}`}>
+                        <button
+                          type="button"
+                          className={`player-queue__row${active ? " is-current" : ""}`}
+                          onClick={() => handleQueueTrack(track)}
+                          aria-current={active ? "true" : undefined}
+                          aria-label={
+                            active
+                              ? `${track.title}, playing now`
+                              : `Play ${track.title}`
+                          }
+                        >
+                          <span className="player-queue__index" aria-hidden="true">
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                          <span className="player-queue__copy">
+                            <strong title={track.title}>{track.title}</strong>
+                            <span>{trackMoodLabel}</span>
+                          </span>
+                          <span className="player-queue__state" aria-hidden="true">
+                            {active ? (
+                              <span className="player-queue__bars">
+                                <span />
+                                <span />
+                                <span />
+                              </span>
+                            ) : (
+                              <PlayIcon />
+                            )}
+                          </span>
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ol>
+              ) : (
+                <p className="player-queue__empty">
+                  No queue yet. Pick a mood or start a record from the library and
+                  the next side will appear here.
+                </p>
+              )}
+            </section>
+          )}
+
           <div className="player-bar__track">
             <div className="player-bar__thumb">
               {song.posterImage && !posterFailed ? (
@@ -448,7 +586,7 @@ const Player = () => {
             </div>
             <div className="player-bar__copy">
               <p className="player-bar__eyebrow">
-                {loading ? "Tuning the room" : error ? "Signal lost" : "In the room"}
+                {loading ? "Tuning the room" : error ? "Signal lost" : "Now playing"}
               </p>
               <p className="player-bar__title" title={song.title || "Moodify mix"}>
                 {song.title || "Moodify mix"}
@@ -458,7 +596,7 @@ const Player = () => {
                   ? "Finding a new side…"
                   : error ||
                     fallbackNote ||
-                    `${songMoodLabel} mix${queue.length > 1 ? ` · ${queueIndex + 1}/${queue.length}` : ""}`}
+                    `${songMoodLabel} set${queue.length > 1 ? ` · ${queueIndex + 1}/${queue.length}` : ""}`}
               </p>
             </div>
           </div>
@@ -483,6 +621,7 @@ const Player = () => {
                   onChange={handleSeek}
                   style={{ "--fill": `${progressPercent}%` }}
                   aria-label="Seek through track"
+                  aria-valuetext={`${formatTime(progress)} of ${formatTime(duration)}`}
                   disabled={!duration}
                 />
                 <span>{formatTime(duration)}</span>
@@ -551,6 +690,22 @@ const Player = () => {
 
           <div className="player-bar__utility">
             <button
+              ref={queueButtonRef}
+              type="button"
+              className={`player-bar__queue-toggle${queueOpen ? " is-open" : ""}`}
+              onClick={() => setQueueOpen((open) => !open)}
+              aria-label={`Queue, ${queue.length} ${queue.length === 1 ? "track" : "tracks"}`}
+              aria-expanded={queueOpen}
+              aria-controls="player-queue"
+              title="Open the queue"
+            >
+              <QueueIcon />
+              <span className="player-bar__queue-count">
+                {queue.length || 0}
+              </span>
+            </button>
+
+            <button
               type="button"
               className={`player-bar__shuffle${shuffle ? " is-on" : ""}`}
               onClick={toggleShuffle}
@@ -597,13 +752,18 @@ const Player = () => {
             </label>
 
             <span className="player-bar__hint" aria-hidden="true">
-              Space · play/pause
+              Space to play
             </span>
           </div>
         </aside>
       )}
 
-      <audio ref={audioRef} preload="metadata" className="player-audio" />
+      <audio
+        ref={audioRef}
+        preload="metadata"
+        crossOrigin="anonymous"
+        className="player-audio"
+      />
     </>
   );
 };
