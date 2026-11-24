@@ -11,10 +11,18 @@ const userSchema = new mongoose.Schema({
         required: [true, "Email is Required!"],
         unique: [true, "Duplicate Email Found"]
     },
+    displayName: {
+        type: String,
+        trim: true
+    },
     password: {
         type: String,
         required: [true, "Password is Required"],
         select: false
+    },
+    verified: {
+        type: Boolean,
+        default: false
     },
     tokenVersion: {
         type: Number,

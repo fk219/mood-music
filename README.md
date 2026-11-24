@@ -2,10 +2,12 @@
 
 A privacy-first mood listening room. Moodify reads your expression on-device, or takes a manual check-in, then tunes the room to one of five moods with a track from the library. It keeps a queue playing and builds a private weekly mood journal from your check-ins.
 
+> Music apps ask for a genre. Moodify asks how you feel. Mood detection runs on your device, or you can check in manually, and your journal stays private.
+
 **Live app:** https://moodify.furqankhan.dev
 **API:** https://moodify-backend-8rn5.onrender.com
 
-**Demo account:** `demo@moodify.local` / `DemoRoom2026!` (shared, so the journal may already contain entries; clear it from the journal panel)
+**Demo room:** select **Enter the demo room** on the sign-in page for one-click access. The API finds or creates the shared demo listener, issues the normal session cookie, and lands you in the room. A generated password is never returned when the account has to be created. Fallback credentials for the long-lived shared account: `demo@moodify.local` / `DemoRoom2026!` (shared, so the journal may already contain entries; clear it from the journal panel).
 
 ![Moodify](docs/preview.png)
 
@@ -57,6 +59,7 @@ Every check-in belongs to the signed-in listener. The journal shows the last sev
 
 **Accounts and room**
 - Register, log in, log out, protected room, Studio, and Settings routes.
+- One-click demo room: the sign-in page calls `POST /api/auth/demo`, which finds or creates the shared demo listener and opens a normal session. The generated demo password is discarded, and the shared account cannot change its password or delete itself.
 - JWT in an `httpOnly`, `SameSite=Lax`, `Secure` cookie; bcrypt password hashing; logout tokens are blacklisted in MongoDB with a TTL index.
 - `tokenVersion` in each JWT revokes every session when the password changes.
 - Settings shows the listener card, exports account and journal JSON, changes the password, and deletes the account. The shared track catalog survives account deletion; the demo account is protected.
@@ -153,6 +156,7 @@ VITE_API_URL=http://localhost:3000
 |---|---|---|---|
 | `POST` | `/api/auth/register` | Public | Create account (10/min per IP) |
 | `POST` | `/api/auth/login` | Public | Sign in, set cookie (10/min per IP) |
+| `POST` | `/api/auth/demo` | Public | Open the shared demo room, set cookie (3/min per IP) |
 | `GET` | `/api/auth/logout` | Cookie | Invalidate session (Mongo blacklist) |
 | `GET` | `/api/auth/get-me` | Cookie | Current user, joined date, and mood entry count |
 | `PATCH` | `/api/auth/password` | Cookie | Change password, revoke all sessions (20/15 min per IP) |

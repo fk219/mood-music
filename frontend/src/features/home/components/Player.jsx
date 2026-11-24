@@ -396,16 +396,27 @@ const Player = () => {
             <p className="eyebrow">The platter is bare</p>
             <h1>The room is quiet.</h1>
             <p className="now-spinning__empty-copy">
-              Pick a mood above or look into the lens, and a record will drop on
-              the platter. The house record is always here too.
+              Pick a mood above, or look into the lens if you want the camera to
+              read the room. The house record is always here too.
             </p>
+            <div className="now-spinning__promise">
+              <p>
+                Music apps ask for a genre. Moodify asks how you feel. Mood
+                detection runs on your device, or you can check in manually, and
+                your journal stays private.
+              </p>
+              <p className="now-spinning__promise-note">
+                The camera is optional. The manual mood picker above works
+                without it.
+              </p>
+            </div>
             <div className="now-spinning__empty-actions">
               <button
                 type="button"
                 className="button"
                 onClick={handleDetectRequest}
               >
-                Detect mood
+                Detect mood with camera
               </button>
               <button
                 type="button"

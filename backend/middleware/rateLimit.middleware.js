@@ -12,6 +12,18 @@ const authLimiter = rateLimit({
     }
 })
 
+const demoLimiter = rateLimit({
+    windowMs: 60 * 1000,
+    limit: 3,
+    standardHeaders: 'draft-8',
+    legacyHeaders: false,
+    handler: (req, res, next, options) => {
+        res.status(options.statusCode).json({
+            message: 'The demo room is getting busy. Wait a minute and try again.'
+        })
+    }
+})
+
 const accountLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     limit: 20,
@@ -50,6 +62,7 @@ const uploadLimiter = rateLimit({
 
 module.exports = {
     authLimiter,
+    demoLimiter,
     accountLimiter,
     moodWriteLimiter,
     uploadLimiter

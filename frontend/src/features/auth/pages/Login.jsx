@@ -7,14 +7,31 @@ import { getAuthErrorMessage } from "../utils/getAuthError";
 import { AlertIcon } from "../../shared/components/Icons";
 import SiteFooter from "../../shared/components/SiteFooter";
 
+const getDemoErrorMessage = (error) => {
+  const status = error?.response?.status;
+  const serverMessage = error?.response?.data?.message;
+  const hasServerMessage =
+    typeof serverMessage === "string" && serverMessage.trim().length > 0;
+
+  if (hasServerMessage && (status === 429 || status >= 500)) {
+    return serverMessage;
+  }
+
+  return "The demo room could not open. Try again in a moment.";
+};
+
 const Login = () => {
-  const { user, loading, handleLogin, clearSession } = useAuth();
+  const { user, loading, handleLogin, handleDemoLogin, clearSession } =
+    useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [demoError, setDemoError] = useState("");
+  const [formBusy, setFormBusy] = useState(false);
+  const [demoBusy, setDemoBusy] = useState(false);
   const clearedStaleSession = useRef(false);
 
   const notice = location.state?.notice || "";
@@ -33,6 +50,7 @@ const Login = () => {
     // A new sign-in replaces any stale session the notice was clearing.
     clearedStaleSession.current = true;
     setError("");
+    setFormBusy(true);
 
     try {
       await handleLogin({ email, password });
@@ -44,6 +62,26 @@ const Login = () => {
           "That email and password didn’t match. Try again.",
         ),
       );
+    } finally {
+      setFormBusy(false);
+    }
+  };
+
+  const handleDemo = async () => {
+    if (loading) return;
+
+    // A new session replaces any stale session the notice was clearing.
+    clearedStaleSession.current = true;
+    setDemoError("");
+    setDemoBusy(true);
+
+    try {
+      await handleDemoLogin();
+      navigate("/", { replace: true });
+    } catch (demoOpenError) {
+      setDemoError(getDemoErrorMessage(demoOpenError));
+    } finally {
+      setDemoBusy(false);
     }
   };
 
@@ -64,6 +102,17 @@ const Login = () => {
           <p>The room kept your seat warm.</p>
         </div>
 
+        <section className="auth-promise" aria-label="Why Moodify">
+          <p>
+            Music apps ask for a genre. Moodify asks how you feel. Mood detection
+            runs on your device, or you can check in manually, and your journal
+            stays private.
+          </p>
+          <p className="auth-promise__note">
+            The camera is optional. The manual mood picker works without it.
+          </p>
+        </section>
+
         {notice && (
           <div className="auth-notice" role="status">
             <span className="auth-notice__dot" aria-hidden="true" />
@@ -78,7 +127,34 @@ const Login = () => {
           </div>
         )}
 
-        <form className="auth-form" onSubmit={handleSubmit} aria-busy={loading}>
+        <div className="auth-demo" aria-busy={demoBusy}>
+          <p className="auth-demo__eyebrow">No account needed</p>
+          <button
+            type="button"
+            className="button auth-demo__button"
+            onClick={handleDemo}
+            disabled={loading}
+          >
+            {demoBusy && <span className="auth-spinner" aria-hidden="true" />}
+            {demoBusy ? "Opening the demo room…" : "Enter the demo room"}
+          </button>
+          <p className="auth-demo__hint">
+            One click opens a shared listening room. The camera stays optional
+            and the manual picker works without it.
+          </p>
+          {demoError && (
+            <div className="auth-alert auth-demo__alert" role="alert">
+              <AlertIcon />
+              <span>{demoError}</span>
+            </div>
+          )}
+        </div>
+
+        <p className="auth-divider">
+          <span>or sign in</span>
+        </p>
+
+        <form className="auth-form" onSubmit={handleSubmit} aria-busy={formBusy}>
           <FormGroup
             label="Email"
             type="email"
@@ -99,8 +175,8 @@ const Login = () => {
           />
 
           <button type="submit" className="button auth-submit" disabled={loading}>
-            {loading && <span className="auth-spinner" aria-hidden="true" />}
-            {loading ? "Signing in…" : "Sign in"}
+            {formBusy && <span className="auth-spinner" aria-hidden="true" />}
+            {formBusy ? "Signing in…" : "Sign in"}
           </button>
         </form>
 

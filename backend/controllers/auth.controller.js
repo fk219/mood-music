@@ -4,10 +4,13 @@ const moodEntryModel = require('../models/moodEntry.model')
 
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const crypto = require("crypto")
 
 const DEMO_EMAIL = 'demo@moodify.local'
+const DEMO_DISPLAY_NAME = 'Moodify Demo'
 const PASSWORD_MIN_LENGTH = 8
 const PASSWORD_MAX_LENGTH = 72
+const SESSION_COOKIE_OPTIONS = { httpOnly: true, sameSite: 'lax', secure: true }
 
 const getJoinedAt = (user) => {
     if (user.createdAt) return user.createdAt
@@ -20,9 +23,23 @@ const getJoinedAt = (user) => {
 const toPublicUser = (user) => ({
     id: user._id,
     username: user.username,
+    displayName: user.displayName || user.username,
     email: user.email,
     joinedAt: getJoinedAt(user)
 })
+
+const issueSession = (res, user) => {
+    const token = jwt.sign({
+        id: user._id,
+        email: user.email,
+        username: user.username,
+        tokenVersion: user.tokenVersion ?? 0
+    }, process.env.JWT_SECRET, {
+        expiresIn: '1d'
+    })
+
+    res.cookie('token', token, SESSION_COOKIE_OPTIONS)
+}
 
 const isNonEmptyString = (value) => (
     typeof value === 'string' && value.trim().length > 0
@@ -93,21 +110,53 @@ const loginController = async (req, res) => {
         })
     }
 
-    const token = jwt.sign({
-        id: user._id,
-        email: user.email,
-        username: user.username,
-        tokenVersion: user.tokenVersion ?? 0
-    }, process.env.JWT_SECRET, {
-        expiresIn: '1d'
-    })
-
-    res.cookie("token", token, { httpOnly: true, sameSite: "lax", secure: true })
+    issueSession(res, user)
 
     return res.status(200).json({
         message: "user Logged In Successfully",
         user: toPublicUser(user)
     })
+}
+
+const demoLoginController = async (req, res) => {
+    try {
+        let user = await userModel.findOne({ email: DEMO_EMAIL })
+
+        if (!user) {
+            // The generated password is discarded immediately. The demo room
+            // only opens through this endpoint, never with a credential.
+            const randomPassword = crypto.randomBytes(32).toString('base64url')
+            const hashedPassword = await bcrypt.hash(randomPassword, 10)
+
+            try {
+                user = await userModel.create({
+                    username: DEMO_DISPLAY_NAME,
+                    displayName: DEMO_DISPLAY_NAME,
+                    email: DEMO_EMAIL,
+                    password: hashedPassword,
+                    verified: true
+                })
+            } catch (error) {
+                if (error?.code !== 11000) throw error
+
+                user = await userModel.findOne({ email: DEMO_EMAIL })
+                if (!user) throw error
+            }
+        }
+
+        issueSession(res, user)
+
+        return res.status(200).json({
+            message: 'The demo room is open.',
+            user: toPublicUser(user),
+            demo: true
+        })
+    } catch (error) {
+        console.error('Demo login error:', error)
+        return res.status(500).json({
+            message: 'The demo room could not open. Try again in a moment.'
+        })
+    }
 }
 
 const logoutController = async (req, res) => {
@@ -301,6 +350,7 @@ const deleteAccountController = async (req, res) => {
 module.exports = {
     registerController,
     loginController,
+    demoLoginController,
     logoutController,
     getMeController,
     changePasswordController,

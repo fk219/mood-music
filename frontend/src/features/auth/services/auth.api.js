@@ -19,6 +19,12 @@ export const login = async ({ username, email, password }) => {
   return response.data;
 };
 
+export const demoLogin = async () => {
+  const response = await api.post("/api/auth/demo");
+
+  return response.data;
+};
+
 export const getMe = async () => {
   const response = await api.get("/api/auth/get-me");
 

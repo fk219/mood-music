@@ -7,7 +7,8 @@ const RoomHeader = ({ active = "room" }) => {
   const { user, loading: signingOut, handleLogOut } = useAuth();
   const navigate = useNavigate();
 
-  const displayName = user?.username || user?.email || "Listener";
+  const displayName =
+    user?.displayName || user?.username || user?.email || "Listener";
   const initial = displayName.trim().charAt(0).toUpperCase() || "L";
   const inRoom = active === "room";
 

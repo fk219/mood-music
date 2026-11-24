@@ -1,5 +1,6 @@
 import { useCallback, useContext, useState } from "react";
 import {
+  demoLogin as demoLoginApi,
   login as loginApi,
   register as registerApi,
   logOut as logOutApi,
@@ -32,6 +33,17 @@ export const useAuth = () => {
     }
   };
 
+  const handleDemoLogin = async () => {
+    setLoading(true);
+    try {
+      const response = await demoLoginApi();
+      setUser(response.user);
+      return response;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleLogOut = async () => {
     setLoading(true);
     try {
@@ -55,6 +67,7 @@ export const useAuth = () => {
     initializing,
     handleRegister,
     handleLogin,
+    handleDemoLogin,
     handleLogOut,
     clearSession,
   };

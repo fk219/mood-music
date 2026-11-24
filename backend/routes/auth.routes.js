@@ -2,6 +2,7 @@ const express = require("express")
 const {
     registerController,
     loginController,
+    demoLoginController,
     logoutController,
     getMeController,
     changePasswordController,
@@ -9,7 +10,7 @@ const {
     deleteAccountController
 } = require('../controllers/auth.controller')
 const identifyUser = require('../middleware/auth.middleware')
-const { authLimiter, accountLimiter } = require('../middleware/rateLimit.middleware')
+const { authLimiter, demoLimiter, accountLimiter } = require('../middleware/rateLimit.middleware')
 
 const authRouter = express.Router()
 
@@ -17,6 +18,7 @@ const authRouter = express.Router()
 // logout stay unthrottled so a normal page reload is never blocked.
 authRouter.post('/register', authLimiter, registerController)
 authRouter.post('/login', authLimiter, loginController)
+authRouter.post('/demo', demoLimiter, demoLoginController)
 authRouter.get('/logout', identifyUser, logoutController)
 authRouter.get('/get-me', identifyUser, getMeController)
 
