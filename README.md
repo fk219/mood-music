@@ -10,6 +10,7 @@ A privacy-first mood listening room. Moodify reads your expression on-device, or
 **Demo room:** select **Enter the demo room** on the sign-in page for one-click access. The API finds or creates the shared demo listener, issues the normal session cookie, and lands you in the room. A generated password is never returned when the account has to be created. Fallback credentials for the long-lived shared account: `demo@moodify.local` / `DemoRoom2026!` (shared, so the journal may already contain entries; clear it from the journal panel).
 
 ![Moodify](docs/preview.png)
+![Moodify private journal](docs/journal.png)
 
 ![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-6-646CFF?logo=vite&logoColor=white)
