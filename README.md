@@ -7,7 +7,7 @@ A privacy-first mood listening room. MoodMusic reads your expression on-device, 
 **Live app:** https://moodmusic.furqankhan.dev
 **API:** https://moodify-backend-8rn5.onrender.com
 
-**Demo room:** select **Enter the demo room** on the sign-in page for one-click access. The API finds or creates the shared demo listener, issues the normal session cookie, and lands you in the room. A generated password is never returned when the account has to be created. Fallback credentials for the long-lived shared account: `demo@moodify.local` / `DemoRoom2026!` (shared, so the journal may already contain entries; clear it from the journal panel).
+**Demo room:** select **Enter the demo room** on the sign-in page for one-click access. The API finds or creates the shared demo listener, issues the normal session cookie, and lands you in the room. A generated password is never returned when the account has to be created. Fallback credentials for the long-lived shared account: `demo@moodmusic.local` / `DemoRoom2026!` (shared, so the journal may already contain entries; clear it from the journal panel).
 
 ![MoodMusic](docs/preview.png)
 ![MoodMusic private journal](docs/journal.png)

@@ -47,16 +47,16 @@
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(400px, 0.92fr);
   overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--moodify-bone) 11%, transparent);
+  border: 1px solid color-mix(in srgb, var(--moodmusic-bone) 11%, transparent);
   border-radius: 32px;
   background: linear-gradient(
     155deg,
-    color-mix(in srgb, var(--moodify-plum) 97%, transparent),
-    color-mix(in srgb, var(--moodify-aubergine-deep) 99%, transparent)
+    color-mix(in srgb, var(--moodmusic-plum) 97%, transparent),
+    color-mix(in srgb, var(--moodmusic-aubergine-deep) 99%, transparent)
   );
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--moodify-bone) 11%, transparent),
-    0 0 0 1px color-mix(in srgb, var(--moodify-aubergine-deep) 60%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--moodmusic-bone) 11%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--moodmusic-aubergine-deep) 60%, transparent),
     0 48px 120px -50px rgba(0, 0, 0, 0.95);
 }
 
@@ -73,7 +73,7 @@
   background:
     radial-gradient(520px 400px at 84% 18%, rgba(242, 166, 90, 0.15), transparent 68%),
     radial-gradient(460px 360px at 0% 100%, rgba(127, 209, 174, 0.08), transparent 68%),
-    linear-gradient(160deg, color-mix(in srgb, var(--moodify-plum-light) 52%, transparent), color-mix(in srgb, var(--moodify-aubergine-deep) 30%, transparent));
+    linear-gradient(160deg, color-mix(in srgb, var(--moodmusic-plum-light) 52%, transparent), color-mix(in srgb, var(--moodmusic-aubergine-deep) 30%, transparent));
 }
 
 .login-intro::before {
@@ -82,7 +82,7 @@
   inset: 0;
   z-index: -1;
   background-image: radial-gradient(
-    color-mix(in srgb, var(--moodify-bone) 16%, transparent) 0.55px,
+    color-mix(in srgb, var(--moodmusic-bone) 16%, transparent) 0.55px,
     transparent 0.55px
   );
   background-size: 4px 4px;
@@ -122,7 +122,7 @@
   border-radius: 50%;
   background: conic-gradient(from 210deg, $lilac, $apricot, $mint, $lilac);
   box-shadow:
-    inset 0 0 0 7px var(--moodify-plum),
+    inset 0 0 0 7px var(--moodmusic-plum),
     0 0 22px -4px rgba(242, 166, 90, 0.7);
 }
 
@@ -169,7 +169,7 @@
 .login-intro__lead {
   max-width: 440px;
   margin-top: 22px;
-  color: color-mix(in srgb, var(--moodify-bone) 83%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 83%, transparent);
   font-size: 0.98rem;
   line-height: 1.68;
 }
@@ -198,8 +198,8 @@
   padding: 7px 11px;
   border: 1px solid $border-soft;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--moodify-aubergine-deep) 28%, transparent);
-  color: color-mix(in srgb, var(--moodify-bone) 76%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-aubergine-deep) 28%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 76%, transparent);
   font-size: 0.72rem;
   line-height: 1.25;
 }
@@ -248,11 +248,11 @@
   border: 1px solid rgba(242, 166, 90, 0.35);
   border-radius: 48% 48% 8px 8px / 34% 34% 8px 8px;
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--moodify-aubergine-deep) 25%, transparent), transparent 30%),
+    linear-gradient(90deg, color-mix(in srgb, var(--moodmusic-aubergine-deep) 25%, transparent), transparent 30%),
     radial-gradient(circle at 62% 24%, rgba(242, 166, 90, 0.16), transparent 48%),
-    linear-gradient(180deg, color-mix(in srgb, var(--moodify-plum-light) 72%, transparent), color-mix(in srgb, var(--moodify-aubergine-deep) 92%, transparent));
+    linear-gradient(180deg, color-mix(in srgb, var(--moodmusic-plum-light) 72%, transparent), color-mix(in srgb, var(--moodmusic-aubergine-deep) 92%, transparent));
   box-shadow:
-    inset 0 0 0 8px color-mix(in srgb, var(--moodify-aubergine-deep) 38%, transparent),
+    inset 0 0 0 8px color-mix(in srgb, var(--moodmusic-aubergine-deep) 38%, transparent),
     inset 0 -24px 60px rgba(0, 0, 0, 0.6),
     0 30px 80px -30px rgba(0, 0, 0, 0.9);
 }
@@ -281,14 +281,14 @@
   aspect-ratio: 1;
   transform: translateX(-50%);
   border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--moodify-bone) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--moodmusic-bone) 12%, transparent);
   background:
     repeating-radial-gradient(
       circle at 50% 50%,
-      color-mix(in srgb, var(--moodify-bone) 6%, transparent) 0 1px,
+      color-mix(in srgb, var(--moodmusic-bone) 6%, transparent) 0 1px,
       transparent 1px 5px
     ),
-    radial-gradient(circle at 50% 50%, var(--mood-a, var(--moodify-lilac)) 0 18%, var(--moodify-aubergine) 19%);
+    radial-gradient(circle at 50% 50%, var(--mood-a, var(--moodmusic-lilac)) 0 18%, var(--moodmusic-aubergine) 19%);
   box-shadow:
     inset 0 0 30px rgba(0, 0, 0, 0.75),
     0 12px 30px -14px rgba(0, 0, 0, 0.9);
@@ -329,10 +329,10 @@
   flex-direction: column;
   justify-content: center;
   padding: clamp(28px, 3.6vw, 46px);
-  border-left: 1px solid color-mix(in srgb, var(--moodify-bone) 9%, transparent);
+  border-left: 1px solid color-mix(in srgb, var(--moodmusic-bone) 9%, transparent);
   background:
     radial-gradient(420px 300px at 100% 0%, rgba(167, 155, 181, 0.08), transparent 70%),
-    color-mix(in srgb, var(--moodify-aubergine-deep) 32%, transparent);
+    color-mix(in srgb, var(--moodmusic-aubergine-deep) 32%, transparent);
 }
 
 .login-panel__head .eyebrow {
@@ -364,7 +364,7 @@
   border-radius: 18px;
   background:
     radial-gradient(130% 150% at 50% -40%, rgba(127, 209, 174, 0.2), transparent 68%),
-    color-mix(in srgb, var(--moodify-aubergine-deep) 46%, transparent);
+    color-mix(in srgb, var(--moodmusic-aubergine-deep) 46%, transparent);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.06),
     0 22px 50px -34px rgba(127, 209, 174, 0.4);
@@ -432,7 +432,7 @@
 
 .login-demo__hint {
   margin-top: 10px;
-  color: color-mix(in srgb, var(--moodify-bone) 70%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 70%, transparent);
   font-size: 0.76rem;
   line-height: 1.55;
   text-align: center;
@@ -470,7 +470,7 @@
 }
 
 .login-form .form-group label {
-  color: color-mix(in srgb, var(--moodify-bone) 72%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 72%, transparent);
 }
 
 .login-form .form-group input {
@@ -482,15 +482,15 @@
 .auth-submit--quiet {
   min-height: 48px;
   margin-top: 2px;
-  border: 1px solid color-mix(in srgb, var(--moodify-bone) 18%, transparent);
-  background: color-mix(in srgb, var(--moodify-bone) 5%, transparent);
+  border: 1px solid color-mix(in srgb, var(--moodmusic-bone) 18%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 5%, transparent);
   color: $bone;
   box-shadow: none;
 }
 
 .auth-submit--quiet:hover:not(:disabled) {
-  border-color: color-mix(in srgb, var(--moodify-bone) 34%, transparent);
-  background: color-mix(in srgb, var(--moodify-bone) 9%, transparent);
+  border-color: color-mix(in srgb, var(--moodmusic-bone) 34%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 9%, transparent);
   color: $bone;
   box-shadow: none;
 }
@@ -500,7 +500,7 @@
 }
 
 .auth-submit--quiet .auth-spinner {
-  border-color: color-mix(in srgb, var(--moodify-bone) 22%, transparent);
+  border-color: color-mix(in srgb, var(--moodmusic-bone) 22%, transparent);
   border-top-color: $bone;
 }
 
@@ -550,7 +550,7 @@
 
   .login-panel {
     padding: 30px;
-    border-top: 1px solid color-mix(in srgb, var(--moodify-bone) 9%, transparent);
+    border-top: 1px solid color-mix(in srgb, var(--moodmusic-bone) 9%, transparent);
     border-left: 0;
   }
 }

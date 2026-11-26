@@ -58,7 +58,7 @@
   padding: 6px 11px;
   border: 1px solid transparent;
   border-radius: 999px;
-  color: color-mix(in srgb, var(--moodify-bone) 65%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 65%, transparent);
   font-size: 0.74rem;
   text-decoration: none;
   transition:
@@ -69,7 +69,7 @@
 
 .site-footer__links a:hover {
   border-color: $border-soft;
-  background: color-mix(in srgb, var(--moodify-bone) 5%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 5%, transparent);
   color: $bone;
 }
 

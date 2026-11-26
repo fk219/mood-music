@@ -56,7 +56,7 @@ const AccountSummary = ({ summary, loading, error }) => {
       const stamp = new Date().toISOString().slice(0, 10);
 
       link.href = url;
-      link.download = `moodify-account-${stamp}.json`;
+      link.download = `moodmusic-account-${stamp}.json`;
       link.style.display = "none";
       document.body.appendChild(link);
       link.click();

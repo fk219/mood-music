@@ -1,15 +1,15 @@
 // MoodMusic listening-room tokens. The values live in CSS variables so the room
 // can switch between the evening palette and a daylight palette.
-$aubergine: var(--moodify-aubergine, #1b1424);
-$aubergine-deep: var(--moodify-aubergine-deep, #130e1a);
-$plum: var(--moodify-plum, #2a1f36);
-$plum-light: var(--moodify-plum-light, #3a2b47);
-$bone: var(--moodify-bone, #f5efe6);
-$apricot: var(--moodify-apricot, #f2a65a);
-$mint: var(--moodify-mint, #7fd1ae);
-$lilac: var(--moodify-lilac, #a79bb5);
-$danger: var(--moodify-danger, #e48a7b);
-$danger-text: var(--moodify-danger-text, #ffc3b5);
+$aubergine: var(--moodmusic-aubergine, #1b1424);
+$aubergine-deep: var(--moodmusic-aubergine-deep, #130e1a);
+$plum: var(--moodmusic-plum, #2a1f36);
+$plum-light: var(--moodmusic-plum-light, #3a2b47);
+$bone: var(--moodmusic-bone, #f5efe6);
+$apricot: var(--moodmusic-apricot, #f2a65a);
+$mint: var(--moodmusic-mint, #7fd1ae);
+$lilac: var(--moodmusic-lilac, #a79bb5);
+$danger: var(--moodmusic-danger, #e48a7b);
+$danger-text: var(--moodmusic-danger-text, #ffc3b5);
 
 $font-display: "Bricolage Grotesque", "DM Sans", system-ui, sans-serif;
 $font-body: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -21,8 +21,8 @@ $radius-md: 18px;
 $radius-lg: 24px;
 $radius-xl: 28px;
 
-$border-soft: var(--moodify-border-soft, rgba(245, 239, 230, 0.08));
-$border-strong: var(--moodify-border-strong, rgba(245, 239, 230, 0.16));
-$text-muted: var(--moodify-text-muted, #a79bb5);
+$border-soft: var(--moodmusic-border-soft, rgba(245, 239, 230, 0.08));
+$border-strong: var(--moodmusic-border-strong, rgba(245, 239, 230, 0.16));
+$text-muted: var(--moodmusic-text-muted, #a79bb5);
 
 $ease-out: cubic-bezier(0.22, 1, 0.36, 1);

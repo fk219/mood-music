@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
-    <linearGradient id="moodify-ring" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="moodmusic-ring" x1="0" y1="0" x2="1" y2="1">
       <stop stop-color="#A79BB5" />
       <stop offset="0.52" stop-color="#F2A65A" />
       <stop offset="1" stop-color="#7FD1AE" />
     </linearGradient>
   </defs>
   <rect width="64" height="64" rx="16" fill="#1B1424" />
-  <circle cx="32" cy="32" r="17" fill="none" stroke="url(#moodify-ring)" stroke-width="7" />
+  <circle cx="32" cy="32" r="17" fill="none" stroke="url(#moodmusic-ring)" stroke-width="7" />
   <circle cx="32" cy="32" r="5" fill="#F5EFE6" />
 </svg>

@@ -22,8 +22,8 @@ import {
 
 export const SongContext = createContext(null);
 
-const HISTORY_KEY = "moodify.mood-history.v1";
-const HISTORY_OWNER_KEY = "moodify.mood-history.owner.v1";
+const HISTORY_KEY = "moodmusic.mood-history.v1";
+const HISTORY_OWNER_KEY = "moodmusic.mood-history.owner.v1";
 const MOOD_REPEAT_WINDOW = 15000;
 
 const readMoodHistory = () => {

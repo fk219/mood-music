@@ -17,9 +17,9 @@
   border-radius: $radius-lg;
   background:
     radial-gradient(560px 240px at 8% 0%, rgba(242, 166, 90, 0.09), transparent 70%),
-    linear-gradient(150deg, color-mix(in srgb, var(--moodify-plum-light) 80%, transparent), color-mix(in srgb, var(--moodify-plum) 94%, transparent));
+    linear-gradient(150deg, color-mix(in srgb, var(--moodmusic-plum-light) 80%, transparent), color-mix(in srgb, var(--moodmusic-plum) 94%, transparent));
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--moodify-bone) 9%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--moodmusic-bone) 9%, transparent),
     0 24px 60px -40px rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(16px);
 }
@@ -81,11 +81,11 @@
   gap: 8px;
   min-height: 50px;
   padding: 10px 13px;
-  border: 1px solid color-mix(in srgb, var(--moodify-bone) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--moodmusic-bone) 10%, transparent);
   border-radius: 13px;
-  background: color-mix(in srgb, var(--moodify-bone) 3.5%, transparent);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--moodify-bone) 5%, transparent);
-  color: color-mix(in srgb, var(--moodify-bone) 84%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 3.5%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--moodmusic-bone) 5%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 84%, transparent);
   font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
@@ -106,7 +106,7 @@
 
 .mood-pick.is-active {
   border-color: color-mix(in srgb, var(--pick-color) 72%, transparent);
-  background: color-mix(in srgb, var(--pick-color) 16%, color-mix(in srgb, var(--moodify-bone) 2%, transparent));
+  background: color-mix(in srgb, var(--pick-color) 16%, color-mix(in srgb, var(--moodmusic-bone) 2%, transparent));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 12px 28px -16px var(--pick-color);
@@ -139,7 +139,7 @@
   width: 12px;
   height: 12px;
   flex: none;
-  border: 1.5px solid color-mix(in srgb, var(--moodify-bone) 22%, transparent);
+  border: 1.5px solid color-mix(in srgb, var(--moodmusic-bone) 22%, transparent);
   border-top-color: var(--pick-color);
   border-radius: 50%;
   animation: panel-turn 0.75s linear infinite;
@@ -162,9 +162,9 @@
   padding: clamp(20px, 2.4vw, 28px);
   border: 1px solid $border-soft;
   border-radius: $radius-xl;
-  background: linear-gradient(165deg, color-mix(in srgb, var(--moodify-plum-light) 84%, transparent), color-mix(in srgb, var(--moodify-plum) 96%, transparent));
+  background: linear-gradient(165deg, color-mix(in srgb, var(--moodmusic-plum-light) 84%, transparent), color-mix(in srgb, var(--moodmusic-plum) 96%, transparent));
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--moodify-bone) 9%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--moodmusic-bone) 9%, transparent),
     0 30px 80px -44px rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(18px);
   scroll-margin-top: 24px;
@@ -240,14 +240,14 @@
 }
 
 .room-panel__state button:hover {
-  background: color-mix(in srgb, var(--moodify-bone) 7%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 7%, transparent);
 }
 
 .panel-spinner {
   width: 18px;
   height: 18px;
   flex: none;
-  border: 2px solid color-mix(in srgb, var(--moodify-bone) 14%, transparent);
+  border: 2px solid color-mix(in srgb, var(--moodmusic-bone) 14%, transparent);
   border-top-color: var(--mood-a);
   border-radius: 50%;
   animation: panel-turn 0.85s linear infinite;
@@ -299,7 +299,7 @@
   padding: 8px 12px;
   border: 1px solid $border-soft;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--moodify-bone) 3%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 3%, transparent);
   color: $lilac;
   font-size: 0.76rem;
   font-weight: 500;
@@ -365,8 +365,8 @@
   border-radius: 16px;
   background: linear-gradient(
     165deg,
-    color-mix(in srgb, var(--moodify-bone) 2.8%, transparent),
-    color-mix(in srgb, var(--moodify-aubergine-deep) 14%, transparent)
+    color-mix(in srgb, var(--moodmusic-bone) 2.8%, transparent),
+    color-mix(in srgb, var(--moodmusic-aubergine-deep) 14%, transparent)
   );
 }
 
@@ -382,7 +382,7 @@
   height: 7px;
   flex: none;
   border-radius: 50%;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--moodify-bone) 5%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--moodmusic-bone) 5%, transparent);
 }
 
 .library-group__head h3 {
@@ -423,7 +423,7 @@
 
 .library-group__play:hover {
   border-color: $border-strong;
-  background: color-mix(in srgb, var(--moodify-bone) 7%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 7%, transparent);
   color: $bone;
 }
 
@@ -460,11 +460,11 @@
   width: 100%;
   aspect-ratio: 1;
   overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--moodify-bone) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--moodmusic-bone) 10%, transparent);
   border-radius: 13px;
   background: $aubergine-deep;
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--moodify-bone) 8%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--moodmusic-bone) 8%, transparent),
     0 12px 22px -14px rgba(0, 0, 0, 0.9);
   transition:
     transform 0.22s $ease-out,
@@ -474,9 +474,9 @@
 
 .record-card:hover .record-card__art {
   transform: translateY(-3px);
-  border-color: color-mix(in srgb, var(--moodify-bone) 20%, transparent);
+  border-color: color-mix(in srgb, var(--moodmusic-bone) 20%, transparent);
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--moodify-bone) 10%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--moodmusic-bone) 10%, transparent),
     0 20px 34px -18px rgba(0, 0, 0, 0.95);
 }
 
@@ -521,7 +521,7 @@
 .record-card__shade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 45%, color-mix(in srgb, var(--moodify-aubergine-deep) 58%, transparent));
+  background: linear-gradient(180deg, transparent 45%, color-mix(in srgb, var(--moodmusic-aubergine-deep) 58%, transparent));
   pointer-events: none;
 }
 
@@ -533,9 +533,9 @@
   height: 34px;
   display: grid;
   place-items: center;
-  border: 1px solid color-mix(in srgb, var(--moodify-bone) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--moodmusic-bone) 20%, transparent);
   border-radius: 50%;
-  background: color-mix(in srgb, var(--moodify-aubergine-deep) 78%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-aubergine-deep) 78%, transparent);
   backdrop-filter: blur(10px);
   color: $bone;
   transition:
@@ -552,7 +552,7 @@
 .record-card:hover .record-card__action {
   transform: scale(1.08);
   border-color: color-mix(in srgb, var(--mood-a) 55%, transparent);
-  background: color-mix(in srgb, var(--mood-a) 30%, color-mix(in srgb, var(--moodify-aubergine-deep) 86%, transparent));
+  background: color-mix(in srgb, var(--mood-a) 30%, color-mix(in srgb, var(--moodmusic-aubergine-deep) 86%, transparent));
 }
 
 .record-card.is-current .record-card__action {
@@ -565,9 +565,9 @@
   top: 9px;
   left: 9px;
   padding: 5px 8px;
-  border: 1px solid color-mix(in srgb, var(--moodify-bone) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--moodmusic-bone) 16%, transparent);
   border-radius: 999px;
-  background: color-mix(in srgb, var(--moodify-aubergine-deep) 78%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-aubergine-deep) 78%, transparent);
   backdrop-filter: blur(10px);
   color: $bone;
   font-size: 0.64rem;
@@ -585,7 +585,7 @@
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  color: color-mix(in srgb, var(--moodify-bone) 90%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 90%, transparent);
   font-size: 0.8rem;
   font-weight: 500;
   line-height: 1.35;
@@ -650,7 +650,7 @@
   padding: 16px;
   border: 1px solid $border-soft;
   border-radius: 18px;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--moodify-aubergine-deep) 40%, transparent), color-mix(in srgb, var(--moodify-aubergine-deep) 18%, transparent));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--moodmusic-aubergine-deep) 40%, transparent), color-mix(in srgb, var(--moodmusic-aubergine-deep) 18%, transparent));
 }
 
 .queue-panel__head {
@@ -677,7 +677,7 @@
   padding: 5px 8px;
   border: 1px solid $border-soft;
   border-radius: 999px;
-  color: color-mix(in srgb, var(--moodify-bone) 72%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 72%, transparent);
   font-family: $font-mono;
   font-size: 0.6rem;
   font-variant-numeric: tabular-nums;
@@ -704,7 +704,7 @@
 }
 
 .queue-row:hover {
-  background: color-mix(in srgb, var(--moodify-bone) 6%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 6%, transparent);
 }
 
 .queue-row:active {
@@ -727,7 +727,7 @@
 
 .queue-row__copy strong {
   overflow: hidden;
-  color: color-mix(in srgb, var(--moodify-bone) 86%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 86%, transparent);
   font-size: 0.76rem;
   font-weight: 500;
   text-overflow: ellipsis;
@@ -769,7 +769,7 @@
   padding: 8px 8px;
   border: 1px solid $border-soft;
   border-radius: 9px;
-  background: color-mix(in srgb, var(--moodify-bone) 3.5%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 3.5%, transparent);
   color: $lilac;
   font-size: 0.74rem;
   cursor: pointer;
@@ -786,7 +786,7 @@
 
 .queue-panel__foot button:hover:not(:disabled) {
   border-color: $border-strong;
-  background: color-mix(in srgb, var(--moodify-bone) 8%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 8%, transparent);
   color: $bone;
 }
 
@@ -836,7 +836,7 @@
   padding: 6px 10px;
   border: 1px solid $border-soft;
   border-radius: 999px;
-  color: color-mix(in srgb, var(--moodify-bone) 76%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 76%, transparent);
   font-family: $font-mono;
   font-size: 0.62rem;
   font-variant-numeric: tabular-nums;
@@ -906,9 +906,9 @@
     repeating-linear-gradient(
       to top,
       transparent 0 calc(25% - 1px),
-      color-mix(in srgb, var(--moodify-bone) 4.5%, transparent) calc(25% - 1px) 25%
+      color-mix(in srgb, var(--moodmusic-bone) 4.5%, transparent) calc(25% - 1px) 25%
     ),
-    color-mix(in srgb, var(--moodify-aubergine-deep) 30%, transparent);
+    color-mix(in srgb, var(--moodmusic-aubergine-deep) 30%, transparent);
 }
 
 .journal-day {
@@ -921,7 +921,7 @@
 }
 
 .journal-day__count {
-  color: color-mix(in srgb, var(--moodify-bone) 78%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 78%, transparent);
   font-family: $font-mono;
   font-size: 0.62rem;
   font-variant-numeric: tabular-nums;
@@ -937,14 +937,14 @@
   gap: 0;
   overflow: hidden;
   border-radius: 7px;
-  background: color-mix(in srgb, var(--moodify-bone) 4%, transparent);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--moodify-bone) 3%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 4%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--moodmusic-bone) 3%, transparent);
 }
 
 .journal-day__bar > span:not(.journal-day__empty) {
   width: 100%;
   flex: none;
-  border-top: 1px solid color-mix(in srgb, var(--moodify-aubergine-deep) 26%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--moodmusic-aubergine-deep) 26%, transparent);
   transition: height 0.4s $ease-out;
 }
 
@@ -984,7 +984,7 @@
       color-mix(in srgb, var(--dominant-color) 13%, transparent),
       transparent 74%
     ),
-    color-mix(in srgb, var(--moodify-bone) 2.5%, transparent);
+    color-mix(in srgb, var(--moodmusic-bone) 2.5%, transparent);
 }
 
 .journal-dominant__dot {
@@ -1003,7 +1003,7 @@
 }
 
 .journal-dominant p {
-  color: color-mix(in srgb, var(--moodify-bone) 68%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 68%, transparent);
   font-size: 0.7rem;
 }
 
@@ -1017,7 +1017,7 @@
 
 .journal-dominant__count {
   margin-left: auto;
-  color: color-mix(in srgb, var(--moodify-bone) 70%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 70%, transparent);
   font-size: 0.7rem;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -1037,8 +1037,8 @@
   padding: 7px 9px;
   border: 1px solid $border-soft;
   border-radius: 9px;
-  background: color-mix(in srgb, var(--moodify-bone) 2.5%, transparent);
-  color: color-mix(in srgb, var(--moodify-bone) 80%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 2.5%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 80%, transparent);
   font-size: 0.72rem;
 }
 
@@ -1064,7 +1064,7 @@
   padding: 18px;
   border: 1px solid $border-soft;
   border-radius: 18px;
-  background: color-mix(in srgb, var(--moodify-aubergine-deep) 24%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-aubergine-deep) 24%, transparent);
 }
 
 .journal-recent__head {
@@ -1100,7 +1100,7 @@
   gap: 8px;
   min-height: 42px;
   padding: 8px 4px;
-  border-top: 1px solid color-mix(in srgb, var(--moodify-bone) 5%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--moodmusic-bone) 5%, transparent);
   font-size: 0.76rem;
 }
 
@@ -1109,7 +1109,7 @@
 }
 
 .journal-entries li:hover {
-  background: color-mix(in srgb, var(--moodify-bone) 3.5%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 3.5%, transparent);
 }
 
 .journal-entries__dot {
@@ -1119,7 +1119,7 @@
 }
 
 .journal-entries__mood {
-  color: color-mix(in srgb, var(--moodify-bone) 88%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 88%, transparent);
   font-weight: 500;
 }
 
@@ -1127,7 +1127,7 @@
   padding: 3px 7px;
   border: 1px solid $border-soft;
   border-radius: 999px;
-  color: color-mix(in srgb, var(--moodify-bone) 70%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 70%, transparent);
   font-size: 0.66rem;
   line-height: 1.3;
   white-space: nowrap;
@@ -1168,7 +1168,7 @@
   border-radius: 20px;
   background:
     radial-gradient(420px 230px at 0% 0%, rgba(242, 166, 90, 0.07), transparent 70%),
-    color-mix(in srgb, var(--moodify-aubergine-deep) 22%, transparent);
+    color-mix(in srgb, var(--moodmusic-aubergine-deep) 22%, transparent);
 }
 
 .journal-blank__chart {
@@ -1178,19 +1178,19 @@
   gap: 7px;
   height: 170px;
   padding: 16px;
-  border: 1px solid color-mix(in srgb, var(--moodify-bone) 6%, transparent);
+  border: 1px solid color-mix(in srgb, var(--moodmusic-bone) 6%, transparent);
   border-radius: 16px;
-  background: color-mix(in srgb, var(--moodify-aubergine-deep) 30%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-aubergine-deep) 30%, transparent);
 }
 
 .journal-blank__chart span {
   height: 100%;
-  border: 1px dashed color-mix(in srgb, var(--moodify-bone) 12%, transparent);
+  border: 1px dashed color-mix(in srgb, var(--moodmusic-bone) 12%, transparent);
   border-radius: 7px;
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--moodify-bone) 2%, transparent),
-    color-mix(in srgb, var(--moodify-bone) 4.5%, transparent)
+    color-mix(in srgb, var(--moodmusic-bone) 2%, transparent),
+    color-mix(in srgb, var(--moodmusic-bone) 4.5%, transparent)
   );
 }
 
@@ -1284,7 +1284,7 @@
 
 .journal-clear__confirm button:hover:not(:disabled) {
   border-color: $border-strong;
-  background: color-mix(in srgb, var(--moodify-bone) 6%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 6%, transparent);
 }
 
 .journal-clear__confirm button:active:not(:disabled) {

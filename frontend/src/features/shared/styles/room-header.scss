@@ -62,7 +62,7 @@
   padding: 8px 12px;
   border: 1px solid transparent;
   border-radius: 999px;
-  color: color-mix(in srgb, var(--moodify-bone) 66%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 66%, transparent);
   font-size: 0.78rem;
   font-weight: 500;
   text-decoration: none;
@@ -74,7 +74,7 @@
 }
 
 .room-nav__link:hover {
-  background: color-mix(in srgb, var(--moodify-bone) 6%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 6%, transparent);
   color: $bone;
 }
 
@@ -84,7 +84,7 @@
 
 .room-nav__link.is-active {
   border-color: $border-soft;
-  background: color-mix(in srgb, var(--moodify-bone) 5%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 5%, transparent);
   color: $bone;
 }
 
@@ -96,7 +96,7 @@
 .room-nav__studio:hover {
   border-color: rgba(242, 166, 90, 0.45);
   background: rgba(242, 166, 90, 0.08);
-  color: var(--moodify-apricot);
+  color: var(--moodmusic-apricot);
 }
 
 .room-session {
@@ -107,7 +107,7 @@
   padding: 4px 5px 4px 9px;
   border: 1px solid $border-soft;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--moodify-plum) 46%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-plum) 46%, transparent);
   backdrop-filter: blur(10px);
 }
 
@@ -155,7 +155,7 @@
   gap: 7px;
   padding: 7px 10px;
   border-radius: 999px;
-  color: color-mix(in srgb, var(--moodify-bone) 68%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 68%, transparent);
   font-size: 0.76rem;
   text-decoration: none;
   white-space: nowrap;
@@ -171,7 +171,7 @@
 
 .room-session__settings:hover,
 .room-session__settings.is-active {
-  background: color-mix(in srgb, var(--moodify-bone) 7%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 7%, transparent);
   color: $bone;
 }
 
@@ -204,7 +204,7 @@
 }
 
 .room-session__legal a:hover {
-  background: color-mix(in srgb, var(--moodify-bone) 6%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 6%, transparent);
   color: $bone;
 }
 
@@ -215,7 +215,7 @@
   gap: 7px;
   padding: 7px 11px;
   border-radius: 999px;
-  color: color-mix(in srgb, var(--moodify-bone) 68%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 68%, transparent);
   font-size: 0.76rem;
   cursor: pointer;
   transition:
@@ -229,7 +229,7 @@
 }
 
 .room-session__logout:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--moodify-bone) 7%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 7%, transparent);
   color: $bone;
 }
 
@@ -269,7 +269,7 @@
   .room-nav__link {
     min-height: 40px;
     padding: 8px 12px;
-    background: color-mix(in srgb, var(--moodify-bone) 2.5%, transparent);
+    background: color-mix(in srgb, var(--moodmusic-bone) 2.5%, transparent);
     border-color: $border-soft;
   }
 

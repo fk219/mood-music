@@ -18,7 +18,7 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-image: radial-gradient(color-mix(in srgb, var(--moodify-bone) 14%, transparent) 0.55px, transparent 0.55px);
+  background-image: radial-gradient(color-mix(in srgb, var(--moodmusic-bone) 14%, transparent) 0.55px, transparent 0.55px);
   background-size: 4px 4px;
   opacity: 0.14;
 }
@@ -65,7 +65,7 @@
 .studio-checklist li {
   position: relative;
   padding-left: 19px;
-  color: color-mix(in srgb, var(--moodify-bone) 78%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 78%, transparent);
   font-size: 0.82rem;
   line-height: 1.45;
 }
@@ -79,7 +79,7 @@
   height: 7px;
   border-radius: 50%;
   background: linear-gradient(140deg, $apricot, $mint);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--moodify-bone) 5%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--moodmusic-bone) 5%, transparent);
 }
 
 .studio-intro__note {
@@ -97,9 +97,9 @@
   padding: clamp(20px, 3vw, 30px);
   border: 1px solid $border-soft;
   border-radius: $radius-xl;
-  background: linear-gradient(160deg, color-mix(in srgb, var(--moodify-plum-light) 92%, transparent), color-mix(in srgb, var(--moodify-plum) 98%, transparent));
+  background: linear-gradient(160deg, color-mix(in srgb, var(--moodmusic-plum-light) 92%, transparent), color-mix(in srgb, var(--moodmusic-plum) 98%, transparent));
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--moodify-bone) 10%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--moodmusic-bone) 10%, transparent),
     0 40px 90px -50px rgba(0, 0, 0, 0.9);
   backdrop-filter: blur(18px);
   animation: studio-rise 0.65s $ease-out both;
@@ -140,8 +140,8 @@
   padding: 7px 10px;
   border: 1px solid $border-soft;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--moodify-bone) 3%, transparent);
-  color: color-mix(in srgb, var(--moodify-bone) 82%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 3%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 82%, transparent);
   font-size: 0.72rem;
   white-space: nowrap;
 }
@@ -166,7 +166,7 @@
 
 .studio-fieldset legend {
   margin-bottom: 9px;
-  color: color-mix(in srgb, var(--moodify-bone) 74%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 74%, transparent);
   font-size: 0.78rem;
   font-weight: 500;
 }
@@ -186,8 +186,8 @@
   padding: 8px 6px;
   border: 1px solid $border-soft;
   border-radius: 10px;
-  background: color-mix(in srgb, var(--moodify-bone) 2.5%, transparent);
-  color: color-mix(in srgb, var(--moodify-bone) 72%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 2.5%, transparent);
+  color: color-mix(in srgb, var(--moodmusic-bone) 72%, transparent);
   font-size: 0.7rem;
   font-weight: 500;
   cursor: pointer;
@@ -236,11 +236,11 @@
   justify-items: center;
   gap: 7px;
   padding: clamp(22px, 4vw, 32px) 18px;
-  border: 1px dashed color-mix(in srgb, var(--moodify-bone) 17%, transparent);
+  border: 1px dashed color-mix(in srgb, var(--moodmusic-bone) 17%, transparent);
   border-radius: 16px;
   background:
     radial-gradient(300px 150px at 50% 0%, rgba(242, 166, 90, 0.06), transparent 70%),
-    color-mix(in srgb, var(--moodify-aubergine-deep) 24%, transparent);
+    color-mix(in srgb, var(--moodmusic-aubergine-deep) 24%, transparent);
   text-align: center;
   cursor: pointer;
   transition:
@@ -251,7 +251,7 @@
 .studio-dropzone:hover,
 .studio-dropzone:focus-within {
   border-color: rgba(242, 166, 90, 0.45);
-  background-color: color-mix(in srgb, var(--moodify-aubergine-deep) 36%, transparent);
+  background-color: color-mix(in srgb, var(--moodmusic-aubergine-deep) 36%, transparent);
 }
 
 .studio-dropzone:active {
@@ -268,9 +268,9 @@
   height: 42px;
   display: grid;
   place-items: center;
-  border: 1px solid color-mix(in srgb, var(--moodify-bone) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--moodmusic-bone) 10%, transparent);
   border-radius: 50%;
-  background: color-mix(in srgb, var(--moodify-bone) 4%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 4%, transparent);
   color: $apricot;
 }
 
@@ -330,7 +330,7 @@
   height: 6px;
   overflow: hidden;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--moodify-bone) 8%, transparent);
+  background: color-mix(in srgb, var(--moodmusic-bone) 8%, transparent);
 }
 
 .studio-progress__track span {
