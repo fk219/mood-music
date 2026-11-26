@@ -5,7 +5,7 @@ A privacy-first mood listening room. MoodMusic reads your expression on-device, 
 > Music apps ask for a genre. MoodMusic asks how you feel. Mood detection runs on your device, or you can check in manually, and your journal stays private.
 
 **Live app:** https://moodmusic.furqankhan.dev
-**API:** https://moodify-backend-8rn5.onrender.com
+**API:** https://mood-music-api-akb5.onrender.com
 
 **Demo room:** select **Enter the demo room** on the sign-in page for one-click access. The API finds or creates the shared demo listener, issues the normal session cookie, and lands you in the room. A generated password is never returned when the account has to be created. Fallback credentials for the long-lived shared account: `demo@moodmusic.local` / `DemoRoom2026!` (shared, so the journal may already contain entries; clear it from the journal panel).
 

@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://moodify-backend-8rn5.onrender.com/api/:path*"
+      "destination": "https://mood-music-api-akb5.onrender.com/api/:path*"
     },
     { "source": "/((?!_vercel/).*)", "destination": "/index.html" }
   ]

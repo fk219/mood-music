@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://moodify-backend-8rn5.onrender.com',
+        target: 'https://mood-music-api-akb5.onrender.com',
         changeOrigin: true,
       },
     },
