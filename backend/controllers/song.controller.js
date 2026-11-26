@@ -98,12 +98,12 @@ const songUpload = async (req, res) => {
             storageService.uploadSong({
                 buffer: req.file.buffer,
                 fileName: `${slug}-${stamp}.mp3`,
-                folder: '/moodify/songs'
+                folder: '/moodmusic/songs'
             }),
             storageService.uploadSong({
                 buffer: cover.buffer,
                 fileName: `${slug}-${stamp}.${imageExtension(cover.mime)}`,
-                folder: '/moodify/posters'
+                folder: '/moodmusic/posters'
             })
         ])
 

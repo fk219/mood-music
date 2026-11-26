@@ -3,10 +3,10 @@ import LegalPage from "../components/LegalPage";
 const Privacy = () => (
   <LegalPage
     title="Privacy"
-    intro="Moodify is a small beta listening room. This page explains what it stores, why, and how to have it removed. It describes the service as it works today."
+    intro="MoodMusic is a small beta listening room. This page explains what it stores, why, and how to have it removed. It describes the service as it works today."
   >
     <section className="legal-section">
-      <h2>1. What Moodify stores</h2>
+      <h2>1. What MoodMusic stores</h2>
       <ul>
         <li>
           <strong>Account details:</strong> your username and email address, plus
@@ -27,7 +27,7 @@ const Privacy = () => (
         <li>
           <strong>Request data:</strong> like any hosted service, Vercel and
           Render process request metadata such as IP address, time, and path to
-          deliver the app and protect the API. Moodify does not build a separate
+          deliver the app and protect the API. MoodMusic does not build a separate
           advertising profile.
         </li>
       </ul>
@@ -82,7 +82,7 @@ const Privacy = () => (
     <section className="legal-section">
       <h2>4. Third-party processors</h2>
       <p>
-        Moodify uses these services to run. They process data on Moodify's behalf
+        MoodMusic uses these services to run. They process data on MoodMusic's behalf
         or, for fonts and MediaPipe assets, deliver files to your browser.
       </p>
       <ul>
@@ -111,7 +111,7 @@ const Privacy = () => (
         </li>
       </ul>
       <p>
-        These providers handle requests under their own privacy terms. Moodify
+        These providers handle requests under their own privacy terms. MoodMusic
         does not sell personal data.
       </p>
     </section>
@@ -137,7 +137,7 @@ const Privacy = () => (
         To delete your account and its mood entries, email{" "}
         <a href="mailto:furqank219@gmail.com">furqank219@gmail.com</a> from the
         address on the account. Account deletion is handled by hand while
-        Moodify is in beta. You can also clear your journal from the room at any
+        MoodMusic is in beta. You can also clear your journal from the room at any
         time.
       </p>
     </section>

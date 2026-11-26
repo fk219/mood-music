@@ -15,7 +15,7 @@ const SiteFooter = ({ compact = false, className = "" }) => {
       <div className="site-footer__inner">
         <span className="site-footer__brand">
           <span className="site-footer__ring" aria-hidden="true" />
-          <span>Moodify</span>
+          <span>MoodMusic</span>
           <span className="site-footer__note">Beta listening room</span>
         </span>
 

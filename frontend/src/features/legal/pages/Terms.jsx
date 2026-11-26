@@ -4,14 +4,14 @@ import LegalPage from "../components/LegalPage";
 const Terms = () => (
   <LegalPage
     title="Terms"
-    intro="Moodify is a free beta listening room run as a personal project. These terms are short on purpose. By using Moodify, you agree to them."
+    intro="MoodMusic is a free beta listening room run as a personal project. These terms are short on purpose. By using MoodMusic, you agree to them."
   >
     <section className="legal-section">
       <h2>1. A beta service</h2>
       <p>
-        Moodify is experimental and offered for free. Features may change, break,
+        MoodMusic is experimental and offered for free. Features may change, break,
         or be removed without notice. The service may be unavailable at times,
-        and data may be lost. Do not use Moodify as the only copy of a track or
+        and data may be lost. Do not use MoodMusic as the only copy of a track or
         cover art you care about, and do not rely on it for anything important.
       </p>
     </section>
@@ -28,7 +28,7 @@ const Terms = () => (
 
     <section className="legal-section">
       <h2>3. Acceptable use</h2>
-      <p>Do not use Moodify to:</p>
+      <p>Do not use MoodMusic to:</p>
       <ul>
         <li>break the law or encourage others to break it;</li>
         <li>access accounts or systems you do not own or have permission to use;</li>
@@ -48,7 +48,7 @@ const Terms = () => (
         accepts MP3 files of 15 MB or less with an ID3 title and embedded cover
         art. Do not upload content that is illegal, infringing, hateful, or
         malicious. Uploads join the shared catalog and can be played by people
-        using Moodify.
+        using MoodMusic.
       </p>
       <p>
         Uploaded tracks may be removed and access may be suspended if these rules
@@ -60,7 +60,7 @@ const Terms = () => (
       <h2>5. Content ownership</h2>
       <p>
         You keep ownership of the tracks and cover art you upload. You give
-        Moodify permission to store, stream, and display that content inside the
+        MoodMusic permission to store, stream, and display that content inside the
         service. That permission ends when the content is removed from the
         catalog.
       </p>
@@ -73,7 +73,7 @@ const Terms = () => (
     <section className="legal-section">
       <h2>6. No warranty</h2>
       <p>
-        Moodify is provided as is and as available. To the extent the law allows,
+        MoodMusic is provided as is and as available. To the extent the law allows,
         there are no warranties, express or implied. I do not promise uptime,
         error-free operation, or that data will never be lost. To the extent the
         law allows, I am not liable for indirect or consequential losses. Nothing
@@ -84,7 +84,7 @@ const Terms = () => (
     <section className="legal-section">
       <h2>7. Termination</h2>
       <p>
-        You can stop using Moodify at any time. Access may be suspended or ended
+        You can stop using MoodMusic at any time. Access may be suspended or ended
         if you break these terms, if the service needs to be protected, or if the
         beta ends. To request account deletion, email{" "}
         <a href="mailto:furqank219@gmail.com">furqank219@gmail.com</a>.

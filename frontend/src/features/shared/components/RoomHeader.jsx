@@ -19,9 +19,9 @@ const RoomHeader = ({ active = "room" }) => {
 
   return (
     <header className="room-header">
-      <Link to="/" className="room-brand" aria-label="Moodify listening room">
+      <Link to="/" className="room-brand" aria-label="MoodMusic listening room">
         <span className="room-brand__ring" aria-hidden="true" />
-        <span className="room-brand__name">Moodify</span>
+        <span className="room-brand__name">MoodMusic</span>
         <span className="room-brand__tag">Listening room</span>
       </Link>
 

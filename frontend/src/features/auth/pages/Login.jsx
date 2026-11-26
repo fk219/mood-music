@@ -93,7 +93,7 @@ const Login = () => {
         <section className="login-intro">
           <div className="login-brand">
             <span className="login-brand__ring" aria-hidden="true" />
-            <span className="login-brand__name">Moodify</span>
+            <span className="login-brand__name">MoodMusic</span>
             <span className="login-brand__tag">Listening room</span>
           </div>
 
@@ -101,7 +101,7 @@ const Login = () => {
             <p className="eyebrow">The listening room</p>
             <h1 id="login-title">Step into the room.</h1>
             <p className="login-intro__lead">
-              Music apps ask for a genre. Moodify asks how you feel. Mood
+              Music apps ask for a genre. MoodMusic asks how you feel. Mood
               detection runs on your device, or you can check in manually, and
               your journal stays private.
             </p>
@@ -212,7 +212,7 @@ const Login = () => {
           </form>
 
           <p className="auth-footer login-footer">
-            New to Moodify? <Link to="/register">Create an account</Link>
+            New to MoodMusic? <Link to="/register">Create an account</Link>
           </p>
         </section>
       </main>

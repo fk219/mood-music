@@ -72,7 +72,7 @@ const Settings = () => {
   }, [redirectNotice, navigate, clearSession]);
 
   const account = summary || user;
-  const isDemo = account?.email?.toLowerCase() === "demo@moodify.local";
+  const isDemo = account?.email?.toLowerCase() === "demo@moodmusic.local";
   const redirecting = Boolean(redirectNotice);
 
   return (

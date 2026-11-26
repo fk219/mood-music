@@ -1,6 +1,6 @@
-# Moodify web
+# MoodMusic web
 
-The React 19 + Vite front end for Moodify's listening room, manual check-in, library queue, mood journal, and owner Studio.
+The React 19 + Vite front end for MoodMusic's listening room, manual check-in, library queue, mood journal, and owner Studio.
 
 The sign-in page includes **Enter the demo room**, which opens the shared listener session in one click without exposing the demo password. See the [root README](../README.md) for the one-click flow, positioning, environment variables, and API documentation.
 

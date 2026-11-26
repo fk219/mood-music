@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const helmet = require('helmet')
 const compression = require('compression')
+const mongoose = require('mongoose')
 
 const authRouter = require('../routes/auth.routes')
 const songRouter = require('../routes/song.routes')
@@ -21,7 +22,7 @@ app.use(cookieParser())
 
 const allowedOrigins = (
     process.env.CORS_ORIGINS ||
-    'http://localhost:5173,https://moodify.furqankhan.dev'
+    'http://localhost:5173,https://moodmusic.furqankhan.dev'
 )
     .split(',')
     .map((origin) => origin.trim())
@@ -48,6 +49,15 @@ app.use('/api/mood', moodRouter)
 
 app.get('/', (req, res) => {
     res.send("API's are up and Running")
+})
+
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        ok: true,
+        service: 'moodmusic-api',
+        database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+        uptimeSeconds: Math.round(process.uptime())
+    })
 })
 
 app.use((req, res) => {

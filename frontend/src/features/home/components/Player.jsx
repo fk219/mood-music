@@ -396,7 +396,7 @@ const Player = () => {
 
           <div className="now-spinning__meta">
             <p className="sr-only" aria-live="polite" aria-atomic="true">
-              {`Now playing ${song.title || "Moodify mix"}. ${songMoodLabel} set.`}
+              {`Now playing ${song.title || "MoodMusic mix"}. ${songMoodLabel} set.`}
             </p>
 
             <div className="now-spinning__status">
@@ -408,7 +408,7 @@ const Player = () => {
             </div>
 
             <p className="eyebrow">Now playing</p>
-            <h1 title={song.title}>{song.title || "Moodify mix"}</h1>
+            <h1 title={song.title}>{song.title || "MoodMusic mix"}</h1>
 
             <p className="now-spinning__sub">
               <span className="now-spinning__mood-pill">
@@ -458,7 +458,7 @@ const Player = () => {
             </p>
             <div className="now-spinning__promise">
               <p>
-                Music apps ask for a genre. Moodify asks how you feel. Mood
+                Music apps ask for a genre. MoodMusic asks how you feel. Mood
                 detection runs on your device, or you can check in manually, and
                 your journal stays private.
               </p>
@@ -588,8 +588,8 @@ const Player = () => {
               <p className="player-bar__eyebrow">
                 {loading ? "Tuning the room" : error ? "Signal lost" : "Now playing"}
               </p>
-              <p className="player-bar__title" title={song.title || "Moodify mix"}>
-                {song.title || "Moodify mix"}
+              <p className="player-bar__title" title={song.title || "MoodMusic mix"}>
+                {song.title || "MoodMusic mix"}
               </p>
               <p className={`player-bar__meta${error ? " is-error" : ""}`}>
                 {loading

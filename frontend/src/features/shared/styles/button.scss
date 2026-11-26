@@ -51,6 +51,6 @@
 }
 
 .button--ghost:hover:not(:disabled) {
-  background: rgba(245, 239, 230, 0.06);
-  border-color: rgba(245, 239, 230, 0.28);
+  background: color-mix(in srgb, var(--moodify-bone) 6%, transparent);
+  border-color: color-mix(in srgb, var(--moodify-bone) 28%, transparent);
 }

@@ -13,7 +13,7 @@ const describeCameraError = (error) => {
   }
 
   if (["NotAllowedError", "PermissionDeniedError", "SecurityError"].includes(name)) {
-    return "Camera access is blocked. Allow camera permission for Moodify in your browser settings, then try again.";
+    return "Camera access is blocked. Allow camera permission for MoodMusic in your browser settings, then try again.";
   }
 
   if (["NotFoundError", "DevicesNotFoundError"].includes(name)) {

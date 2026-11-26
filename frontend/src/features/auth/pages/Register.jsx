@@ -40,7 +40,7 @@ const Register = () => {
       <main className="auth-card" aria-labelledby="register-title">
         <div className="auth-brand">
           <span className="auth-brand__ring" aria-hidden="true" />
-          <span className="auth-brand__name">Moodify</span>
+          <span className="auth-brand__name">MoodMusic</span>
           <span className="auth-brand__tag">Listening room</span>
         </div>
 

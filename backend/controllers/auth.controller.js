@@ -6,11 +6,15 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const crypto = require("crypto")
 
-const DEMO_EMAIL = 'demo@moodify.local'
-const DEMO_DISPLAY_NAME = 'Moodify Demo'
+const DEMO_EMAIL = 'demo@moodmusic.local'
+const DEMO_DISPLAY_NAME = 'MoodMusic Demo'
 const PASSWORD_MIN_LENGTH = 8
 const PASSWORD_MAX_LENGTH = 72
-const SESSION_COOKIE_OPTIONS = { httpOnly: true, sameSite: 'lax', secure: true }
+const sessionCookieOptions = () => ({
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production'
+})
 
 const getJoinedAt = (user) => {
     if (user.createdAt) return user.createdAt
@@ -38,7 +42,7 @@ const issueSession = (res, user) => {
         expiresIn: '1d'
     })
 
-    res.cookie('token', token, SESSION_COOKIE_OPTIONS)
+    res.cookie('token', token, sessionCookieOptions())
 }
 
 const isNonEmptyString = (value) => (
@@ -46,17 +50,32 @@ const isNonEmptyString = (value) => (
 )
 
 const registerController = async (req, res) => {
-    const {username, email, password} = req.body
+    const {username, email, password} = req.body ?? {}
+
+    if (!isNonEmptyString(username) || !isNonEmptyString(email) || typeof password !== 'string') {
+        return res.status(400).json({
+            message: "Username, email and password are required."
+        })
+    }
+
+    if (password.length < PASSWORD_MIN_LENGTH || password.length > PASSWORD_MAX_LENGTH) {
+        return res.status(400).json({
+            message: `Password must be between ${PASSWORD_MIN_LENGTH} and ${PASSWORD_MAX_LENGTH} characters.`
+        })
+    }
+
+    const cleanUsername = username.trim()
+    const cleanEmail = email.trim().toLowerCase()
 
     const userAlreadyExists = await userModel.findOne({
         $or: [
-            {username}, {email}
+            {username: cleanUsername}, {email: cleanEmail}
         ]
     })
 
     if(userAlreadyExists){
         return res.status(400).json({
-            Message: userAlreadyExists.email === email
+            Message: userAlreadyExists.email === cleanEmail
             ? "Email Already Exist. Please Login Instead"
             : "Username Already Exists. Please Login Instead"
         })
@@ -65,8 +84,8 @@ const registerController = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10)
 
     const user = await userModel.create({
-        username, 
-        email,
+        username: cleanUsername,
+        email: cleanEmail,
         password: hashedPassword
     })
 
@@ -78,7 +97,7 @@ const registerController = async (req, res) => {
         expiresIn: "1d"
     })
 
-    res.cookie('token', token, { httpOnly: true, sameSite: 'lax', secure: true })
+    res.cookie('token', token, sessionCookieOptions())
 
     res.status(201).json({
         message: "User Registered Successfully!",
@@ -87,12 +106,18 @@ const registerController = async (req, res) => {
 }
 
 const loginController = async (req, res) => {
-    const {username, email, password} = req.body
+    const {username, email, password} = req.body ?? {}
+
+    if ((!isNonEmptyString(username) && !isNonEmptyString(email)) || typeof password !== 'string') {
+        return res.status(400).json({
+            message: "Enter your username or email and your password."
+        })
+    }
 
     const user = await userModel.findOne({
         $or: [
-            {username},
-            {email}
+            ...(isNonEmptyString(username) ? [{username: username.trim()}] : []),
+            ...(isNonEmptyString(email) ? [{email: email.trim().toLowerCase()}] : [])
         ]
     }).select("+password")
 
@@ -290,7 +315,7 @@ const exportAccountController = async (req, res) => {
     res.setHeader('Cache-Control', 'no-store')
     res.setHeader(
         'Content-Disposition',
-        `attachment; filename="moodify-account-${stamp}.json"`
+        `attachment; filename="moodmusic-account-${stamp}.json"`
     )
 
     return res.status(200).send(JSON.stringify(payload, null, 2))

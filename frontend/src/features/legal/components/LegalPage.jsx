@@ -11,9 +11,9 @@ const LegalPage = ({ title, intro, children }) => {
   return (
     <div className="legal-page">
       <header className="legal-header">
-        <Link to="/" className="legal-brand" aria-label="Moodify listening room">
+        <Link to="/" className="legal-brand" aria-label="MoodMusic listening room">
           <span className="legal-brand__ring" aria-hidden="true" />
-          <span className="legal-brand__name">Moodify</span>
+          <span className="legal-brand__name">MoodMusic</span>
           <span className="legal-brand__tag">Listening room</span>
         </Link>
 

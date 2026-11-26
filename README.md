@@ -1,16 +1,16 @@
-# Moodify
+# MoodMusic
 
-A privacy-first mood listening room. Moodify reads your expression on-device, or takes a manual check-in, then tunes the room to one of five moods with a track from the library. It keeps a queue playing and builds a private weekly mood journal from your check-ins.
+A privacy-first mood listening room. MoodMusic reads your expression on-device, or takes a manual check-in, then tunes the room to one of five moods with a track from the library. It keeps a queue playing and builds a private weekly mood journal from your check-ins.
 
-> Music apps ask for a genre. Moodify asks how you feel. Mood detection runs on your device, or you can check in manually, and your journal stays private.
+> Music apps ask for a genre. MoodMusic asks how you feel. Mood detection runs on your device, or you can check in manually, and your journal stays private.
 
-**Live app:** https://moodify.furqankhan.dev
+**Live app:** https://moodmusic.furqankhan.dev
 **API:** https://moodify-backend-8rn5.onrender.com
 
 **Demo room:** select **Enter the demo room** on the sign-in page for one-click access. The API finds or creates the shared demo listener, issues the normal session cookie, and lands you in the room. A generated password is never returned when the account has to be created. Fallback credentials for the long-lived shared account: `demo@moodify.local` / `DemoRoom2026!` (shared, so the journal may already contain entries; clear it from the journal panel).
 
-![Moodify](docs/preview.png)
-![Moodify private journal](docs/journal.png)
+![MoodMusic](docs/preview.png)
+![MoodMusic private journal](docs/journal.png)
 
 ![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-6-646CFF?logo=vite&logoColor=white)
@@ -22,7 +22,7 @@ A privacy-first mood listening room. Moodify reads your expression on-device, or
 
 ## What it is
 
-Most music apps ask what you want to hear. Moodify asks how you feel, then makes the room match. The signature flow uses the camera and MediaPipe Face Landmarker entirely in the browser: no frames leave the device. When the camera is unavailable or you would rather not use it, the manual check-in does the same job with one click.
+Most music apps ask what you want to hear. MoodMusic asks how you feel, then makes the room match. The signature flow uses the camera and MediaPipe Face Landmarker entirely in the browser: no frames leave the device. When the camera is unavailable or you would rather not use it, the manual check-in does the same job with one click.
 
 Every check-in belongs to the signed-in listener. The journal shows the last seven days, the dominant mood, and the ten most recent entries. A protected Studio lets an owner grow the catalog by uploading tagged MP3s.
 
@@ -149,12 +149,14 @@ VITE_API_URL=http://localhost:3000
 | `JWT_SECRET` | Yes | Signs auth cookies |
 | `IMAGEKIT_PRIVATE_KEY` | Yes | Server-side uploads |
 | `STUDIO_EMAIL` | No | Restricts uploads to one owner email; any signed-in user can upload when unset |
+| `CORS_ORIGINS` | No | Comma-separated allowed browser origins |
 | `VITE_API_URL` | No | Frontend API origin override (defaults to the Render API) |
 
 ## API
 
 | Method | Route | Auth | Purpose |
 |---|---|---|---|
+| `GET` | `/health` | Public | API and database readiness |
 | `POST` | `/api/auth/register` | Public | Create account (10/min per IP) |
 | `POST` | `/api/auth/login` | Public | Sign in, set cookie (10/min per IP) |
 | `POST` | `/api/auth/demo` | Public | Open the shared demo room, set cookie (3/min per IP) |
@@ -172,6 +174,15 @@ VITE_API_URL=http://localhost:3000
 
 `POST /api/song` accepts `multipart/form-data` with `song` (MP3) and `mood`. The MP3 must include an ID3 title and embedded cover art; missing tags return a `400` with a clear message.
 
+## Tests
+
+```bash
+cd backend
+npm test                     # 6 tests: health, auth, session, mood, demo, catalog
+```
+
+The API suite runs against an in-memory MongoDB, never the configured Atlas database. It covers registration validation, duplicate handling, login, session cookies, the private mood journal, guest rejection, one-click demo login, and the public song/library endpoints.
+
 ## Deployment notes
 
 - The API runs on Render's free plan, so the first request after idle can take ~50 seconds.
@@ -180,3 +191,7 @@ VITE_API_URL=http://localhost:3000
 - Set `STUDIO_EMAIL` in production to keep the catalog owner-only.
 - Rate limits use express-rate-limit's in-memory store, so they reset on restart and are scoped to one API instance.
 - `frontend/vercel.json` rewrites client routes to `index.html`, including `/studio` and `/settings`.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

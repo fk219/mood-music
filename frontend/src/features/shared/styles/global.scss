@@ -1,10 +1,45 @@
 @use "./_tokens" as *;
 @use "./button";
 
-:root {
+:root,
+html[data-theme="dark"] {
   color-scheme: dark;
-  --mood-a: #{$lilac};
-  --mood-b: #{$apricot};
+  --moodify-aubergine: #1b1424;
+  --moodify-aubergine-deep: #130e1a;
+  --moodify-plum: #2a1f36;
+  --moodify-plum-light: #3a2b47;
+  --moodify-bone: #f5efe6;
+  --moodify-apricot: #f2a65a;
+  --moodify-mint: #7fd1ae;
+  --moodify-lilac: #a79bb5;
+  --moodify-danger: #e48a7b;
+  --moodify-danger-text: #ffc3b5;
+  --moodify-border-soft: rgba(245, 239, 230, 0.08);
+  --moodify-border-strong: rgba(245, 239, 230, 0.16);
+  --moodify-text-muted: #a79bb5;
+  --mood-a: #a79bb5;
+  --mood-b: #f2a65a;
+  --theme-toggle-bottom: 96px;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --moodify-aubergine: #f7f0e6;
+  --moodify-aubergine-deep: #efe5d8;
+  --moodify-plum: #e8dccb;
+  --moodify-plum-light: #f3e8da;
+  --moodify-bone: #241a18;
+  --moodify-apricot: #b85f1d;
+  --moodify-mint: #2f7d63;
+  --moodify-lilac: #6f6478;
+  --moodify-danger: #b4453c;
+  --moodify-danger-text: #7a261f;
+  --moodify-border-soft: rgba(36, 26, 24, 0.12);
+  --moodify-border-strong: rgba(36, 26, 24, 0.2);
+  --moodify-text-muted: #6f6478;
+  --mood-a: #6f6478;
+  --mood-b: #b85f1d;
+  scrollbar-color: rgba(111, 100, 120, 0.35) transparent;
 }
 
 * {
